@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChaiPe.js - UPI Micropayments with Behavioral Nudging</title>
+  <meta name="description"
+    content="Accept UPI micropayments through behavioral nudging. Zero dependencies, no payment gateway, works with any UPI app.">
+  <meta name="keywords" content="UPI, micropayments, JavaScript, India, creators, donations, behavioral nudging">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ChaiPe.js - UPI Micropayments with Behavioral Nudging">
+  <meta property="og:description"
+    content="Accept UPI micropayments through behavioral nudging. Zero dependencies, no payment gateway.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="shared/css/common.css">
+  <link rel="stylesheet" href="shared/css/demo-components.css">
+
+  <style>
+    /* Page-specific styles */
+    .hero {
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    }
+
+    .feature-icon {
+      font-size: 32px;
+    }
+
+    .integration-section {
+      background: var(--bg-secondary);
+    }
+
+    .use-cases-section {
+      background: var(--bg-primary);
+    }
+
+    .testimonial-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-lg);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .testimonial-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .cta-section {
+      background: var(--accent-gradient);
+      color: white;
+      padding: var(--space-3xl) var(--space-lg);
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      color: white;
+      margin-bottom: var(--space-md);
+    }
+
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: var(--space-xl);
+    }
+
+    .stats-section {
+      background: var(--bg-secondary);
+      padding: var(--space-2xl) var(--space-lg);
+    }
+
+    .stat-highlight {
+      font-size: 3rem;
+      font-weight: 700;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- Navigation -->
+  <nav class="demo-nav">
+    <div class="container demo-nav-content">
+      <a href="index.html" class="demo-nav-logo">ChaiPe.js</a>
+      <div class="demo-nav-links">
+        <a href="#features" class="demo-nav-link">Features</a>
+        <a href="#integration" class="demo-nav-link">Integration</a>
+        <a href="#use-cases" class="demo-nav-link">Use Cases</a>
+        <a href="playground.html" class="demo-nav-link">Playground</a>
+        <a href="https://github.com/example/ChaiPe" target="_blank" class="demo-nav-link">GitHub</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-badge">🚀 v1.0.0 - Open Source</span>
+        <h1 class="hero-title">Accept UPI Micropayments<br>with Behavioral Nudging</h1>
+        <p class="hero-subtitle">
+          One line of code. No payment gateway. Works with any UPI app.<br>
+          Perfect for Indian creators, bloggers, and publishers.
+        </p>
+        <div class="hero-cta">
+          <a href="playground.html" class="btn btn-primary">
+            ☕ Try Interactive Demo
+          </a>
+          <a href="#integration" class="btn btn-secondary">
+            📖 View Integration Guide
+          </a>
+          <a href="https://github.com/example/ChaiPe" target="_blank" class="btn btn-ghost">
+            ⭐ GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number stat-highlight">~10KB</div>
+            <div class="stat-label">Minified size</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number stat-highlight">0</div>
+            <div class="stat-label">Runtime dependencies</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number stat-highlight">3</div>
+            <div class="stat-label">Beautiful themes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number stat-highlight">90%+</div>
+            <div class="stat-label">Test coverage</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="text-center mb-xl">
+          <h2>Why ChaiPe?</h2>
+          <p class="text-secondary">Everything you need to accept micropayments from your audience</p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <h3>Behavioral Nudging</h3>
+            <p>Smart triggers based on scroll depth, time on page, and user engagement. Never interrupt - nudge at right
+              moment.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Mobile + Desktop</h3>
+            <p>Deep links on mobile, QR codes on desktop. Seamless experience across all devices with automatic
+              detection.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Zero Dependencies</h3>
+            <p>~10KB minified. Pure JavaScript. No frameworks, no CDNs, no external services. Works everywhere.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🔓</div>
+            <h3>PSP-less</h3>
+            <p>No payment gateway needed. Direct UPI links work with GPay, PhonePe, Paytm, and all UPI apps.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3>3 Beautiful Themes</h3>
+            <p>Minimal, Toast, or Floating. Dark mode auto-detection. Fully customizable to match your brand.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Event Callbacks</h3>
+            <p>Track tips with onTipCompleted. Collect email, name, phone, or UPI details optionally.</p>
+          </div>
+
+          <div class="feature-card" style="border-color: var(--accent-primary);">
+            <div class="feature-icon">☕</div>
+            <h3>Tip Jar Mode</h3>
+            <p>Persistent floating button for always-visible tipping option. Non-intrusive, animated, and engaging.</p>
+            <a href="#tipjar-demo" class="btn btn-sm btn-primary" style="margin-top: var(--space-md);">Try it now →</a>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3>Return Visitor Detection</h3>
+            <p>Automatically detect returning visitors using localStorage. Show nudges earlier to engaged readers.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Exit Intent</h3>
+            <p>Optional exit-intent detection for desktop users. Show last-chance nudge when they're about to leave.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Integration Section -->
+    <section class="integration-section" id="integration">
+      <div class="container">
+        <div class="text-center mb-xl">
+          <h2>One-Line Integration</h2>
+          <p class="text-secondary">Get started in seconds with minimal setup</p>
+        </div>
+
+        <div class="code-example">
+          <div class="code-example-header">
+            <span class="code-example-title">Basic Setup</span>
+            <button class="code-example-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <div class="code-example-content">
+            <pre><code><span class="code-comment"><!-- Include the script --></span>
+<span class="code-tag"><script</span> <span class="code-property">src</span>=<span class="code-string">"chaipe.min.js"</span><span class="code-tag">></script></span>
+
+<span class="code-comment"><!-- Initialize with your UPI ID --></span>
+<span class="code-tag"><script></span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property"> upiId</span>: <span class="code-string">'yourname@upi'</span>,
+    <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+      <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>],
+        <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>,
+  
+  <span class="code-comment">// Optional: Track payments</span>
+  <span class="code-property">onTipCompleted</span>: (<span class="code-property">data</span>) => {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">'Tip received!'</span>, data);
+  },
+  
+  <span class="code-comment">// Optional: Collect supporter info</span>
+  <span class="code-property">collectEmail</span>: <span class="code-keyword">true</span>,
+    <span class="code-property">collectName</span>: <span class="code-keyword">true</span>,
+      <span class="code-property">collectUPIUTR</span>: <span class="code-keyword">true</span>
+});
+  <span class="code-tag"></script></span></code></pre>
+          </div>
+        </div>
+
+        <div class="alert alert-info mt-lg">
+          <strong>💡 Pro Tip:</strong> Check out <a href="playground.html">Interactive Playground</a> to explore all
+          configuration options and see them in action.
+        </div>
+      </div>
+    </section>
+
+    <!-- Tip Jar Demo Section -->
+    <section class="use-cases-section" id="tipjar-demo">
+      <div class="container">
+        <div class="text-center mb-xl">
+          <h2>☕ Tip Jar Demo</h2>
+          <p class="text-secondary">Interactive demonstration of Tip Jar feature with live customization</p>
+        </div>
+
+        <!-- Tip Jar Controls Panel -->
+        <div class="controls-panel">
+          <h3 class="controls-section-title">Tip Jar Configuration</h3>
+
+          <!-- Toggle Section -->
+          <div class="controls-section">
+            <div class="controls-row">
+              <label>Enable Tip Jar:</label>
+              <button id="tipjar-toggle" class="btn btn-primary">☕ Enable Tip Jar</button>
+            </div>
+          </div>
+
+          <!-- Position Section -->
+          <div class="controls-section">
+            <h4 class="controls-section-title" style="font-size: var(--text-md);">Position</h4>
+            <div class="controls-row">
+              <label>Position:</label>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-secondary tipjar-position" data-position="bottom-right">Bottom
+                  Right</button>
+                <button class="btn btn-sm btn-secondary tipjar-position" data-position="bottom-left">Bottom
+                  Left</button>
+                <button class="btn btn-sm btn-secondary tipjar-position" data-position="top-right">Top Right</button>
+                <button class="btn btn-sm btn-secondary tipjar-position" data-position="top-left">Top Left</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Size Section -->
+          <div class="controls-section">
+            <h4 class="controls-section-title" style="font-size: var(--text-md);">Size</h4>
+            <div class="controls-row">
+              <label>Size:</label>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-secondary tipjar-size" data-size="small">Small</button>
+                <button class="btn btn-sm btn-secondary tipjar-size active" data-size="medium">Medium</button>
+                <button class="btn btn-sm btn-secondary tipjar-size" data-size="large">Large</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Icon Section -->
+          <div class="controls-section">
+            <h4 class="controls-section-title" style="font-size: var(--text-md);">Icon</h4>
+            <div class="controls-row">
+              <label>Icon:</label>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-secondary tipjar-icon" data-icon="☕">☕ Coffee</button>
+                <button class="btn btn-sm btn-secondary tipjar-icon" data-icon="💰">💰 Money</button>
+                <button class="btn btn-sm btn-secondary tipjar-icon" data-icon="❤️">❤️ Heart</button>
+                <button class="btn btn-sm btn-secondary tipjar-icon" data-icon="🎁">🎁 Gift</button>
+                <button class="btn btn-sm btn-secondary tipjar-icon" data-icon="⭐">⭐ Star</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Color Section -->
+          <div class="controls-section">
+            <h4 class="controls-section-title" style="font-size: var(--text-md);">Color</h4>
+            <div class="controls-row">
+              <label>Color:</label>
+              <div class="btn-group">
+                <button class="btn btn-sm tipjar-color" data-color="#667eea"
+                  style="background: #667eea; color: white;">Purple</button>
+                <button class="btn btn-sm tipjar-color" data-color="#f093fb"
+                  style="background: #f093fb; color: white;">Pink</button>
+                <button class="btn btn-sm tipjar-color" data-color="#4facfe"
+                  style="background: #4facfe; color: white;">Blue</button>
+                <button class="btn btn-sm tipjar-color" data-color="#43e97b"
+                  style="background: #43e97b; color: white;">Green</button>
+                <button class="btn btn-sm tipjar-color" data-color="#fa709a"
+                  style="background: #fa709a; color: white;">Red</button>
+                <button class="btn btn-sm tipjar-color" data-color="#f6d365"
+                  style="background: #f6d365; color: #333;">Yellow</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tooltip Text Section -->
+          <div class="controls-section">
+            <h4 class="controls-section-title" style="font-size: var(--text-md);">Tooltip Text</h4>
+            <div class="controls-row">
+              <label>Text:</label>
+              <input type="text" id="tipjar-text" class="form-input" value="Buy me a chai"
+                placeholder="Enter tooltip text" style="max-width: 300px;">
+              <button id="tipjar-text-update" class="btn btn-sm btn-primary">Update</button>
+            </div>
+          </div>
+
+          <!-- Device Visibility Section -->
+          <div class="controls-section">
+            <h4 class="controls-section-title" style="font-size: var(--text-md);">Device Visibility</h4>
+            <div class="controls-row">
+              <label>Show on:</label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="tipjar-mobile" checked>
+                <span>Mobile</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="tipjar-desktop" checked>
+                <span>Desktop</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tip Jar Preview Info -->
+        <div class="alert alert-info">
+          <strong>💡 Tip:</strong> The Tip Jar button is displayed in the corner of your screen. Hover over it to see
+          the tooltip, click to open the payment modal. Try different configurations above!
+        </div>
+
+        <!-- Tip Jar Features -->
+        <div class="feature-grid mt-xl">
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Always Visible</h3>
+            <p>Persistent floating button that stays on screen, giving users constant access to tip option.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3>Fully Customizable</h3>
+            <p>Customize icon, position, size, color, and tooltip text to match your brand perfectly.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">✨</div>
+            <h3>Animated & Engaging</h3>
+            <p>Smooth hover animations and pulse effects draw attention without being intrusive.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">♿</div>
+            <h3>Accessible</h3>
+            <p>Keyboard navigation support, ARIA labels, and screen reader friendly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases-section" id="use-cases">
+      <div class="container">
+        <div class="text-center mb-xl">
+          <h2>Perfect For</h2>
+          <p class="text-secondary">ChaiPe works great for various content types and use cases</p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📝</div>
+            <h3>Bloggers & Writers</h3>
+            <p>Monetize long-form articles with scroll-based nudges. Readers who finish your content are most likely to
+              tip.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎓</div>
+            <h3>Educational Content</h3>
+            <p>Tutorials, guides, and courses. Accept tips for valuable learning resources without paywalls.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎮</div>
+            <h3>Game Developers</h3>
+            <p>Accept donations for free-to-play games. Tip jar mode works great for browser-based games.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎵</div>
+            <h3>Podcasters</h3>
+            <p>Show notes and transcripts. Let listeners support your show with small, voluntary contributions.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3>Open Source</h3>
+            <p>Accept donations for your projects. No GitHub Sponsors needed - just your UPI ID.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📰</div>
+            <h3>News Publishers</h3>
+            <p>Paywall alternative. Let readers who find value in your journalism contribute voluntarily.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="integration-section">
+      <div class="container">
+        <div class="text-center mb-xl">
+          <h2>What Creators Say</h2>
+          <p class="text-secondary">Join thousands of creators using ChaiPe</p>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="testimonial-card">
+            <p>"ChaiPe transformed how I monetize my blog. I went from earning nothing with ads to making ₹3,000/month
+              in tips - all without annoying my readers."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">👨‍💻</div>
+              <div>
+                <strong>Rahul Sharma</strong><br>
+                <span class="text-muted">Tech Blogger</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p>"The behavioral nudging is genius. Tips only appear after people have actually read my content.
+              Conversion is 3x higher than my old donation button."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">👩‍💻</div>
+              <div>
+                <strong>Priya Patel</strong><br>
+                <span class="text-muted">Educational Content Creator</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p>"Zero setup time. I added the script, configured my UPI ID, and started receiving tips the same day. The
+              QR code for desktop users is a nice touch."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">👨‍🎨</div>
+              <div>
+                <strong>Amit Kumar</strong><br>
+                <span class="text-muted">Open Source Maintainer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p>"I love that it's trust-based. No payment gateway fees, no KYC, no complex setup. Just direct UPI
+              payments from readers who appreciate my work."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">👩‍🔬</div>
+              <div>
+                <strong>Neha Gupta</strong><br>
+                <span class="text-muted">Science Writer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to Start Accepting Tips?</h2>
+        <p>Join thousands of Indian creators who are monetizing their content with ChaiPe</p>
+        <div class="hero-cta">
+          <a href="playground.html" class="btn btn-secondary" style="background: white; color: var(--accent-primary);">
+            ☕ Try Interactive Demo
+          </a>
+          <a href="https://github.com/example/ChaiPe" target="_blank" class="btn"
+            style="background: rgba(255,255,255,0.2); color: white;">
+            📦 Install from npm
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="text-center">
+        <p class="mb-md">
+          Built with ❤️ for Indian creators
+        </p>
+        <div class="flex-center gap-md" style="justify-content: center;">
+          <a href="https://github.com/example/ChaiPe" target="_blank">GitHub</a>
+          <a href="documentation.html">Documentation</a>
+          <a href="playground.html">Examples</a>
+          <a href="https://github.com/example/ChaiPe/issues" target="_blank">Support</a>
+        </div>
+        <p class="mt-lg text-muted text-sm">
+          MIT License • © 2024 ChaiPe
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Load ChaiPe -->
+  <script src="../dist/chaipe.js"></script>
+
+  <!-- Load Demo Utilities -->
+  <script src="shared/js/demo-utils.js"></script>
+
+  <script>
+    (function() {
+      'use strict';
+      
+      // Initialize theme manager with error handling
+      try {
+        const themeManager = new ThemeManager();
+        themeManager.init();
+
+        // Theme toggle button with null check
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', () => {
+            try {
+              themeManager.toggle();
+            } catch (error) {
+              console.error('Error toggling theme:', error);
+            }
+          });
+        }
+      } catch (error) {
+        console.error('Error initializing theme manager:', error);
+      }
+    })();
+
+    // Throttle function for performance optimization
+    function throttle(func, limit) {
+      let inThrottle;
+      return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      };
+    }
+
+    // Scroll progress indicator with throttling and DOM caching
+    const scrollProgress = document.getElementById('scroll-progress');
+    const handleScrollProgress = throttle(() => {
+      try {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        if (scrollProgress) {
+          scrollProgress.style.width = scrollPercent + '%';
+        }
+      } catch (error) {
+        console.error('Error updating scroll progress:', error);
+      }
+    }, 50); // Throttle to 50ms for smooth animation
+
+    window.addEventListener('scroll', handleScrollProgress, { passive: true });
+
+    // Copy code functionality with improved error handling
+    function copyCode(button) {
+      try {
+        const codeExample = button.closest('.code-example');
+        if (!codeExample) {
+          console.error('Could not find code example container');
+          return;
+        }
+
+        const codeBlock = codeExample.querySelector('code');
+        if (!codeBlock) {
+          console.error('Could not find code block');
+          return;
+        }
+
+        const text = codeBlock.textContent;
+        if (!text) {
+          console.error('Code block is empty');
+          return;
+        }
+
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = button.textContent;
+          button.textContent = 'Copied!';
+          button.disabled = true;
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.disabled = false;
+          }, 2000);
+        }).catch(err => {
+          console.error('Failed to copy:', err);
+          button.textContent = 'Failed!';
+          setTimeout(() => {
+            button.textContent = 'Copy';
+          }, 2000);
+        });
+      } catch (error) {
+        console.error('Unexpected error in copyCode:', error);
+      }
+    }
+
+    // Tip Jar Demo Controller
+    class TipJarDemoController {
+      constructor() {
+        this.enabled = false;
+        this.config = {
+          icon: '☕',
+          position: 'bottom-right',
+          size: 'medium',
+          color: '#667eea',
+          text: 'Buy me a chai',
+          showOnMobile: true,
+          showOnDesktop: true
+        };
+        this.init();
+      }
+
+      init() {
+        // Initialize ChaiPe with tip jar disabled initially
+        this.initChaiPe();
+
+        // Setup event listeners
+        this.setupEventListeners();
+      }
+
+      initChaiPe() {
+        ChaiPe.init({
+          upiId: 'demo@upi',
+          name: 'ChaiPe Demo',
+          amounts: [10, 25, 50, 100],
+          theme: 'minimal',
+          manualOnly: true,
+          tipJar: this.enabled,
+          tipJarIcon: this.config.icon,
+          tipJarPosition: this.config.position,
+          tipJarSize: this.config.size,
+          tipJarColor: this.config.color,
+          tipJarText: this.config.text,
+          tipJarShowOnMobile: this.config.showOnMobile,
+          tipJarShowOnDesktop: this.config.showOnDesktop,
+          onTipCompleted: (data) => {
+            console.log('Demo tip received:', data);
+          }
+        });
+      }
+
+      toggle() {
+        this.enabled = !this.enabled;
+        const button = document.getElementById('tipjar-toggle');
+
+        if (button) {
+          if (this.enabled === true) {
+            button.textContent = '☕ Disable Tip Jar';
+            button.classList.add('active');
+            this.initChaiPe();
+          } else {
+            button.textContent = '☕ Enable Tip Jar';
+            button.classList.remove('active');
+            this.initChaiPe();
+          }
+        }
+      }
+
+      updateConfig(key, value) {
+        try {
+          this.config[key] = value;
+          if (this.enabled === true) {
+            this.initChaiPe();
+          }
+        } catch (error) {
+          console.error('Error updating config:', error);
+        }
+      }
+
+      setupEventListeners() {
+        // Cache DOM elements
+        const tipjarToggle = document.getElementById('tipjar-toggle');
+        const tipjarTextUpdate = document.getElementById('tipjar-text-update');
+        const tipjarText = document.getElementById('tipjar-text');
+        const tipjarMobile = document.getElementById('tipjar-mobile');
+        const tipjarDesktop = document.getElementById('tipjar-desktop');
+
+        // Toggle button
+        if (tipjarToggle) {
+          tipjarToggle.addEventListener('click', () => {
+            this.toggle();
+          });
+        }
+
+        // Position buttons
+        const positionButtons = document.querySelectorAll('.tipjar-position');
+        positionButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            try {
+              positionButtons.forEach(b => b.classList.remove('active'));
+              e.target.classList.add('active');
+              this.updateConfig('position', e.target.dataset.position);
+            } catch (error) {
+              console.error('Error updating position:', error);
+            }
+          });
+        });
+
+        // Size buttons
+        const sizeButtons = document.querySelectorAll('.tipjar-size');
+        sizeButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            try {
+              sizeButtons.forEach(b => b.classList.remove('active'));
+              e.target.classList.add('active');
+              this.updateConfig('size', e.target.dataset.size);
+            } catch (error) {
+              console.error('Error updating size:', error);
+            }
+          });
+        });
+
+        // Icon buttons
+        const iconButtons = document.querySelectorAll('.tipjar-icon');
+        iconButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            try {
+              iconButtons.forEach(b => b.classList.remove('active'));
+              e.target.classList.add('active');
+              this.updateConfig('icon', e.target.dataset.icon);
+            } catch (error) {
+              console.error('Error updating icon:', error);
+            }
+          });
+        });
+
+        // Color buttons
+        const colorButtons = document.querySelectorAll('.tipjar-color');
+        colorButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            try {
+              colorButtons.forEach(b => b.classList.remove('active'));
+              e.target.classList.add('active');
+              this.updateConfig('color', e.target.dataset.color);
+            } catch (error) {
+              console.error('Error updating color:', error);
+            }
+          });
+        });
+
+        // Text update
+        if (tipjarTextUpdate && tipjarText) {
+          tipjarTextUpdate.addEventListener('click', () => {
+            try {
+              const text = tipjarText.value;
+              this.updateConfig('text', text);
+            } catch (error) {
+              console.error('Error updating text:', error);
+            }
+          });
+        }
+
+        // Device visibility checkboxes
+        if (tipjarMobile) {
+          tipjarMobile.addEventListener('change', (e) => {
+            try {
+              this.updateConfig('showOnMobile', e.target.checked);
+            } catch (error) {
+              console.error('Error updating mobile visibility:', error);
+            }
+          });
+        }
+
+        if (tipjarDesktop) {
+          tipjarDesktop.addEventListener('change', (e) => {
+            try {
+              this.updateConfig('showOnDesktop', e.target.checked);
+            } catch (error) {
+              console.error('Error updating desktop visibility:', error);
+            }
+          });
+        }
+      }
+    }
+
+    // Initialize Tip Jar Demo Controller with error handling
+    try {
+      const tipJarDemo = new TipJarDemoController();
+    } catch (error) {
+      console.error('Error initializing Tip Jar Demo Controller:', error);
+    }
+  </script>
+</body>
+
+</html>

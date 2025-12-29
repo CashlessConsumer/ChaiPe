@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChaiPe.js - Interactive Playground</title>
+  <meta name="description" content="Explore all ChaiPe configuration options with live preview and real-time console output.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="shared/css/common.css">
+  <link rel="stylesheet" href="shared/css/demo-components.css">
+  
+  <style>
+    .playground-layout {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: var(--space-lg);
+      min-height: calc(100vh - 80px);
+      padding: var(--space-lg) 0;
+    }
+    
+    .controls-sidebar {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    
+    .demo-area {
+      min-height: 500px;
+    }
+    
+    .demo-article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+    }
+    
+    .demo-article h2 {
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .demo-article p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+      line-height: 1.8;
+    }
+    
+    .control-group {
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .control-group:last-child {
+      border-bottom: none;
+    }
+    
+    .control-group-title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-primary);
+      margin-bottom: var(--space-md);
+    }
+    
+    .control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-md);
+    }
+    
+    .control-row label {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    
+    .toggle-switch {
+      position: relative;
+      width: 48px;
+      height: 24px;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+    
+    .toggle-switch.active {
+      background: var(--accent-primary);
+    }
+    
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: transform var(--transition-fast);
+    }
+    
+    .toggle-switch.active::after {
+      transform: translateX(24px);
+    }
+    
+    .amount-chips {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    
+    .amount-chip {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-weight: 500;
+    }
+    
+    .amount-chip:hover {
+      border-color: var(--accent-primary);
+    }
+    
+    .amount-chip.active {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: white;
+    }
+    
+    .theme-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-sm);
+    }
+    
+    .theme-option {
+      padding: var(--space-md);
+      background: var(--bg-tertiary);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-align: center;
+      transition: all var(--transition-fast);
+      font-weight: 500;
+    }
+    
+    .theme-option:hover {
+      border-color: var(--border-hover);
+    }
+    
+    .theme-option.active {
+      border-color: var(--accent-primary);
+      background: rgba(102, 126, 234, 0.1);
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    
+    .action-buttons .btn {
+      flex: 1;
+    }
+    
+    @media (max-width: 1024px) {
+      .playground-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .controls-sidebar {
+        position: static;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <!-- Navigation -->
+  <nav class="demo-nav">
+    <div class="container demo-nav-content">
+      <a href="index.html" class="demo-nav-logo">ChaiPe.js</a>
+      <div class="demo-nav-links">
+        <a href="index.html" class="demo-nav-link">Home</a>
+        <a href="playground.html" class="demo-nav-link active">Playground</a>
+        <a href="blog-demo.html" class="demo-nav-link">Blog Demo</a>
+        <a href="edge-cases.html" class="demo-nav-link">Edge Cases</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </nav>
+  
+  <!-- Main Content -->
+  <main id="main-content" class="container">
+    <div class="playground-layout">
+      <!-- Controls Sidebar -->
+      <aside class="controls-sidebar">
+        <h3 class="mb-lg">⚙️ Configuration</h3>
+        
+        <!-- Basic Settings -->
+        <div class="control-group">
+          <div class="control-group-title">Basic Settings</div>
+          
+          <div class="form-group">
+            <label class="form-label">UPI ID</label>
+            <input type="text" class="form-input" id="upiId" value="demo@upi" placeholder="yourname@upi">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Display Name</label>
+            <input type="text" class="form-input" id="name" value="Demo Creator" placeholder="Your Name">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Tip Amounts (₹)</label>
+            <div class="amount-chips" id="amount-chips">
+              <span class="amount-chip" data-value="10">10</span>
+              <span class="amount-chip active" data-value="25">25</span>
+              <span class="amount-chip" data-value="50">50</span>
+              <span class="amount-chip" data-value="100">100</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Custom Message</label>
+            <input type="text" class="form-input" id="message" value="Enjoyed this content?" placeholder="Custom message">
+          </div>
+        </div>
+        
+        <!-- Theme -->
+        <div class="control-group">
+          <div class="control-group-title">Theme</div>
+          
+          <div class="theme-preview">
+            <div class="theme-option active" data-theme="minimal">
+              <div>Minimal</div>
+            </div>
+            <div class="theme-option" data-theme="toast">
+              <div>Toast</div>
+            </div>
+            <div class="theme-option" data-theme="floating">
+              <div>Floating</div>
+            </div>
+          </div>
+          
+          <div class="control-row mt-md">
+            <label>Tip Jar Mode</label>
+            <div class="toggle-switch" id="tipJar"></div>
+          </div>
+          
+          <div class="control-row">
+            <label>Dark Mode</label>
+            <div class="toggle-switch active" id="darkMode"></div>
+          </div>
+        </div>
+        
+        <!-- Triggers -->
+        <div class="control-group">
+          <div class="control-group-title">Behavioral Triggers</div>
+          
+          <div class="control-row">
+            <label>Auto-trigger</label>
+            <div class="toggle-switch active" id="autoTrigger"></div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Scroll Depth (%)</label>
+            <input type="range" class="form-input" id="scrollDepth" min="10" max="100" value="70" style="width: 100%;">
+            <div class="flex-between mt-sm">
+              <span class="text-sm text-muted">10%</span>
+              <span class="text-sm" id="scrollDepthValue">70%</span>
+              <span class="text-sm text-muted">100%</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Time on Page (seconds)</label>
+            <input type="range" class="form-input" id="timeOnPage" min="10" max="300" value="120" style="width: 100%;">
+            <div class="flex-between mt-sm">
+              <span class="text-sm text-muted">10s</span>
+              <span class="text-sm" id="timeOnPageValue">120s</span>
+              <span class="text-sm text-muted">300s</span>
+            </div>
+          </div>
+          
+          <div class="control-row">
+            <label>Exit Intent</label>
+            <div class="toggle-switch" id="exitIntent"></div>
+          </div>
+        </div>
+        
+        <!-- Data Collection -->
+        <div class="control-group">
+          <div class="control-group-title">Data Collection</div>
+          
+          <div class="control-row">
+            <label>Collect Email</label>
+            <div class="toggle-switch active" id="collectEmail"></div>
+          </div>
+          
+          <div class="control-row">
+            <label>Collect Name</label>
+            <div class="toggle-switch active" id="collectName"></div>
+          </div>
+          
+          <div class="control-row">
+            <label>Collect Phone</label>
+            <div class="toggle-switch" id="collectPhone"></div>
+          </div>
+          
+          <div class="control-row">
+            <label>Collect VPA</label>
+            <div class="toggle-switch" id="collectVPA"></div>
+          </div>
+          
+          <div class="control-row">
+            <label>Collect UTR</label>
+            <div class="toggle-switch active" id="collectUTR"></div>
+          </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="action-buttons">
+          <button class="btn btn-primary" id="applyConfig">Apply Config</button>
+          <button class="btn btn-secondary" id="showModal">Show Modal</button>
+        </div>
+      </aside>
+      
+      <!-- Demo Area -->
+      <div class="demo-area">
+        <div class="demo-article">
+          <h2>📝 Demo Article</h2>
+          
+          <p>
+            Welcome to the ChaiPe interactive playground! This is a sample article to demonstrate behavioral nudging in action. 
+            Scroll down to see how ChaiPe tracks your engagement and shows the tip modal at the right moment.
+          </p>
+          
+          <p>
+            ChaiPe uses smart heuristics to determine when to show the payment prompt. It considers:
+          </p>
+          
+          <ul style="margin-left: 20px; margin-bottom: 20px; color: var(--text-secondary);">
+            <li><strong>Scroll Depth:</strong> How far you've read through the content</li>
+            <li><strong>Time on Page:</strong> How long you've been engaged with the article</li>
+            <li><strong>User Interactions:</strong> Clicks, selections, and other engagement signals</li>
+            <li><strong>Return Visitor:</strong> Whether you've visited before (localStorage)</li>
+          </ul>
+          
+          <p>
+            The key insight is that people are most likely to tip after they've received value. 
+            Showing a payment popup immediately when someone lands on your page is intrusive and counterproductive. 
+            But showing it after they've read 70% of your article or spent 2 minutes reading? 
+            That's when conversion rates are highest.
+          </p>
+          
+          <p>
+            <strong>Try it out:</strong> Configure the settings on the left, then either scroll down 
+            to trigger the automatic nudge, or click "Show Modal" to see it immediately. 
+            The console in the bottom-left corner shows real-time events and behavioral tracking.
+          </p>
+          
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          </p>
+          
+          <p>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+            totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+          </p>
+          
+          <p>
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
+            Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
+            sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+          </p>
+          
+          <p>
+            Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? 
+            Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, 
+            vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+          </p>
+          
+          <p>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, 
+            similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+          </p>
+          
+          <p>
+            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, 
+            omnis voluptas assumenda est, omnis dolor repellendus.
+          </p>
+          
+          <p>
+            Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. 
+            Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+          </p>
+          
+          <div class="alert alert-info mt-lg">
+            <strong>🎯 Keep scrolling!</strong> The nudge will appear when you reach the configured scroll depth or time on page.
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <p class="text-muted">
+        ChaiPe Interactive Playground • <a href="index.html">Back to Home</a>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Load ChaiPe -->
+  <script src="../dist/chaipe.js"></script>
+  
+  <!-- Load Demo Utilities -->
+  <script src="shared/js/demo-utils.js"></script>
+  
+  <script>
+    // Initialize demo console
+    const demoConsole = new DemoConsole();
+    
+    // Initialize theme manager
+    const themeManager = new ThemeManager();
+    themeManager.init();
+    
+    // Current configuration state
+    let currentConfig = {
+      upiId: 'demo@upi',
+      name: 'Demo Creator',
+      amounts: [10, 25, 50, 100],
+      message: 'Enjoyed this content?',
+      theme: 'minimal',
+      tipJar: false,
+      darkMode: true,
+      autoTrigger: true,
+      triggers: {
+        scrollDepth: 70,
+        timeOnPage: 120,
+        exitIntent: false
+      },
+      collectEmail: true,
+      collectName: true,
+      collectPhone: false,
+      collectVPA: false,
+      collectUTR: true
+    };
+    
+    // DOM Elements
+    const elements = {
+      upiId: document.getElementById('upiId'),
+      name: document.getElementById('name'),
+      message: document.getElementById('message'),
+      scrollDepth: document.getElementById('scrollDepth'),
+      scrollDepthValue: document.getElementById('scrollDepthValue'),
+      timeOnPage: document.getElementById('timeOnPage'),
+      timeOnPageValue: document.getElementById('timeOnPageValue'),
+      tipJar: document.getElementById('tipJar'),
+      darkMode: document.getElementById('darkMode'),
+      autoTrigger: document.getElementById('autoTrigger'),
+      exitIntent: document.getElementById('exitIntent'),
+      collectEmail: document.getElementById('collectEmail'),
+      collectName: document.getElementById('collectName'),
+      collectPhone: document.getElementById('collectPhone'),
+      collectVPA: document.getElementById('collectVPA'),
+      collectUTR: document.getElementById('collectUTR'),
+      applyConfig: document.getElementById('applyConfig'),
+      showModal: document.getElementById('showModal'),
+      themeToggle: document.getElementById('theme-toggle')
+    };
+    
+    // Amount chips
+    const amountChips = document.querySelectorAll('.amount-chip');
+    const themeOptions = document.querySelectorAll('.theme-option');
+    
+    // Initialize amount selection
+    amountChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        amountChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const value = parseInt(chip.dataset.value);
+        if (!currentConfig.amounts.includes(value)) {
+          currentConfig.amounts.push(value);
+          currentConfig.amounts.sort((a, b) => a - b);
+        }
+        demoConsole.info(`Amount ${value} added`);
+      });
+    });
+    
+    // Initialize theme selection
+    themeOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        themeOptions.forEach(o => o.classList.remove('active'));
+        option.classList.add('active');
+        currentConfig.theme = option.dataset.theme;
+        demoConsole.info(`Theme set to: ${currentConfig.theme}`);
+      });
+    });
+    
+    // Toggle switches
+    function setupToggle(element, configKey, subKey = null) {
+      element.addEventListener('click', () => {
+        element.classList.toggle('active');
+        const isActive = element.classList.contains('active');
+        
+        if (subKey) {
+          currentConfig[configKey][subKey] = isActive;
+        } else {
+          currentConfig[configKey] = isActive;
+        }
+        
+        demoConsole.info(`${configKey}${subKey ? '.' + subKey : ''}: ${isActive}`);
+      });
+    }
+    
+    setupToggle(elements.tipJar, 'tipJar');
+    setupToggle(elements.darkMode, 'darkMode');
+    setupToggle(elements.autoTrigger, 'autoTrigger');
+    setupToggle(elements.exitIntent, 'triggers', 'exitIntent');
+    setupToggle(elements.collectEmail, 'collectEmail');
+    setupToggle(elements.collectName, 'collectName');
+    setupToggle(elements.collectPhone, 'collectPhone');
+    setupToggle(elements.collectVPA, 'collectVPA');
+    setupToggle(elements.collectUTR, 'collectUTR');
+    
+    // Range sliders
+    elements.scrollDepth.addEventListener('input', (e) => {
+      currentConfig.triggers.scrollDepth = parseInt(e.target.value);
+      elements.scrollDepthValue.textContent = e.target.value + '%';
+    });
+    
+    elements.timeOnPage.addEventListener('input', (e) => {
+      currentConfig.triggers.timeOnPage = parseInt(e.target.value);
+      elements.timeOnPageValue.textContent = e.target.value + 's';
+    });
+    
+    // Apply configuration
+    elements.applyConfig.addEventListener('click', () => {
+      // Update config from inputs
+      currentConfig.upiId = elements.upiId.value;
+      currentConfig.name = elements.name.value;
+      currentConfig.message = elements.message.value;
+      
+      // Build ChaiPe config
+      const chaipeConfig = {
+        upiId: currentConfig.upiId,
+        name: currentConfig.name,
+        amounts: currentConfig.amounts,
+        message: currentConfig.message,
+        theme: currentConfig.theme,
+        tipJar: currentConfig.tipJar,
+        darkMode: currentConfig.darkMode,
+        collectEmail: currentConfig.collectEmail,
+        collectName: currentConfig.collectName,
+        collectPhoneNumber: currentConfig.collectPhone,
+        collectVPA: currentConfig.collectVPA,
+        collectUPIUTR: currentConfig.collectUTR,
+        triggers: currentConfig.autoTrigger ? currentConfig.triggers : null,
+        manualOnly: !currentConfig.autoTrigger,
+        onNudgeShown: (data) => {
+          demoConsole.event('📢 Nudge Shown', data);
+        },
+        onNudgeDismissed: (data) => {
+          demoConsole.warning('❌ Nudge Dismissed', data);
+        },
+        onTipCompleted: (data) => {
+          demoConsole.success('💰 Tip Received!', data);
+          alert(`Thank you for the tip of ₹${data.amount}!`);
+        }
+      };
+      
+      // Initialize ChaiPe
+      try {
+        ChaiPe.init(chaipeConfig);
+        demoConsole.success('✓ Configuration applied successfully');
+        demoConsole.info('Current config:', chaipeConfig);
+      } catch (error) {
+        demoConsole.error('Failed to apply config:', error.message);
+      }
+    });
+    
+    // Show modal manually
+    elements.showModal.addEventListener('click', () => {
+      ChaiPe.show();
+      demoConsole.info('📢 Modal shown manually');
+    });
+    
+    // Theme toggle
+    elements.themeToggle.addEventListener('click', () => {
+      themeManager.toggle();
+      currentConfig.darkMode = themeManager.currentTheme === 'dark';
+      elements.darkMode.classList.toggle('active', currentConfig.darkMode);
+    });
+    
+    // Initialize ChaiPe with default config
+    elements.applyConfig.click();
+    
+    demoConsole.success('🚀 Playground initialized');
+    demoConsole.info('Configure settings and click "Apply Config" to see changes');
+  </script>
+</body>
+</html>

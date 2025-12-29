@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChaiPe.js - Complete Documentation</title>
+  <meta name="description" content="Complete API documentation, configuration reference, and integration guide for ChaiPe.js.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="shared/css/common.css">
+  <link rel="stylesheet" href="shared/css/demo-components.css">
+  
+  <style>
+    .docs-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--space-xl);
+      padding: var(--space-xl) 0;
+      min-height: calc(100vh - 80px);
+    }
+    
+    .docs-sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+    }
+    
+    .docs-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .docs-nav-item {
+      margin-bottom: var(--space-sm);
+    }
+    
+    .docs-nav-link {
+      display: block;
+      padding: var(--space-sm);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+      font-size: var(--text-sm);
+    }
+    
+    .docs-nav-link:hover,
+    .docs-nav-link.active {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+    
+    .docs-nav-link.active {
+      border-left: 2px solid var(--accent-primary);
+    }
+    
+    .docs-content {
+      max-width: 800px;
+    }
+    
+    .docs-section {
+      margin-bottom: var(--space-2xl);
+      padding-bottom: var(--space-2xl);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .docs-section:last-child {
+      border-bottom: none;
+    }
+    
+    .docs-section-title {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+    
+    .docs-subsection {
+      margin: var(--space-xl) 0 var(--space-lg);
+    }
+    
+    .docs-subsection-title {
+      font-size: var(--text-lg);
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+      color: var(--text-primary);
+    }
+    
+    .docs-subsection-title code {
+      background: var(--bg-tertiary);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9em;
+    }
+    
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-lg) 0;
+      font-size: var(--text-sm);
+    }
+    
+    .param-table th,
+    .param-table td {
+      padding: var(--space-md);
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .param-table th {
+      font-weight: 600;
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+    
+    .param-table td {
+      color: var(--text-secondary);
+    }
+    
+    .param-table code {
+      background: var(--bg-tertiary);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85em;
+    }
+    
+    .param-type {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--accent-gradient);
+      color: white;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 600;
+      margin-right: var(--space-sm);
+    }
+    
+    .param-required {
+      color: var(--error);
+      font-weight: 600;
+    }
+    
+    .param-optional {
+      color: var(--success);
+      font-weight: 600;
+    }
+    
+    .callback-signature {
+      background: var(--bg-tertiary);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      margin: var(--space-md) 0;
+      overflow-x: auto;
+    }
+    
+    .example-box {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+    
+    .example-title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    @media (max-width: 1024px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .docs-sidebar {
+        position: static;
+        max-height: none;
+        margin-bottom: var(--space-xl);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <!-- Navigation -->
+  <nav class="demo-nav">
+    <div class="container demo-nav-content">
+      <a href="index.html" class="demo-nav-logo">ChaiPe.js</a>
+      <div class="demo-nav-links">
+        <a href="index.html" class="demo-nav-link">Home</a>
+        <a href="playground.html" class="demo-nav-link">Playground</a>
+        <a href="documentation.html" class="demo-nav-link active">Documentation</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </nav>
+  
+  <!-- Main Content -->
+  <main id="main-content" class="container">
+    <div class="docs-layout">
+      <!-- Sidebar Navigation -->
+      <aside class="docs-sidebar">
+        <nav>
+          <ul class="docs-nav">
+            <li class="docs-nav-item">
+              <a href="#installation" class="docs-nav-link active">Installation</a>
+            </li>
+            <li class="docs-nav-item">
+              <a href="#quick-start" class="docs-nav-link">Quick Start</a>
+            </li>
+            <li class="docs-nav-item">
+              <a href="#configuration" class="docs-nav-link">Configuration</a>
+            </li>
+            <li class="docs-nav-item">
+              <a href="#api" class="docs-nav-link">API Reference</a>
+            </li>
+            <li class="docs-nav-item">
+              <a href="#themes" class="docs-nav-link">Themes</a>
+            </li>
+            <li class="docs-nav-item">
+              <a href="#triggers" class="docs-nav-link">Behavioral Triggers</a>
+            </li>
+            <li class="docs-nav-item">
+              <a href="#callbacks" class="docs-nav-link">Callbacks</a>
+            </li>
+            <li class="docs-nav-item">
+              <a href="#advanced" class="docs-nav-link">Advanced Usage</a>
+            </li>
+            <li class="docs-nav-item">
+              <a href="#faq" class="docs-nav-link">FAQ</a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      
+      <!-- Documentation Content -->
+      <div class="docs-content">
+        <!-- Installation -->
+        <section class="docs-section" id="installation">
+          <h2 class="docs-section-title">📦 Installation</h2>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">CDN</h3>
+            <p>Add the script tag to your HTML:</p>
+            <div class="example-box">
+              <div class="example-title">CDN Installation</div>
+              <pre><code><span class="code-tag"><script></span> <span class="code-property">src</span>=<span class="code-string">"https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"</span><span class="code-tag">></script></span></code></pre>
+            </div>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">npm</h3>
+            <p>Install via npm and import in your project:</p>
+            <div class="example-box">
+              <div class="example-title">npm Installation</div>
+              <pre><code><span class="code-comment"># Install package</span>
+<span class="code-function">npm</span> install chaipe
+
+<span class="code-comment"># Import in your code</span>
+<span class="code-keyword">import</span> ChaiPe <span class="code-keyword">from</span> <span class="code-string">'chaipe'</span>;</code></pre>
+            </div>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">Download</h3>
+            <p>Download the minified file and include it locally:</p>
+            <div class="example-box">
+              <div class="example-title">Local Installation</div>
+              <pre><code><span class="code-tag"><script</span> <span class="code-property">src</span>=<span class="code-string">"./chaipe.min.js"</span><span class="code-tag">></script></span></code></pre>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Quick Start -->
+        <section class="docs-section" id="quick-start">
+          <h2 class="docs-section-title">🚀 Quick Start</h2>
+          
+          <p>Get started with ChaiPe in just a few lines of code:</p>
+          
+          <div class="example-box">
+            <div class="example-title">Basic Setup</div>
+            <pre><code><span class="code-comment">// 1. Include ChaiPe (see Installation above)</span>
+
+<span class="code-comment">// 2. Initialize with your configuration</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>],
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>
+});
+
+<span class="code-comment">// 3. That's it! ChaiPe will handle the rest</span></code></pre>
+          </div>
+          
+          <div class="alert alert-info mt-lg">
+            <strong>💡 Tip:</strong> Check out the <a href="playground.html">Interactive Playground</a> to experiment with different configurations in real-time.
+          </div>
+        </section>
+        
+        <!-- Configuration -->
+        <section class="docs-section" id="configuration">
+          <h2 class="docs-section-title">⚙️ Configuration</h2>
+          
+          <p>All configuration options are passed to <code>ChaiPe.init()</code>:</p>
+          
+          <table class="param-table">
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>upiId</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-required">Yes</span></td>
+                <td><code>null</code></td>
+                <td>Your UPI ID (e.g., <code>yourname@upi</code>)</td>
+              </tr>
+              <tr>
+                <td><code>name</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-required">Yes</span></td>
+                <td><code>null</code></td>
+                <td>Display name shown to users</td>
+              </tr>
+              <tr>
+                <td><code>amounts</code></td>
+                <td><span class="param-type">number[]</span></td>
+                <td><span class="param-optional">No</span></td>
+                <td><code>[10, 25, 50, 100]</code></td>
+                <td>Preset tip amounts in rupees</td>
+              </tr>
+              <tr>
+                <td><code>theme</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-optional">No</span></td>
+                <td><code>'minimal'</code></td>
+                <td>Theme: <code>'minimal'</code>, <code>'toast'</code>, or <code>'floating'</code></td>
+              </tr>
+              <tr>
+                <td><code>message</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-optional">No</span></td>
+                <td><code>'Support my work'</code></td>
+                <td>Custom message displayed in modal</td>
+              </tr>
+              <tr>
+                <td><code>buttonText</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-optional">No</span></td>
+                <td><code>'Tip'</code></td>
+                <td>Text shown on tip button</td>
+              </tr>
+              <tr>
+                <td><code>currency</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-optional">No</span></td>
+                <td><code>'INR'</code></td>
+                <td>Currency code (3-letter ISO code)</td>
+              </tr>
+              <tr>
+                <td><code>darkMode</code></td>
+                <td><span class="param-type">boolean</span></td>
+                <td><span class="param-optional">No</span></td>
+                <td><code>true</code> (auto-detect)</td>
+                <td>Force dark/light mode</td>
+              </tr>
+              <tr>
+                <td><code>tipJar</code></td>
+                <td><span class="param-type">boolean</span></td>
+                <td><span class="param-optional">No</span></td>
+                <td><code>false</code></td>
+                <td>Show persistent tip jar button</td>
+              </tr>
+              <tr>
+                <td><code>manualOnly</code></td>
+                <td><span class="param-type">boolean</span></td>
+                <td><span class="param-optional">No</span></td>
+                <td><code>false</code></td>
+                <td>Disable automatic triggers</td>
+              </tr>
+              <tr>
+                <td><code>triggers</code></td>
+                <td><span class="param-type">object</span></td>
+                <td><span class="param-optional">No</span></td>
+                <td>See below</td>
+                <td>Behavioral trigger configuration</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">Trigger Configuration</h3>
+            <p>The <code>triggers</code> object configures when the nudge appears:</p>
+            
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>scrollDepth</code></td>
+                  <td><span class="param-type">number</span></td>
+                  <td><code>70</code></td>
+                  <td>Trigger when user scrolls to X% of page (0-100)</td>
+                </tr>
+                <tr>
+                  <td><code>timeOnPage</code></td>
+                  <td><span class="param-type">number</span></td>
+                  <td><code>120</code></td>
+                  <td>Trigger after X seconds on page</td>
+                </tr>
+                <tr>
+                  <td><code>exitIntent</code></td>
+                  <td><span class="param-type">boolean</span></td>
+                  <td><code>false</code></td>
+                  <td>Trigger on exit intent (desktop only)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">Data Collection Options</h3>
+            <p>Optional fields to collect from users:</p>
+            
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>collectEmail</code></td>
+                  <td><span class="param-type">boolean</span></td>
+                  <td><code>false</code></td>
+                  <td>Collect email address</td>
+                </tr>
+                <tr>
+                  <td><code>collectName</code></td>
+                  <td><span class="param-type">boolean</span></td>
+                  <td><code>false</code></td>
+                  <td>Collect user's name</td>
+                </tr>
+                <tr>
+                  <td><code>collectPhoneNumber</code></td>
+                  <td><span class="param-type">boolean</span></td>
+                  <td><code>false</code></td>
+                  <td>Collect phone number</td>
+                </tr>
+                <tr>
+                  <td><code>collectVPA</code></td>
+                  <td><span class="param-type">boolean</span></td>
+                  <td><code>false</code></td>
+                  <td>Collect UPI VPA (Virtual Payment Address)</td>
+                </tr>
+                <tr>
+                  <td><code>collectUPIUTR</code></td>
+                  <td><span class="param-type">boolean</span></td>
+                  <td><code>false</code></td>
+                  <td>Collect UPI transaction reference number</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <!-- API Reference -->
+        <section class="docs-section" id="api">
+          <h2 class="docs-section-title">📚 API Reference</h2>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title"><code>ChaiPe.init(config)</code></h3>
+            <p>Initialize ChaiPe with configuration. Creates singleton instance on first call, reuses on subsequent calls.</p>
+            
+            <div class="callback-signature">
+              <span class="code-function">ChaiPe</span>.<span class="code-function">init</span>(config: <span class="code-function">ChaiPeConfig</span>): <span class="code-keyword">void</span>
+            </div>
+            
+            <div class="example-box">
+              <div class="example-title">Example</div>
+              <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'demo@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Demo Creator'</span>,
+  <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>],
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>
+});</code></pre>
+            </div>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title"><code>ChaiPe.show()</code></h3>
+            <p>Manually show the tip modal. Useful for custom trigger logic or button click.</p>
+            
+            <div class="callback-signature">
+              <span class="code-function">ChaiPe</span>.<span class="code-function">show</span>(): <span class="code-keyword">void</span>
+            </div>
+            
+            <div class="example-box">
+              <div class="example-title">Example</div>
+              <pre><code><span class="code-comment">// Show modal on button click</span>
+document.<span class="code-function">getElementById</span>(<span class="code-string">'tip-button'</span>).<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">show</span>();
+});</code></pre>
+            </div>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title"><code>ChaiPe.setDarkMode(isDark)</code></h3>
+            <p>Programmatically toggle dark/light mode after initialization.</p>
+            
+            <div class="callback-signature">
+              <span class="code-function">ChaiPe</span>.<span class="code-function">setDarkMode</span>(isDark: <span class="code-keyword">boolean</span>): <span class="code-keyword">void</span>
+            </div>
+            
+            <div class="example-box">
+              <div class="example-title">Example</div>
+              <pre><code><span class="code-comment">// Toggle dark mode based on system preference</span>
+<span class="code-keyword">const</span> prefersDark = window.<span class="code-function">matchMedia</span>(<span class="code-string">'(prefers-color-scheme: dark)'</span>).matches;
+<span class="code-function">ChaiPe</span>.<span class="code-function">setDarkMode</span>(prefersDark);</code></pre>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Themes -->
+        <section class="docs-section" id="themes">
+          <h2 class="docs-section-title">🎨 Themes</h2>
+          
+          <p>ChaiPe includes three beautiful, responsive themes:</p>
+          
+          <div class="grid grid-3" style="margin: var(--space-lg) 0;">
+            <div class="card">
+              <h4>Minimal</h4>
+              <p class="text-secondary text-sm">Clean, centered modal. Best for blogs and articles.</p>
+              <div class="example-box" style="margin-top: var(--space-md);">
+                <pre><code>{
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>
+}</code></pre>
+              </div>
+            </div>
+            
+            <div class="card">
+              <h4>Toast</h4>
+              <p class="text-secondary text-sm">Bottom-positioned toast. Non-intrusive, quick to dismiss.</p>
+              <div class="example-box" style="margin-top: var(--space-md);">
+                <pre><code>{
+  <span class="code-property">theme</span>: <span class="code-string">'toast'</span>
+}</code></pre>
+              </div>
+            </div>
+            
+            <div class="card">
+              <h4>Floating</h4>
+              <p class="text-secondary text-sm">Floating bar at bottom. Always visible, minimal footprint.</p>
+              <div class="example-box" style="margin-top: var(--space-md);">
+                <pre><code>{
+  <span class="code-property">theme</span>: <span class="code-string">'floating'</span>
+}</code></pre>
+              </div>
+            </div>
+          </div>
+          
+          <div class="alert alert-info mt-lg">
+            <strong>💡 Tip:</strong> All themes automatically support dark mode via <code>prefers-color-scheme</code> media query.
+          </div>
+        </section>
+        
+        <!-- Callbacks -->
+        <section class="docs-section" id="callbacks">
+          <h2 class="docs-section-title">📡 Callbacks</h2>
+          
+          <p>Track user interactions with event callbacks:</p>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title"><code>onNudgeShown(data)</code></h3>
+            <p>Called when the nudge/modal is displayed to the user.</p>
+            
+            <div class="callback-signature">
+              <span class="code-property">onNudgeShown</span>: (data: <span class="code-function">NudgeData</span>) => <span class="code-keyword">void</span>
+            </div>
+            
+            <div class="example-box">
+              <div class="example-title">Example</div>
+              <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">onNudgeShown</span>: (data) => {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">'Nudge shown!'</span>, data);
+    <span class="code-comment">// Track with analytics</span>
+  }
+});</code></pre>
+            </div>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title"><code>onNudgeDismissed(data)</code></h3>
+            <p>Called when user dismisses the modal without tipping.</p>
+            
+            <div class="callback-signature">
+              <span class="code-property">onNudgeDismissed</span>: (data: <span class="code-function">NudgeData</span>) => <span class="code-keyword">void</span>
+            </div>
+            
+            <div class="example-box">
+              <div class="example-title">Example</div>
+              <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">onNudgeDismissed</span>: (data) => {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">'Nudge dismissed'</span>, data);
+  }
+});</code></pre>
+            </div>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title"><code>onTipCompleted(data)</code></h3>
+            <p>Called when user completes a tip payment. This is the most important callback for tracking revenue.</p>
+            
+            <div class="callback-signature">
+              <span class="code-property">onTipCompleted</span>: (data: <span class="code-function">TipData</span>) => <span class="code-keyword">void</span>
+            </div>
+            
+            <div class="example-box">
+              <div class="example-title">Example</div>
+              <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">onTipCompleted</span>: (data) => {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">'Tip received!'</span>, data);
+    <span class="code-comment">// Send to analytics backend</span>
+    <span class="code-function">fetch</span>(<span class="code-string">'/api/tips'</span>, {
+      <span class="code-property">method</span>: <span class="code-string">'POST'</span>,
+      <span class="code-property">body</span>: JSON.<span class="code-function">stringify</span>(data)
+    });
+  }
+});</code></pre>
+            </div>
+            
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>sessionId</code></td>
+                  <td><span class="param-type">string</span></td>
+                  <td>Unique session identifier</td>
+                </tr>
+                <tr>
+                  <td><code>amount</code></td>
+                  <td><span class="param-type">number</span></td>
+                  <td>Tip amount in rupees</td>
+                </tr>
+                <tr>
+                  <td><code>timestamp</code></td>
+                  <td><span class="param-type">string</span></td>
+                  <td>ISO 8601 timestamp</td>
+                </tr>
+                <tr>
+                  <td><code>email</code></td>
+                  <td><span class="param-type">string | null</span></td>
+                  <td>User's email (if collected)</td>
+                </tr>
+                <tr>
+                  <td><code>name</code></td>
+                  <td><span class="param-type">string | null</span></td>
+                  <td>User's name (if collected)</td>
+                </tr>
+                <tr>
+                  <td><code>phone</code></td>
+                  <td><span class="param-type">string | null</span></td>
+                  <td>User's phone (if collected)</td>
+                </tr>
+                <tr>
+                  <td><code>vpa</code></td>
+                  <td><span class="param-type">string | null</span></td>
+                  <td>User's UPI VPA (if collected)</td>
+                </tr>
+                <tr>
+                  <td><code>utr</code></td>
+                  <td><span class="param-type">string | null</span></td>
+                  <td>UPI transaction reference (if collected)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <!-- Advanced Usage -->
+        <section class="docs-section" id="advanced">
+          <h2 class="docs-section-title">🔧 Advanced Usage</h2>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">Custom Trigger Logic</h3>
+            <p>Disable automatic triggers and implement your own logic:</p>
+            
+            <div class="example-box">
+              <div class="example-title">Custom Scroll Trigger</div>
+              <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">manualOnly</span>: <span class="code-keyword">true</span>
+});
+
+<span class="code-comment">// Custom scroll trigger at 50%</span>
+window.<span class="code-function">addEventListener</span>(<span class="code-string">'scroll'</span>, () => {
+  <span class="code-keyword">const</span> scrollPercent = <span class="code-function">getScrollPercent</span>();
+  <span class="code-keyword">if</span> (scrollPercent >= <span class="code-number">50</span>) {
+    <span class="code-function">ChaiPe</span>.<span class="code-function">show</span>();
+  }
+}, { <span class="code-property">passive</span>: <span class="code-keyword">true</span> });</code></pre>
+            </div>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">Integration with Analytics</h3>
+            <p>Send tip data to your analytics platform:</p>
+            
+            <div class="example-box">
+              <div class="example-title">Google Analytics</div>
+              <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">onTipCompleted</span>: (data) => {
+    <span class="code-comment">// Track with Google Analytics 4</span>
+    gtag(<span class="code-string">'event'</span>, {
+      <span class="code-property">event_category</span>: <span class="code-string">'tip'</span>,
+      <span class="code-property">event_label</span>: <span class="code-string">'₹'</span> + data.amount
+    });
+    
+    <span class="code-comment">// Track with Mixpanel</span>
+    mixpanel.<span class="code-function">track</span>(<span class="code-string">'Tip Completed'</span>, {
+      <span class="code-property">amount</span>: data.amount,
+      <span class="code-property">email</span>: data.email
+    });
+  }
+});</code></pre>
+            </div>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">A/B Testing</h3>
+            <p>Test different configurations to optimize conversion:</p>
+            
+            <div class="example-box">
+              <div class="example-title">A/B Test Themes</div>
+              <pre><code><span class="code-comment">// Randomly assign theme for A/B testing</span>
+<span class="code-keyword">const</span> themes = [<span class="code-string">'minimal'</span>, <span class="code-string">'toast'</span>, <span class="code-string">'floating'</span>];
+<span class="code-keyword">const</span> randomTheme = themes[<span class="code-function">Math</span>.<span class="code-function">floor</span>(<span class="code-function">Math</span>.<span class="code-function">random</span>() * themes.length)];
+
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">theme</span>: randomTheme,
+  <span class="code-property">onTipCompleted</span>: (data) => {
+    <span class="code-comment">// Track which theme converted</span>
+    <span class="code-function">analytics</span>.<span class="code-function">track</span>(<span class="code-string">'Tip Completed'</span>, {
+      <span class="code-property">theme</span>: randomTheme,
+      <span class="code-property">amount</span>: data.amount
+    });
+  }
+});</code></pre>
+            </div>
+          </div>
+        </section>
+        
+        <!-- FAQ -->
+        <section class="docs-section" id="faq">
+          <h2 class="docs-section-title">❓ FAQ</h2>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">Is ChaiPe free to use?</h3>
+            <p>Yes! ChaiPe is open source under the MIT license. You can use it in personal and commercial projects without any fees.</p>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">Do I need a payment gateway?</h3>
+            <p>No! ChaiPe uses direct UPI links. You just need a valid UPI ID from your bank or UPI app.</p>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">How do I receive payments?</h3>
+            <p>Payments go directly to your UPI ID. You'll see them in your bank account or UPI app just like any other UPI transaction.</p>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">Can I verify payments?</h3>
+            <p>ChaiPe is trust-based - it doesn't verify payments with a backend. Users self-confirm they've paid. For verification, you can collect the UTR (Unique Transaction Reference) and cross-reference with your bank statement.</p>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">What browsers are supported?</h3>
+            <p>ChaiPe works in all modern browsers (Chrome, Firefox, Safari, Edge) that support ES6+. It does not work in IE11 or older browsers.</p>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">Is ChaiPe accessible?</h3>
+            <p>Yes! ChaiPe follows WCAG AA accessibility guidelines. It supports keyboard navigation, screen readers, and proper ARIA labels.</p>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">How large is the library?</h3>
+            <p>The minified version is ~10KB. Gzipped, it's under 4KB. It loads instantly even on slow connections.</p>
+          </div>
+          
+          <div class="docs-subsection">
+            <h3 class="docs-subsection-title">Can I customize the styling?</h3>
+            <p>Yes! While ChaiPe includes three beautiful themes, you can override the CSS by targeting the <code>.ChaiPe-*</code> class names. See the source code for the complete class list.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <p class="text-muted">
+        ChaiPe Documentation • <a href="index.html">Back to Home</a>
+      </p>
+    </div>
+  </footer>
+  
+  <script>
+    (function() {
+      'use strict';
+      
+      // Throttle function for performance optimization
+      function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+          const args = arguments;
+          const context = this;
+          if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+          }
+        };
+      }
+      
+      // Theme toggle with null check
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          document.documentElement.classList.toggle('light');
+        });
+      }
+      
+      // Smooth scroll for navigation links with error handling
+      const navLinks = document.querySelectorAll('.docs-nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          try {
+            e.preventDefault();
+            const href = link.getAttribute('href');
+            
+            // Validate href is a hash link
+            if (!href || !href.startsWith('#')) {
+              return;
+            }
+            
+            const targetId = href.substring(1);
+            const target = document.getElementById(targetId);
+            
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              
+              // Update active state
+              navLinks.forEach(l => l.classList.remove('active'));
+              link.classList.add('active');
+            }
+          } catch (error) {
+            console.error('Error handling navigation link click:', error);
+          }
+        });
+      });
+      
+      // Cache DOM elements for scroll handler
+      const sections = document.querySelectorAll('.docs-section');
+      const navLinksForScroll = document.querySelectorAll('.docs-nav-link');
+      
+      // Update active nav on scroll with throttling
+      const handleScroll = throttle(() => {
+        try {
+          let currentSection = '';
+          
+          sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (window.scrollY >= sectionTop - 100) {
+              currentSection = section.id;
+            }
+          });
+          
+          if (currentSection) {
+            navLinksForScroll.forEach(link => {
+              link.classList.toggle('active', link.getAttribute('href') === '#' + currentSection);
+            });
+          }
+        } catch (error) {
+          console.error('Error handling scroll:', error);
+        }
+      }, 100); // Throttle to 100ms
+      
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    })();
+  </script>
+</body>
+</html>

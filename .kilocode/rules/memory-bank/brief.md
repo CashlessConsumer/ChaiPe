@@ -1,0 +1,1 @@
+ChaiPe is a lightweight, PSP-less JavaScript library for accepting UPI micropayments through behavioral nudging. Perfect for creators, bloggers, and content publishers in India.
