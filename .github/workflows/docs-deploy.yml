@@ -9,16 +9,20 @@ on:
       - '.github/workflows/docs-deploy.yml'
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Cancel in-progress runs for the same workflow
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20.x'
+  CACHE_VERSION: 'v1'
+
+# Sets permissions of GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
-
-# Allow only one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -26,15 +30,43 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ env.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ env.CACHE_VERSION }}-
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-
+
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Cache Rollup
+        uses: actions/cache@v4
+        with:
+          path: |
+            .rollup.cache
+            node_modules/.cache
+          key: ${{ runner.os }}-rollup-${{ hashFiles('**/rollup.config.mjs', '**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-rollup-
 
       - name: Build library
         run: npm run build
@@ -43,9 +75,14 @@ jobs:
         run: |
           mkdir -p dist/docs
           cp -r docs-site/* dist/docs/
-          cp -r dist/chaipe.min.js dist/docs/ || true
-          cp -r dist/chaipe.js dist/docs/ || true
-          cp -r dist/chaipe.esm.js dist/docs/ || true
+          cp dist/chaipe.min.js dist/docs/ || true
+          cp dist/chaipe.js dist/docs/ || true
+          cp dist/chaipe.esm.js dist/docs/ || true
+
+      - name: Verify build outputs
+        run: |
+          ls -lah dist/docs/
+          test -d dist/docs || exit 1
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

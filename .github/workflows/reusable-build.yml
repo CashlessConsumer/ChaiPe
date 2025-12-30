@@ -1,0 +1,115 @@
+name: Reusable Build
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'Node.js version to use'
+        required: false
+        type: string
+        default: '20.x'
+      cache-version:
+        description: 'Cache version key'
+        required: false
+        type: string
+        default: 'v1'
+      skip-tests:
+        description: 'Skip running tests'
+        required: false
+        type: boolean
+        default: false
+      skip-build:
+        description: 'Skip building'
+        required: false
+        type: boolean
+        default: false
+    outputs:
+      build-success:
+        description: 'Whether the build succeeded'
+        value: ${{ jobs.build.outputs.success }}
+      artifacts-url:
+        description: 'URL to download build artifacts'
+        value: ${{ jobs.build.outputs.artifacts-url }}
+
+jobs:
+  build:
+    name: Build Project
+    runs-on: ubuntu-latest
+    outputs:
+      success: ${{ steps.build.outcome }}
+      artifacts-url: ${{ steps.upload-artifact.outputs.artifact-url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: 'npm'
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ inputs.cache-version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ inputs.node-version }}-${{ inputs.cache-version }}-
+            ${{ runner.os }}-node-${{ inputs.node-version }}-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Cache Jest cache
+        uses: actions/cache@v4
+        with:
+          path: .jest-cache
+          key: ${{ runner.os }}-jest-${{ hashFiles('**/jest.config.js', '**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-jest-
+
+      - name: Run tests
+        id: test
+        if: ${{ !inputs.skip-tests }}
+        run: npm test -- --maxWorkers=2 --cacheDirectory=.jest-cache
+
+      - name: Build project
+        id: build
+        if: ${{ !inputs.skip-build }}
+        run: npm run build
+
+      - name: Verify build outputs
+        if: ${{ !inputs.skip-build }}
+        run: |
+          ls -lah dist/
+          test -f dist/chaipe.js || exit 1
+          test -f dist/chaipe.min.js || exit 1
+          test -f dist/chaipe.esm.js || exit 1
+
+      - name: Upload build artifacts
+        id: upload-artifact
+        if: ${{ !inputs.skip-build }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-${{ github.run_id }}
+          path: dist/
+          retention-days: 7
+          compression-level: 9
+
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v4
+        if: ${{ !inputs.skip-tests && always() }}
+        with:
+          name: test-coverage-${{ github.run_id }}
+          path: coverage/
+          retention-days: 7
+          compression-level: 6
