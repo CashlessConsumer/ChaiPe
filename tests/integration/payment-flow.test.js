@@ -240,6 +240,12 @@ describe('Payment Flow Integration Tests', () => {
 
   describe('Payment Flow with UTR Collection', () => {
     test('should collect UTR after payment', (done) => {
+      // Mock desktop environment for QR code display
+      Object.defineProperty(navigator, 'userAgent', {
+        value: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/96.0',
+        configurable: true
+      });
+      
       const configWithUTR = {
         ...mockConfig,
         collectUPIUTR: true
@@ -268,13 +274,7 @@ describe('Payment Flow Integration Tests', () => {
           expect(utrInput).toBeDefined();
           utrInput.value = '123456789012';
           
-          // Call _collectFormData to populate collectedData before confirmPayment
-          ChaiPe._instance._collectFormData();
-          
-          // Verify collected data was populated
-          expect(ChaiPe._instance.collectedData.upiUTR).toBe('123456789012');
-          
-          // Confirm payment
+          // Confirm payment (UTR is collected inside confirmPayment, not _collectFormData)
           ChaiPe.confirmPayment(25);
           
           // Wait for success message

@@ -304,7 +304,7 @@ describe('ChaiPe Static API', () => {
 
   describe('Default Export', () => {
     test('should have default export', () => {
-      // This test verifies the module structure
+      // This test verifies module structure
       expect(ChaiPe).toBeDefined();
     });
   });
@@ -558,10 +558,10 @@ describe('ChaiPe Static API', () => {
       test('should work with generateUpiLink() method', () => {
         ChaiPe.init(mockConfig);
         
-        const link = ChaiPe.generateUpiLink(50);
+        const link = ChaiPe.generateUpiLink({ amount: 50 });
         
         expect(link).toMatch(/^upi:\/\/pay\?/);
-        // The link contains the amount parameter
+        // The link contains a amount parameter
         expect(link).toMatch(/am=50/);
         
         const tipJar = document.getElementById('ChaiPe-tipJar');
