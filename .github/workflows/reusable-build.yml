@@ -13,17 +13,11 @@ on:
         required: false
         type: boolean
         default: false
-    outputs:
-      build-artifact-name:
-        description: 'The name of the build artifact'
-        value: ${{ jobs.build.outputs.build-artifact-name }}
 
 jobs:
   build:
     name: Setup, Cache, and Build
     runs-on: ubuntu-latest
-    outputs:
-      build-artifact-name: build-artifacts-${{ github.run_id }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -57,6 +51,6 @@ jobs:
         if: ${{ inputs.run-build }}
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts-${{ github.run_id }}
+          name: build-artifacts
           path: dist/
           retention-days: 1
