@@ -33,7 +33,7 @@ jobs:
 
       - name: Run tests
         if: ${{ inputs.run-tests }}
-        run: npm test
+        run: npm test -- --coverage
 
       - name: Upload coverage artifact
         if: ${{ inputs.run-tests }}

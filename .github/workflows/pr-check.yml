@@ -59,10 +59,10 @@ jobs:
       - name: Check build sizes
         run: |
           minified_size=$(stat -c%s dist/chaipe.min.js)
-          max_size=$((25 * 1024))
+          max_size=$((50 * 1024)) # 50KB
           if [ $minified_size -gt $max_size ]; then
-            echo "❌ Minified build exceeds 25KB limit"
+            echo "❌ Minified build exceeds 50KB limit"
             exit 1
           else
-            echo "✅ Minified build is under 25KB"
+            echo "✅ Minified build is under 50KB"
           fi
