@@ -203,7 +203,7 @@ We welcome contributions! Please see the [Development Guide](docs/DEVELOPMENT.md
 
 ```bash
 # Clone the repository
-git clone https://github.com/CashlessConsumer/chaipe.git
+git clone https://github.com/srikanthlogic/ChaiPe.git
 cd chaipe
 
 # Install dependencies

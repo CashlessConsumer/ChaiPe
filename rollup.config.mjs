@@ -6,7 +6,7 @@ const banner = `/**
  * Accept tips and micropayments with behavioral nudging
  * @version 1.0.0
  * @license MIT
- * @see https://github.com/CashlessConsumer/chaipe
+ * @see https://github.com/srikanthlogic/ChaiPe
  */`;
 
 export default [

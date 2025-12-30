@@ -405,7 +405,7 @@ The ChaiPe documentation website has been thoroughly tested and is ready for dep
 
 ### Next Steps:
 1. Deploy to GitHub Pages using `npm run docs:deploy`
-2. Verify deployment at https://cashlessconsumer.github.io/ChaiPe/
+2. Verify deployment at https://srikanthlogic.github.io/ChaiPe/
 3. Monitor for any issues reported by users
 4. Update documentation as new features are added
 

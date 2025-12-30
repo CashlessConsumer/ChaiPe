@@ -60,12 +60,12 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/CashlessConsumer/chaipe.git"
+        "url": "https://github.com/srikanthlogic/ChaiPe.git"
     },
     "bugs": {
-        "url": "https://github.com/CashlessConsumer/chaipe/issues"
+        "url": "https://github.com/srikanthlogic/ChaiPe/issues"
     },
-    "homepage": "https://github.com/CashlessConsumer/chaipe#readme",
+    "homepage": "https://github.com/srikanthlogic/ChaiPe#readme",
     "peerDependencies": {
         "react": ">=16.8.0",
         "react-dom": ">=16.8.0"

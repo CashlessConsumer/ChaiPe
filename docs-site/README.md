@@ -84,7 +84,7 @@ npm run docs:deploy
 This will:
 1. Build the documentation site
 2. Deploy to GitHub Pages using the `gh-pages` package
-3. The site will be available at `https://cashlessconsumer.github.io/ChaiPe/`
+3. The site will be available at `https://srikanthlogic.github.io/ChaiPe/`
 
 **Note:** Manual deployment is typically not needed as automatic deployment is configured via GitHub Actions.
 
@@ -225,4 +225,4 @@ When contributing to the documentation site:
 
 - [GitHub Pages Documentation](https://docs.github.com/en/pages)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [ChaiPe Repository](https://github.com/CashlessConsumer/chaipe)
+- [ChaiPe Repository](https://github.com/srikanthlogic/ChaiPe)

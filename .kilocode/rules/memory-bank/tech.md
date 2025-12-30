@@ -332,12 +332,135 @@ src/
 - Safari (desktop + iOS)
 - Edge (desktop)
 
-### Demo Pages
-- `demo/index-new.html` - Main landing page with tipJar integration
-- `demo/playground.html` - Interactive configuration playground with tipJar examples
-- `demo/blog-demo.html` - Blog post with behavioral nudging
-- `demo/documentation.html` - Complete API documentation including tipJar
-- `demo/edge-cases.html` - Edge cases and advanced usage
+### Documentation Website
+- `docs-site/index.html` - Main landing page with high-conversion UX
+- `docs-site/docs/index.html` - Documentation home page
+- `docs-site/docs/api.html` - Complete API reference
+- `docs-site/docs/configuration.html` - Configuration options and examples
+- `docs-site/docs/integration.html` - Integration guides and best practices
+- `docs-site/docs/tipjar.html` - TipJar feature documentation
+- `docs-site/demos/playground.html` - Interactive configuration playground
+- `docs-site/demos/blog-demo.html` - Blog post with behavioral nudging
+- `docs-site/demos/edge-cases.html` - Edge cases and advanced usage
+- `docs-site/legal/privacy.html` - Privacy policy
+- `docs-site/legal/disclaimer.html` - Legal disclaimer
+- `docs-site/legal/releases.html` - Release notes and changelog
+
+### Legacy Demo Pages (Deprecated)
+- `demo/index.html` - Legacy landing page (use docs-site version)
+- `demo/playground.html` - Legacy playground (use docs-site version)
+- `demo/blog-demo.html` - Legacy blog demo (use docs-site version)
+- `demo/documentation.html` - Legacy documentation (use docs-site version)
+- `demo/edge-cases.html` - Legacy edge cases (use docs-site version)
+
+## Documentation Site Architecture
+
+### Build Process
+The documentation site is a static HTML/CSS/JavaScript website with no build tools required. All files are pre-built and ready for deployment.
+
+### GitHub Pages Deployment
+- **Configuration File**: [`docs-site/.nojekyll`](docs-site/.nojekyll:1) - Disables Jekyll processing for proper static file serving
+- **Deployment Workflow**: Files in `docs-site/` directory are served directly by GitHub Pages
+- **Build Scripts**: Available in [`docs-site/package.json`](docs-site/package.json:1) for local development
+
+### Shared CSS Architecture
+The documentation site uses a modular CSS architecture with shared styles:
+
+#### Common Styles ([`docs-site/shared/css/common.css`](docs-site/shared/css/common.css:1))
+- CSS custom properties (variables) for design system
+- Typography scales and font families
+- Color palette (primary, secondary, accent, neutral)
+- Spacing and layout utilities
+- Responsive breakpoints
+
+#### Component Styles ([`docs-site/shared/css/components.css`](docs-site/shared/css/components.css:1))
+- Button components (primary, secondary, outline, ghost)
+- Card components with variants
+- Code block components with syntax highlighting
+- Navigation components
+- Form elements and inputs
+- Badge and tag components
+
+#### Demo Components ([`docs-site/shared/css/demo-components.css`](docs-site/shared/css/demo-components.css:1))
+- Demo container styles
+- Configuration panel styles
+- Preview area styles
+- Interactive element states
+- TipJar integration styles
+
+#### Documentation Layout ([`docs-site/shared/css/docs-layout.css`](docs-site/shared/css/docs-layout.css:1))
+- Sidebar navigation styles
+- Content area layout
+- Mobile responsive navigation
+- Table of contents styling
+- Breadcrumb navigation
+- Search interface styles
+
+### Shared JavaScript Utilities
+
+#### Documentation Navigation ([`docs-site/shared/js/docs-nav.js`](docs-site/shared/js/docs-nav.js:1))
+- Active page detection and highlighting
+- Mobile menu toggle functionality
+- Smooth scrolling to sections
+- Navigation state management
+- Breadcrumb generation
+
+#### Demo Utilities ([`docs-site/shared/js/demo-utils.js`](docs-site/shared/js/demo-utils.js:1))
+- Configuration form handling
+- Live preview updates
+- Theme switching functionality
+- Copy-to-clipboard for code blocks
+- Demo initialization and cleanup
+
+#### ChaiPe Contribution Config ([`docs-site/shared/js/chaipe-contribution-config.js`](docs-site/shared/js/chaipe-contribution-config.js:1))
+- ChaiPe initialization for all pages
+- Default configuration for demonstration
+- TipJar integration settings
+- Event handling for payment callbacks
+- Analytics tracking (optional)
+
+### Documentation Site Dependencies
+The documentation site has minimal dependencies:
+- **No build tools required** - Pure HTML/CSS/JavaScript
+- **No external libraries** - Self-contained implementation
+- **Optional**: http-server for local development
+
+### Build Scripts
+Available in [`docs-site/package.json`](docs-site/package.json:1):
+```bash
+# Start local development server
+npm run dev
+
+# Serve documentation site
+npm run serve
+```
+
+### Testing and Verification
+
+#### Documentation Site Testing Checklist
+- [ ] All pages load correctly in modern browsers
+- [ ] Navigation works across all documentation pages
+- [ ] Demo pages are interactive and functional
+- [ ] ChaiPe integration works on all pages
+- [ ] Mobile responsiveness verified
+- [ ] Cross-browser compatibility tested (Chrome, Firefox, Safari, Edge)
+- [ ] Accessibility compliance (keyboard navigation, ARIA labels)
+- [ ] Code examples are copyable and accurate
+- [ ] Links and references are valid
+- [ ] Legal pages display correctly
+- [ ] TipJar contribution workflow functional
+- [ ] GitHub Pages deployment verified
+
+#### Browser Testing
+- Chrome (desktop + mobile)
+- Firefox (desktop)
+- Safari (desktop + iOS)
+- Edge (desktop)
+
+#### Responsive Testing
+- Mobile (320px - 767px)
+- Tablet (768px - 1023px)
+- Desktop (1024px+)
 
 ## tipJar Configuration
 

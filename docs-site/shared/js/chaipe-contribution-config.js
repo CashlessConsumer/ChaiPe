@@ -107,10 +107,10 @@ function showThankYouModal(amount) {
         <div class="chaipe-thank-you-actions">
           <p class="chaipe-thank-you-social-proof">Join 500+ developers supporting ChaiPe</p>
           <div class="chaipe-thank-you-buttons">
-            <a href="https://github.com/CashlessConsumer/ChaiPe" target="_blank" class="chaipe-thank-you-btn chaipe-thank-you-btn-primary">
+            <a href="https://github.com/srikanthlogic/ChaiPe" target="_blank" class="chaipe-thank-you-btn chaipe-thank-you-btn-primary">
               ⭐ Star on GitHub
             </a>
-            <a href="https://github.com/CashlessConsumer/ChaiPe/issues" target="_blank" class="chaipe-thank-you-btn chaipe-thank-you-btn-secondary">
+            <a href="https://github.com/srikanthlogic/ChaiPe/issues" target="_blank" class="chaipe-thank-you-btn chaipe-thank-you-btn-secondary">
               🐛 Report Issues
             </a>
             <button onclick="closeThankYouModal()" class="chaipe-thank-you-btn chaipe-thank-you-btn-secondary">

@@ -34,12 +34,41 @@ ChaiPe follows a modular architecture with clear separation of concerns:
 - [`rollup.config.mjs`](rollup.config.mjs:1) - Rollup bundler configuration
 - [`package.json`](package.json:1) - npm package configuration
 
-### Demo Files
-- [`demo/index-new.html`](demo/index-new.html:1) - Main landing page with tipJar integration
-- [`demo/playground.html`](demo/playground.html:1) - Interactive configuration playground with tipJar examples
-- [`demo/blog-demo.html`](demo/blog-demo.html:1) - Blog post with behavioral nudging
-- [`demo/documentation.html`](demo/documentation.html:1) - Complete API documentation including tipJar
-- [`demo/edge-cases.html`](demo/edge-cases.html:1) - Edge cases and advanced usage
+### Documentation Website
+- [`docs-site/index.html`](docs-site/index.html:1) - Main landing page with high-conversion UX and ChaiPe contribution
+- [`docs-site/docs/index.html`](docs-site/docs/index.html:1) - Documentation home page
+- [`docs-site/docs/api.html`](docs-site/docs/api.html:1) - Complete API reference
+- [`docs-site/docs/configuration.html`](docs-site/docs/configuration.html:1) - Configuration options and examples
+- [`docs-site/docs/integration.html`](docs-site/docs/integration.html:1) - Integration guides and best practices
+- [`docs-site/docs/tipjar.html`](docs-site/docs/tipjar.html:1) - TipJar feature documentation
+- [`docs-site/demos/playground.html`](docs-site/demos/playground.html:1) - Interactive configuration playground with tipJar examples
+- [`docs-site/demos/blog-demo.html`](docs-site/demos/blog-demo.html:1) - Blog post with behavioral nudging
+- [`docs-site/demos/edge-cases.html`](docs-site/demos/edge-cases.html:1) - Edge cases and advanced usage
+- [`docs-site/legal/privacy.html`](docs-site/legal/privacy.html:1) - Privacy policy
+- [`docs-site/legal/disclaimer.html`](docs-site/legal/disclaimer.html:1) - Legal disclaimer
+- [`docs-site/legal/releases.html`](docs-site/legal/releases.html:1) - Release notes and changelog
+
+### Documentation Site Structure
+- [`docs-site/shared/css/common.css`](docs-site/shared/css/common.css:1) - Common CSS styles and variables
+- [`docs-site/shared/css/components.css`](docs-site/shared/css/components.css:1) - Reusable UI components
+- [`docs-site/shared/css/demo-components.css`](docs-site/shared/css/demo-components.css:1) - Demo-specific component styles
+- [`docs-site/shared/css/docs-layout.css`](docs-site/shared/css/docs-layout.css:1) - Documentation layout and navigation styles
+- [`docs-site/shared/js/docs-nav.js`](docs-site/shared/js/docs-nav.js:1) - Documentation navigation and active state management
+- [`docs-site/shared/js/demo-utils.js`](docs-site/shared/js/demo-utils.js:1) - Demo utility functions
+- [`docs-site/shared/js/chaipe-contribution-config.js`](docs-site/shared/js/chaipe-contribution-config.js:1) - ChaiPe contribution configuration
+- [`docs-site/.nojekyll`](docs-site/.nojekyll:1) - GitHub Pages configuration file
+- [`docs-site/package.json`](docs-site/package.json:1) - Documentation site package configuration
+- [`docs-site/README.md`](docs-site/README.md:1) - Documentation site README
+
+### Legacy Demo Files (Deprecated)
+- [`demo/index.html`](demo/index.html:1) - Legacy landing page (use docs-site version)
+- [`demo/playground.html`](demo/playground.html:1) - Legacy playground (use docs-site version)
+- [`demo/blog-demo.html`](demo/blog-demo.html:1) - Legacy blog demo (use docs-site version)
+- [`demo/documentation.html`](demo/documentation.html:1) - Legacy documentation (use docs-site version)
+- [`demo/edge-cases.html`](demo/edge-cases.html:1) - Legacy edge cases (use docs-site version)
+- [`demo/shared/css/common.css`](demo/shared/css/common.css:1) - Legacy common styles (use docs-site version)
+- [`demo/shared/css/demo-components.css`](demo/shared/css/demo-components.css:1) - Legacy demo components (use docs-site version)
+- [`demo/shared/js/demo-utils.js`](demo/shared/js/demo-utils.js:1) - Legacy demo utils (use docs-site version)
 
 ### Output (Generated)
 - `dist/chaipe.js` - UMD build
