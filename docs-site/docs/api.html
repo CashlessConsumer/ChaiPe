@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChaiPe API Reference - Complete API documentation for UPI micropayments">
+    <title>API Reference - ChaiPe Documentation</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../shared/css/common.css">
+    <link rel="stylesheet" href="../shared/css/docs-layout.css">
+    <link rel="stylesheet" href="../shared/css/components.css">
+    <link rel="stylesheet" href="../shared/css/demo-components.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Navigation -->
+    <nav class="docs-top-nav">
+        <div class="container docs-top-nav-content">
+            <a href="../index.html" class="docs-nav-logo">
+                <span class="docs-nav-logo-icon">☕</span>
+                ChaiPe
+            </a>
+            <div class="docs-nav-links">
+                <a href="../index.html" class="docs-nav-link">Home</a>
+                <a href="index.html" class="docs-nav-link active">Documentation</a>
+                <a href="../demos/playground.html" class="docs-nav-link">Playground</a>
+                <a href="https://github.com/CashlessConsumer/ChaiPe" target="_blank" class="docs-nav-link">GitHub</a>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="docs-sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar" id="sidebar">
+            <ul class="docs-nav">
+                <li class="docs-nav-category">Getting Started</li>
+                <li><a href="index.html">Introduction</a></li>
+                <li><a href="integration.html">Integration Guide</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                
+                <li class="docs-nav-category">API Reference</li>
+                <li><a href="api.html" class="active">API Methods</a></li>
+                <li><a href="tipjar.html">Tip Jar API</a></li>
+                
+                <li class="docs-nav-category">Examples</li>
+                <li><a href="../demos/playground.html">Interactive Playground</a></li>
+                <li><a href="../demos/blog-demo.html">Blog Demo</a></li>
+                <li><a href="../demos/edge-cases.html">Edge Cases</a></li>
+                
+                <li class="docs-nav-category">Resources</li>
+                <li><a href="https://github.com/CashlessConsumer/ChaiPe" target="_blank">GitHub Repository</a></li>
+                <li><a href="https://github.com/CashlessConsumer/ChaiPe/issues" target="_blank">Report Issues</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content" id="main-content">
+            <h1>API Reference</h1>
+            
+            <p>Complete API reference for ChaiPe, including all configuration options, methods, and event callbacks.</p>
+
+            <!-- Table of Contents -->
+            <nav class="toc">
+                <h3>On This Page</h3>
+                <ul>
+                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#configuration-options">Configuration Options</a></li>
+                    <li><a href="#public-methods">Public Methods</a></li>
+                    <li><a href="#event-callbacks">Event Callbacks</a></li>
+                    <li><a href="#themes">Themes</a></li>
+                    <li><a href="#data-types">Data Types</a></li>
+                    <li><a href="#code-examples">Code Examples</a></li>
+                </ul>
+            </nav>
+
+            <!-- Getting Started Section -->
+            <section id="getting-started">
+                <h2>Getting Started</h2>
+                
+                <h3>Installation Methods</h3>
+                
+                <h4>CDN (Recommended)</h4>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">CDN Installation</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-comment"><!-- Include the script --></span>
+<span class="code-tag"><script</span> <span class="code-property">src</span>=<span class="code-string">"https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"</span><span class="code-tag">></script></span></code></pre>
+                    </div>
+                </div>
+
+                <h4>npm</h4>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">npm Installation</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-comment"># Install via npm</span>
+npm install chaipe
+
+<span class="code-comment"># Or yarn</span>
+yarn add chaipe</code></pre>
+                    </div>
+                </div>
+
+                <h4>Download</h4>
+                <p>Download the latest release from <a href="https://github.com/CashlessConsumer/ChaiPe/releases" target="_blank">GitHub Releases</a> and include it in your project.</p>
+
+                <h3>Basic Initialization</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Basic Initialization</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-comment">// Initialize ChaiPe with required parameters</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>]
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Quick Setup Checklist</h3>
+                <ul>
+                    <li>✅ Include the ChaiPe script in your HTML</li>
+                    <li>✅ Initialize with your UPI ID and name</li>
+                    <li>✅ Set tip amounts that work for your audience</li>
+                    <li>✅ Choose a theme (minimal, toast, or floating)</li>
+                    <li>✅ Configure triggers (scroll depth, time on page)</li>
+                    <li>✅ Test on both mobile and desktop</li>
+                </ul>
+            </section>
+
+            <!-- Configuration Options Section -->
+            <section id="configuration-options">
+                <h2>Configuration Options</h2>
+                <p>Complete reference for all configuration parameters passed to <code>ChaiPe.init(config)</code>.</p>
+
+                <div class="alert alert-info">
+                    <span class="alert-icon">💡</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Type Annotations</div>
+                        <p>Type annotations use TypeScript-style notation for clarity, but ChaiPe is pure JavaScript and doesn't require TypeScript.</p>
+                    </div>
+                </div>
+
+                <!-- Required Parameters -->
+                <h3>Required Parameters</h3>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">upiId</code>
+                        <span class="api-type">string</span>
+                        <span class="api-required">required</span>
+                    </div>
+                    <p class="api-description">Your UPI ID (e.g., <code>yourname@upi</code>). This is the payment address where tips will be received.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'john.doe@okaxis'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Note:</strong> Must be a valid UPI ID format (username@provider). Common providers include @okaxis, @ybl, @upi, @icici, @hdfc.
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">name</code>
+                        <span class="api-type">string</span>
+                        <span class="api-required">required</span>
+                    </div>
+                    <p class="api-description">Display name shown in payment prompts and UPI apps. This helps users identify who they're paying.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">name</span>: <span class="code-string">'John Doe'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>'Creator'</code>
+                    </div>
+                </div>
+
+                <!-- Core Options -->
+                <h3>Core Configuration Options</h3>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">amounts</code>
+                        <span class="api-type">number[]</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Array of preset tip amounts in rupees. These amounts will be displayed as clickable buttons in the payment modal.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>]
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>[10, 25, 50, 100]</code><br>
+                        <strong>Note:</strong> Minimum amount is ₹1. Amounts should be in ascending order for better UX.
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">theme</code>
+                        <span class="api-type">'minimal' | 'toast' | 'floating'</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Visual theme for the payment modal. Each theme has a different appearance and behavior.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>'minimal'</code><br>
+                        <strong>Options:</strong>
+                        <ul>
+                            <li><code>minimal</code> - Clean, centered modal with subtle design</li>
+                            <li><code>toast</code> - Compact notification-style modal</li>
+                            <li><code>floating</code> - Floating modal with shadow, more prominent</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">message</code>
+                        <span class="api-type">string</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Nudge message displayed to users when the modal appears. This is the main text that encourages users to tip.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">message</span>: <span class="code-string">'Enjoying the content? Consider supporting us!'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>'Enjoying the content?'</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">buttonText</code>
+                        <span class="api-type">string</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Text displayed on the primary action button in the modal.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">buttonText</span>: <span class="code-string">'Support Our Work'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>'Buy me a coffee ☕'</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">currency</code>
+                        <span class="api-type">string</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Currency code for payments. Currently only INR is supported.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">currency</span>: <span class="code-string">'INR'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>'INR'</code><br>
+                        <strong>Warning:</strong> Only INR is currently supported. Other currencies will not work with UPI.
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">darkMode</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Force dark mode on or off. If not specified, the theme will automatically adapt based on user's system preference.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">darkMode</span>: <span class="code-keyword">true</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>undefined</code> (auto-detect from system preference)
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">manualOnly</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">If <code>true</code>, the modal will only show when manually triggered via <code>ChaiPe.show()</code>. All automatic triggers (scroll, time, exit intent) will be disabled.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">manualOnly</span>: <span class="code-keyword">true</span>
+});
+
+<span class="code-comment">// Show modal manually</span>
+document.<span class="code-function">getElementById</span>(<span class="code-string">'tip-button'</span>).<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">show</span>();
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>false</code>
+                    </div>
+                </div>
+
+                <!-- Trigger Configuration -->
+                <h3>Trigger Configuration</h3>
+                <p>Configure when the behavioral nudge modal should appear automatically.</p>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">triggers.scrollDepth</code>
+                        <span class="api-type">number | null</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Trigger the modal when the user scrolls to a specified percentage of the page.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">triggers</span>: {
+    <span class="code-property">scrollDepth</span>: <span class="code-number">70</span>  <span class="code-comment">// Show at 70% scroll</span>
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>70</code><br>
+                        <strong>Range:</strong> 0-100<br>
+                        <strong>Note:</strong> Set to <code>null</code> to disable this trigger.
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">triggers.timeOnPage</code>
+                        <span class="api-type">number | null</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Trigger the modal after the user has spent a specified amount of time on the page.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">triggers</span>: {
+    <span class="code-property">timeOnPage</span>: <span class="code-number">120</span>  <span class="code-comment">// Show after 2 minutes</span>
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>120</code> (2 minutes)<br>
+                        <strong>Unit:</strong> seconds<br>
+                        <strong>Note:</strong> Set to <code>null</code> to disable this trigger.
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">triggers.exitIntent</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Enable exit intent detection to show the modal when the user is about to leave the page (desktop only).</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">triggers</span>: {
+    <span class="code-property">exitIntent</span>: <span class="code-keyword">true</span>
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>false</code><br>
+                        <strong>Note:</strong> Only works on desktop devices. Mobile devices don't support exit intent detection.
+                    </div>
+                </div>
+
+                <div class="alert alert-warning">
+                    <span class="alert-icon">⚠️</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Trigger Behavior</div>
+                        <p>The nudge will show when <strong>any</strong> of the enabled triggers are met. Set a value to <code>null</code> to disable a specific trigger. The modal will only show once per page load.</p>
+                    </div>
+                </div>
+
+                <!-- Data Collection Options -->
+                <h3>Data Collection Options</h3>
+                <p>Optionally collect additional information from users when they complete a payment. All fields are optional for users.</p>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">collectEmail</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Show an optional email field in the payment modal. Useful for newsletter integration or follow-up.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">collectEmail</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">onTipCompleted</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Email:'</span>, data.customData.email);
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>false</code><br>
+                        <strong>Note:</strong> Users can skip providing their email.
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">collectName</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Show an optional name field in the payment modal. Useful for personal acknowledgment.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">collectName</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">onTipCompleted</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Name:'</span>, data.customData.name);
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>false</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">collectPhoneNumber</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Show an optional phone number field in the payment modal.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">collectPhoneNumber</span>: <span class="code-keyword">true</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>false</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">collectVPA</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Show an optional VPA (UPI ID) field in the payment modal. Useful for tracking which UPI app the user used.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">collectVPA</span>: <span class="code-keyword">true</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>false</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">collectUPIUTR</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Show an optional UPI Transaction ID (UTR) field in the payment modal. Useful for record-keeping and verification.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">collectUPIUTR</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">onTipCompleted</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'UTR:'</span>, data.customData.utr);
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>false</code><br>
+                        <strong>Recommended:</strong> Enable this for better record-keeping
+                    </div>
+                </div>
+
+                <!-- TipJar Configuration -->
+                <h3>TipJar Configuration</h3>
+                <p>TipJar provides a persistent payment button that's always visible on the page.</p>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJar</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Enable the persistent tip jar button that floats on the page.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>false</code><br>
+                        <strong>See:</strong> <a href="tipjar.html">TipJar Documentation</a> for complete details
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarPosition</code>
+                        <span class="api-type">'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Position of the tip jar button on the screen.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarPosition</span>: <span class="code-string">'bottom-left'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>'bottom-right'</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarSize</code>
+                        <span class="api-type">'small' | 'medium' | 'large'</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Size of the tip jar button.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarSize</span>: <span class="code-string">'large'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>'medium'</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarColor</code>
+                        <span class="api-type">string</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Background color of the tip jar button. Accepts hex, rgb, or named colors.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarColor</span>: <span class="code-string">'#ff6b6b'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>'#4CAF50'</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarIcon</code>
+                        <span class="api-type">string</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Icon or emoji displayed on the tip jar button.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarIcon</span>: <span class="code-string">'💰'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>'☕'</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarText</code>
+                        <span class="api-type">string</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Text shown on hover or for larger tip jar buttons.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarText</span>: <span class="code-string">'Support Us'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>'Buy me a chai ☕'</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarAutoShow</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Automatically show the tip jar after a delay. If <code>false</code>, you must manually call <code>ChaiPe.showTipJar()</code>.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarAutoShow</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarShowDelay</span>: <span class="code-number">2000</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>true</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarShowDelay</code>
+                        <span class="api-type">number</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Delay in milliseconds before auto-showing the tip jar.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarShowDelay</span>: <span class="code-number">3000</span>  <span class="code-comment">// 3 seconds</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>2000</code> (2 seconds)
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarShowOnMobile</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Show tip jar on mobile devices.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarShowOnMobile</span>: <span class="code-keyword">true</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>true</code>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarShowOnDesktop</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Show tip jar on desktop devices.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarShowOnDesktop</span>: <span class="code-keyword">true</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-note">
+                        <strong>Default:</strong> <code>true</code>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Public Methods Section -->
+            <section id="public-methods">
+                <h2>Public Methods</h2>
+                <p>Complete documentation for all public API methods available on the <code>ChaiPe</code> object.</p>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.init(config)</code>
+                    </div>
+                    <p class="api-description">Initializes ChaiPe with the provided configuration. Creates a singleton instance that is reused on subsequent calls.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>config</code> (<a href="#chaipeconfig">ChaiPeConfig</a>) - Configuration object with all options</li>
+                    </ul>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>],
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="api-note">
+                        <strong>Note:</strong> Subsequent calls to <code>init()</code> will reuse the existing instance. To reinitialize, you must reload the page.
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.show()</code>
+                    </div>
+                    <p class="api-description">Manually displays the tip modal. Useful for custom triggers or user-initiated actions.</p>
+                    
+                    <h4>Parameters</h4>
+                    <p>None</p>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>document.<span class="code-function">getElementById</span>(<span class="code-string">'tip-button'</span>).<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">show</span>();
+});</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="api-note">
+                        <strong>Note:</strong> The modal will only show once per page load unless dismissed.
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.dismiss()</code>
+                    </div>
+                    <p class="api-description">Dismisses/hides the currently visible tip modal.</p>
+                    
+                    <h4>Parameters</h4>
+                    <p>None</p>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">dismiss</span>();</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.confirmPayment(amount)</code>
+                    </div>
+                    <p class="api-description">Confirms that a payment was completed. This method is typically called automatically by the library when the user confirms payment, but can be called manually if needed.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>amount</code> (number) - The payment amount to confirm</li>
+                    </ul>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">confirmPayment</span>(<span class="code-number">50</span>);</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.generateUpiLink(options)</code>
+                    </div>
+                    <p class="api-description">Generates a UPI payment link for the specified amount. Useful for creating custom payment buttons or links.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>options</code> (object)
+                            <ul>
+                                <li><code>amount</code> (number) - The payment amount</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4>Returns</h4>
+                    <p><code>string</code> - The UPI payment link</p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-keyword">const</span> link = <span class="code-function">ChaiPe</span>.<span class="code-function">generateUpiLink</span>({ <span class="code-property">amount</span>: <span class="code-number">100</span> });
+console.<span class="code-function">log</span>(link);
+<span class="code-comment">// upi://pay?pa=yourname@upi&pn=Your+Name&am=100&cu=INR&tn=...</span></code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.setDarkMode(isDark)</code>
+                    </div>
+                    <p class="api-description">Toggle dark mode on or off for the ChaiPe modal.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>isDark</code> (boolean) - <code>true</code> to enable dark mode, <code>false</code> to disable</li>
+                    </ul>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-comment">// Enable dark mode</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">setDarkMode</span>(<span class="code-keyword">true</span>);
+
+<span class="code-comment">// Disable dark mode</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">setDarkMode</span>(<span class="code-keyword">false</span>);</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>TipJar Methods</h3>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.toggleTipJar()</code>
+                    </div>
+                    <p class="api-description">Toggles the tip jar's visibility state. If the tip jar is hidden, it will be shown. If it's visible, it will be hidden.</p>
+                    
+                    <h4>Parameters</h4>
+                    <p>None</p>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>document.<span class="code-function">getElementById</span>(<span class="code-string">'toggle-tipjar'</span>).<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">toggleTipJar</span>();
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.openTipJar()</code>
+                    </div>
+                    <p class="api-description">Opens the tip jar and displays the payment modal. This is equivalent to clicking the tip jar button.</p>
+                    
+                    <h4>Parameters</h4>
+                    <p>None</p>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>document.<span class="code-function">getElementById</span>(<span class="code-string">'tip-now'</span>).<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">openTipJar</span>();
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.closeTipJar()</code>
+                    </div>
+                    <p class="api-description">Closes the tip jar. This is different from hiding - it removes the tip jar from the DOM.</p>
+                    
+                    <h4>Parameters</h4>
+                    <p>None</p>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">closeTipJar</span>();</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.showTipJar()</code>
+                    </div>
+                    <p class="api-description">Displays the persistent tip jar button. Use this if you initially disabled the tip jar or hid it programmatically.</p>
+                    
+                    <h4>Parameters</h4>
+                    <p>None</p>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-comment">// Show tip jar after user completes an action</span>
+document.<span class="code-function">getElementById</span>(<span class="code-string">'read-more'</span>).<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">showTipJar</span>();
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.hideTipJar()</code>
+                    </div>
+                    <p class="api-description">Hides the persistent tip jar button. Useful for temporarily removing the button during specific user flows.</p>
+                    
+                    <h4>Parameters</h4>
+                    <p>None</p>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-comment">// Hide tip jar during checkout process</span>
+<span class="code-keyword">function</span> <span class="code-function">startCheckout</span>() {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">hideTipJar</span>();
+  <span class="code-comment">// ... checkout logic</span>
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.removeTipJar()</code>
+                    </div>
+                    <p class="api-description">Removes the tip jar from the DOM completely. This is useful when you want to permanently remove the tip jar.</p>
+                    
+                    <h4>Parameters</h4>
+                    <p>None</p>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">removeTipJar</span>();</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.updateTipJar(options)</code>
+                    </div>
+                    <p class="api-description">Updates the tip jar configuration dynamically without re-initializing ChaiPe. Accepts any tipJar configuration option.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>options</code> (object) - TipJar configuration options to update</li>
+                    </ul>
+                    
+                    <h4>Returns</h4>
+                    <p><code>undefined</code></p>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-comment">// Change tip jar position and color</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">updateTipJar</span>({
+  <span class="code-property">position</span>: <span class="code-string">'top-right'</span>,
+  <span class="code-property">color</span>: <span class="code-string">'#ff6b6b'</span>
+});
+
+<span class="code-comment">// Update multiple properties</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">updateTipJar</span>({
+  <span class="code-property">icon</span>: <span class="code-string">'💰'</span>,
+  <span class="code-property">text</span>: <span class="code-string">'Support Us'</span>,
+  <span class="code-property">size</span>: <span class="code-string">'large'</span>
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Event Callbacks Section -->
+            <section id="event-callbacks">
+                <h2>Event Callbacks</h2>
+                <p>ChaiPe provides several callback functions that you can use to track user interactions and payment events.</p>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">onNudgeShown(data)</code>
+                    </div>
+                    <p class="api-description">Called when the behavioral nudge modal is displayed to the user.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>data</code> (<a href="#nudgedata">NudgeData</a>)
+                            <ul>
+                                <li><code>sessionId</code> (string) - Unique session identifier</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">onNudgeShown</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Nudge shown'</span>, data.sessionId);
+    <span class="code-comment">// Track with your analytics</span>
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Nudge Shown'</span>, { <span class="code-property">sessionId</span>: data.sessionId });
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    
+                    <h4>Use Cases</h4>
+                    <ul>
+                        <li>Track when nudges are displayed for analytics</li>
+                        <li>Measure nudge effectiveness</li>
+                        <li>A/B test different trigger configurations</li>
+                    </ul>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">onNudgeDismissed(data)</code>
+                    </div>
+                    <p class="api-description">Called when the user dismisses the nudge modal without completing a payment.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>data</code> (<a href="#nudgedata">NudgeData</a>)
+                            <ul>
+                                <li><code>sessionId</code> (string) - Unique session identifier</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">onNudgeDismissed</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Nudge dismissed'</span>);
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Nudge Dismissed'</span>, { <span class="code-property">sessionId</span>: data.sessionId });
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    
+                    <h4>Use Cases</h4>
+                    <ul>
+                        <li>Track nudge dismissal rate</li>
+                        <li>Identify if triggers are too aggressive</li>
+                        <li>Understand user engagement patterns</li>
+                    </ul>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">onTipCompleted(data)</code>
+                    </div>
+                    <p class="api-description">Called when a user successfully completes a payment.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>data</code> (<a href="#tipdata">TipData</a>)
+                            <ul>
+                                <li><code>amount</code> (number) - The payment amount</li>
+                                <li><code>sessionId</code> (string) - Unique session identifier</li>
+                                <li><code>customData</code> (object) - Optional collected data (email, name, phone, VPA, UTR)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">collectEmail</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">collectUPIUTR</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">onTipCompleted</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Tip received!'</span>, data.amount, data.customData);
+    <span class="code-comment">// Send to your analytics or backend</span>
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Tip Completed'</span>, {
+      <span class="code-property">amount</span>: data.amount,
+      <span class="code-property">email</span>: data.customData?.email,
+      <span class="code-property">utr</span>: data.customData?.utr
+    });
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    
+                    <h4>Use Cases</h4>
+                    <ul>
+                        <li>Track revenue and tips</li>
+                        <li>Send confirmation emails</li>
+                        <li>Update supporter database</li>
+                        <li>Trigger thank you messages</li>
+                    </ul>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">onTipJarShown(data)</code>
+                    </div>
+                    <p class="api-description">Called when the tip jar is displayed to the user.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>data</code> (<a href="#nudgedata">NudgeData</a>)
+                            <ul>
+                                <li><code>sessionId</code> (string) - Unique session identifier</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">onTipJarShown</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Tip jar shown'</span>);
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Tip Jar Shown'</span>, { <span class="code-property">sessionId</span>: data.sessionId });
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    
+                    <h4>Use Cases</h4>
+                    <ul>
+                        <li>Track tip jar visibility</li>
+                        <li>Measure tip jar engagement</li>
+                        <li>Understand when users see the tip jar</li>
+                    </ul>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">onTipJarDismissed(data)</code>
+                    </div>
+                    <p class="api-description">Called when the tip jar is dismissed or hidden.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>data</code> (<a href="#nudgedata">NudgeData</a>)
+                            <ul>
+                                <li><code>sessionId</code> (string) - Unique session identifier</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">onTipJarDismissed</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Tip jar dismissed'</span>);
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Tip Jar Dismissed'</span>, { <span class="code-property">sessionId</span>: data.sessionId });
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    
+                    <h4>Use Cases</h4>
+                    <ul>
+                        <li>Track tip jar dismissal</li>
+                        <li>Understand user interaction patterns</li>
+                        <li>Optimize tip jar timing and visibility</li>
+                    </ul>
+                </div>
+
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">onTipJarOpened(data)</code>
+                    </div>
+                    <p class="api-description">Called when the user clicks the tip jar and opens the payment modal.</p>
+                    
+                    <h4>Parameters</h4>
+                    <ul class="api-params">
+                        <li><code>data</code> (<a href="#nudgedata">NudgeData</a>)
+                            <ul>
+                                <li><code>sessionId</code> (string) - Unique session identifier</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4>Example</h4>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Example</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">onTipJarOpened</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Tip jar opened'</span>);
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Tip Jar Opened'</span>, { <span class="code-property">sessionId</span>: data.sessionId });
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                    
+                    <h4>Use Cases</h4>
+                    <ul>
+                        <li>Track tip jar click-through rate</li>
+                        <li>Measure tip jar effectiveness</li>
+                        <li>Understand conversion from tip jar to payment</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Themes Section -->
+            <section id="themes">
+                <h2>Themes</h2>
+                <p>ChaiPe supports three built-in themes with automatic dark mode support.</p>
+
+                <div class="theme-grid">
+                    <div class="theme-card">
+                        <h3>Minimal Theme</h3>
+                        <p>Clean, centered modal with subtle design. Works well on professional sites and blogs.</p>
+                        <div class="code-block">
+                            <div class="code-block-header">
+                                <span class="code-block-title">Usage</span>
+                                <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-block-content">
+                                <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>
+});</code></pre>
+                            </div>
+                        </div>
+                        <div class="theme-features">
+                            <strong>Features:</strong>
+                            <ul>
+                                <li>Centered layout</li>
+                                <li>Subtle shadows</li>
+                                <li>Professional appearance</li>
+                                <li>Best for content-heavy sites</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="theme-card">
+                        <h3>Toast Theme</h3>
+                        <p>Compact notification-style modal. Less intrusive and good for frequent prompts.</p>
+                        <div class="code-block">
+                            <div class="code-block-header">
+                                <span class="code-block-title">Usage</span>
+                                <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-block-content">
+                                <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">theme</span>: <span class="code-string">'toast'</span>
+});</code></pre>
+                            </div>
+                        </div>
+                        <div class="theme-features">
+                            <strong>Features:</strong>
+                            <ul>
+                                <li>Compact size</li>
+                                <li>Less intrusive</li>
+                                <li>Good for frequent prompts</li>
+                                <li>Minimal screen space</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="theme-card">
+                        <h3>Floating Theme</h3>
+                        <p>Floating modal with shadow. More prominent and good for high-visibility prompts.</p>
+                        <div class="code-block">
+                            <div class="code-block-header">
+                                <span class="code-block-title">Usage</span>
+                                <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-block-content">
+                                <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">theme</span>: <span class="code-string">'floating'</span>
+});</code></pre>
+                            </div>
+                        </div>
+                        <div class="theme-features">
+                            <strong>Features:</strong>
+                            <ul>
+                                <li>Floating design</li>
+                                <li>Prominent appearance</li>
+                                <li>Strong shadows</li>
+                                <li>High visibility</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <span class="alert-icon">🌙</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Dark Mode</div>
+                        <p>All themes automatically support dark mode through CSS media queries. The theme adapts based on user's system preference. You can also force dark mode using the <code>darkMode</code> configuration option.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Types Section -->
+            <section id="data-types">
+                <h2>Data Types</h2>
+                <p>TypeScript-style interfaces for complex data structures used in ChaiPe.</p>
+
+                <div class="api-section" id="chaipeconfig">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPeConfig</code>
+                    </div>
+                    <p class="api-description">Configuration object passed to <code>ChaiPe.init()</code>.</p>
+                    
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Interface</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-keyword">interface</span> <span class="code-type">ChaiPeConfig</span> {
+  <span class="code-comment">// Required</span>
+  <span class="code-property">upiId</span>: <span class="code-type">string</span>;
+  <span class="code-property">name</span>: <span class="code-type">string</span>;
+  
+  <span class="code-comment">// Core options</span>
+  <span class="code-property">amounts</span>?: <span class="code-type">number[]</span>;
+  <span class="code-property">theme</span>?: <span class="code-string">'minimal'</span> | <span class="code-string">'toast'</span> | <span class="code-string">'floating'</span>;
+  <span class="code-property">message</span>?: <span class="code-type">string</span>;
+  <span class="code-property">buttonText</span>?: <span class="code-type">string</span>;
+  <span class="code-property">currency</span>?: <span class="code-type">string</span>;
+  <span class="code-property">darkMode</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">manualOnly</span>?: <span class="code-type">boolean</span>;
+  
+  <span class="code-comment">// Triggers</span>
+  <span class="code-property">triggers</span>?: {
+    <span class="code-property">scrollDepth</span>?: <span class="code-type">number</span> | <span class="code-keyword">null</span>;
+    <span class="code-property">timeOnPage</span>?: <span class="code-type">number</span> | <span class="code-keyword">null</span>;
+    <span class="code-property">exitIntent</span>?: <span class="code-type">boolean</span>;
+  };
+  
+  <span class="code-comment">// Data collection</span>
+  <span class="code-property">collectEmail</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">collectName</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">collectPhoneNumber</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">collectVPA</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">collectUPIUTR</span>?: <span class="code-type">boolean</span>;
+  
+  <span class="code-comment">// TipJar</span>
+  <span class="code-property">tipJar</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">tipJarPosition</span>?: <span class="code-string">'bottom-right'</span> | <span class="code-string">'bottom-left'</span> | <span class="code-string">'top-right'</span> | <span class="code-string">'top-left'</span>;
+  <span class="code-property">tipJarSize</span>?: <span class="code-string">'small'</span> | <span class="code-string">'medium'</span> | <span class="code-string">'large'</span>;
+  <span class="code-property">tipJarColor</span>?: <span class="code-type">string</span>;
+  <span class="code-property">tipJarIcon</span>?: <span class="code-type">string</span>;
+  <span class="code-property">tipJarText</span>?: <span class="code-type">string</span>;
+  <span class="code-property">tipJarAutoShow</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">tipJarShowDelay</span>?: <span class="code-type">number</span>;
+  <span class="code-property">tipJarShowOnMobile</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">tipJarShowOnDesktop</span>?: <span class="code-type">boolean</span>;
+  
+  <span class="code-comment">// Event callbacks</span>
+  <span class="code-property">onNudgeShown</span>?: (data: <span class="code-type">NudgeData</span>) => <span class="code-type">void</span>;
+  <span class="code-property">onNudgeDismissed</span>?: (data: <span class="code-type">NudgeData</span>) => <span class="code-type">void</span>;
+  <span class="code-property">onTipCompleted</span>?: (data: <span class="code-type">TipData</span>) => <span class="code-type">void</span>;
+  <span class="code-property">onTipJarShown</span>?: (data: <span class="code-type">NudgeData</span>) => <span class="code-type">void</span>;
+  <span class="code-property">onTipJarDismissed</span>?: (data: <span class="code-type">NudgeData</span>) => <span class="code-type">void</span>;
+  <span class="code-property">onTipJarOpened</span>?: (data: <span class="code-type">NudgeData</span>) => <span class="code-type">void</span>;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section" id="nudgedata">
+                    <div class="api-signature">
+                        <code class="api-name">NudgeData</code>
+                    </div>
+                    <p class="api-description">Data object passed to nudge-related callbacks.</p>
+                    
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Interface</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-keyword">interface</span> <span class="code-type">NudgeData</span> {
+  <span class="code-property">sessionId</span>: <span class="code-type">string</span>;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section" id="tipdata">
+                    <div class="api-signature">
+                        <code class="api-name">TipData</code>
+                    </div>
+                    <p class="api-description">Data object passed to <code>onTipCompleted</code> callback.</p>
+                    
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Interface</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-keyword">interface</span> <span class="code-type">TipData</span> {
+  <span class="code-property">amount</span>: <span class="code-type">number</span>;
+  <span class="code-property">sessionId</span>: <span class="code-type">string</span>;
+  <span class="code-property">customData</span>?: {
+    <span class="code-property">email</span>?: <span class="code-type">string</span>;
+    <span class="code-property">name</span>?: <span class="code-type">string</span>;
+    <span class="code-property">phone</span>?: <span class="code-type">string</span>;
+    <span class="code-property">vpa</span>?: <span class="code-type">string</span>;
+    <span class="code-property">utr</span>?: <span class="code-type">string</span>;
+  };
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section" id="triggerconfig">
+                    <div class="api-signature">
+                        <code class="api-name">TriggerConfig</code>
+                    </div>
+                    <p class="api-description">Configuration for behavioral triggers.</p>
+                    
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Interface</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-keyword">interface</span> <span class="code-type">TriggerConfig</span> {
+  <span class="code-property">scrollDepth</span>?: <span class="code-type">number</span> | <span class="code-keyword">null</span>;
+  <span class="code-property">timeOnPage</span>?: <span class="code-type">number</span> | <span class="code-keyword">null</span>;
+  <span class="code-property">exitIntent</span>?: <span class="code-type">boolean</span>;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-section" id="tipjarconfig">
+                    <div class="api-signature">
+                        <code class="api-name">TipJarConfig</code>
+                    </div>
+                    <p class="api-description">Configuration for TipJar feature.</p>
+                    
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Interface</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code><span class="code-keyword">interface</span> <span class="code-type">TipJarConfig</span> {
+  <span class="code-property">enabled</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">position</span>?: <span class="code-string">'bottom-right'</span> | <span class="code-string">'bottom-left'</span> | <span class="code-string">'top-right'</span> | <span class="code-string">'top-left'</span>;
+  <span class="code-property">size</span>?: <span class="code-string">'small'</span> | <span class="code-string">'medium'</span> | <span class="code-string">'large'</span>;
+  <span class="code-property">color</span>?: <span class="code-type">string</span>;
+  <span class="code-property">icon</span>?: <span class="code-type">string</span>;
+  <span class="code-property">text</span>?: <span class="code-type">string</span>;
+  <span class="code-property">autoShow</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">showDelay</span>?: <span class="code-type">number</span>;
+  <span class="code-property">showOnMobile</span>?: <span class="code-type">boolean</span>;
+  <span class="code-property">showOnDesktop</span>?: <span class="code-type">boolean</span>;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Code Examples Section -->
+            <section id="code-examples">
+                <h2>Code Examples</h2>
+                <p>Practical, copyable code examples for common use cases.</p>
+
+                <h3>Basic Initialization</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Basic Setup</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-comment">// Include the script</span>
+<span class="code-tag"><script</span> <span class="code-property">src</span>=<span class="code-string">"https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"</span><span class="code-tag">></script></span>
+
+<span class="code-comment">// Initialize ChaiPe</span>
+<span class="code-tag"><script></span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>]
+});
+<span class="code-tag"></script></span></code></pre>
+                    </div>
+                </div>
+
+                <h3>Advanced Configuration</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Full Configuration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-comment">// Core options</span>
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>],
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>,
+  <span class="code-property">message</span>: <span class="code-string">'Enjoying the content?'</span>,
+  <span class="code-property">buttonText</span>: <span class="code-string">'Buy me a coffee ☕'</span>,
+  <span class="code-property">currency</span>: <span class="code-string">'INR'</span>,
+  <span class="code-property">darkMode</span>: <span class="code-keyword">undefined</span>,  <span class="code-comment">// Auto-detect</span>
+  <span class="code-property">manualOnly</span>: <span class="code-keyword">false</span>,
+  
+  <span class="code-comment">// Trigger configuration</span>
+  <span class="code-property">triggers</span>: {
+    <span class="code-property">scrollDepth</span>: <span class="code-number">70</span>,
+    <span class="code-property">timeOnPage</span>: <span class="code-number">120</span>,
+    <span class="code-property">exitIntent</span>: <span class="code-keyword">false</span>
+  },
+  
+  <span class="code-comment">// Data collection</span>
+  <span class="code-property">collectEmail</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">collectName</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">collectPhoneNumber</span>: <span class="code-keyword">false</span>,
+  <span class="code-property">collectVPA</span>: <span class="code-keyword">false</span>,
+  <span class="code-property">collectUPIUTR</span>: <span class="code-keyword">true</span>,
+  
+  <span class="code-comment">// TipJar configuration</span>
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarPosition</span>: <span class="code-string">'bottom-right'</span>,
+  <span class="code-property">tipJarSize</span>: <span class="code-string">'medium'</span>,
+  <span class="code-property">tipJarColor</span>: <span class="code-string">'#4CAF50'</span>,
+  <span class="code-property">tipJarIcon</span>: <span class="code-string">'☕'</span>,
+  <span class="code-property">tipJarText</span>: <span class="code-string">'Buy me a chai ☕'</span>,
+  <span class="code-property">tipJarAutoShow</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarShowDelay</span>: <span class="code-number">2000</span>,
+  <span class="code-property">tipJarShowOnMobile</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarShowOnDesktop</span>: <span class="code-keyword">true</span>,
+  
+  <span class="code-comment">// Event callbacks</span>
+  <span class="code-property">onNudgeShown</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Nudge shown:'</span>, data.sessionId);
+  },
+  <span class="code-property">onNudgeDismissed</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Nudge dismissed:'</span>, data.sessionId);
+  },
+  <span class="code-property">onTipCompleted</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Tip completed:'</span>, data.amount, data.customData);
+  },
+  <span class="code-property">onTipJarShown</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Tip jar shown:'</span>, data.sessionId);
+  },
+  <span class="code-property">onTipJarDismissed</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Tip jar dismissed:'</span>, data.sessionId);
+  },
+  <span class="code-property">onTipJarOpened</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Tip jar opened:'</span>, data.sessionId);
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Custom Triggers</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Custom Trigger Setup</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-comment">// Conservative approach - show later</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">triggers</span>: {
+    <span class="code-property">scrollDepth</span>: <span class="code-number">80</span>,      <span class="code-comment">// Show at 80% scroll</span>
+    <span class="code-property">timeOnPage</span>: <span class="code-number">180</span>,     <span class="code-comment">// Or after 3 minutes</span>
+    <span class="code-property">exitIntent</span>: <span class="code-keyword">false</span>
+  }
+});
+
+<span class="code-comment">// Moderate approach (default)</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">triggers</span>: {
+    <span class="code-property">scrollDepth</span>: <span class="code-number">70</span>,      <span class="code-comment">// Show at 70% scroll</span>
+    <span class="code-property">timeOnPage</span>: <span class="code-number">120</span>      <span class="code-comment">// Or after 2 minutes</span>
+  }
+});
+
+<span class="code-comment">// Aggressive approach - show earlier</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">triggers</span>: {
+    <span class="code-property">scrollDepth</span>: <span class="code-number">50</span>,      <span class="code-comment">// Show at 50% scroll</span>
+    <span class="code-property">timeOnPage</span>: <span class="code-number">60</span>       <span class="code-comment">// Or after 1 minute</span>
+  }
+});
+
+<span class="code-comment">// Disable specific triggers</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">triggers</span>: {
+    <span class="code-property">scrollDepth</span>: <span class="code-keyword">null</span>,      <span class="code-comment">// Disable scroll trigger</span>
+    <span class="code-property">timeOnPage</span>: <span class="code-keyword">null</span>,      <span class="code-comment">// Disable time trigger</span>
+    <span class="code-property">exitIntent</span>: <span class="code-keyword">true</span>       <span class="code-comment">// Only use exit intent</span>
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Event Callbacks</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Event Callback Setup</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">collectEmail</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">collectUPIUTR</span>: <span class="code-keyword">true</span>,
+  
+  <span class="code-comment">// Track when nudge is shown</span>
+  <span class="code-property">onNudgeShown</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Nudge shown to user'</span>, data.sessionId);
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Nudge Shown'</span>, {
+      <span class="code-property">sessionId</span>: data.sessionId,
+      <span class="code-property">timestamp</span>: <span class="code-keyword">new</span> <span class="code-type">Date</span>().<span class="code-function">toISOString</span>()
+    });
+  },
+  
+  <span class="code-comment">// Track when nudge is dismissed</span>
+  <span class="code-property">onNudgeDismissed</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'User dismissed nudge'</span>, data.sessionId);
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Nudge Dismissed'</span>, {
+      <span class="code-property">sessionId</span>: data.sessionId
+    });
+  },
+  
+  <span class="code-comment">// Track when tip is completed</span>
+  <span class="code-property">onTipCompleted</span>: (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Tip received!'</span>, data);
+    
+    <span class="code-comment">// Send to analytics</span>
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Tip Completed'</span>, {
+      <span class="code-property">amount</span>: data.amount,
+      <span class="code-property">sessionId</span>: data.sessionId,
+      <span class="code-property">email</span>: data.customData?.email,
+      <span class="code-property">utr</span>: data.customData?.utr
+    });
+    
+    <span class="code-comment">// Send to backend</span>
+    <span class="code-function">fetch</span>(<span class="code-string">'/api/tips'</span>, {
+      <span class="code-property">method</span>: <span class="code-string">'POST'</span>,
+      <span class="code-property">headers</span>: { <span class="code-string">'Content-Type'</span>: <span class="code-string">'application/json'</span> },
+      <span class="code-property">body</span>: JSON.<span class="code-function">stringify</span>({
+        <span class="code-property">amount</span>: data.amount,
+        <span class="code-property">email</span>: data.customData?.email,
+        <span class="code-property">utr</span>: data.customData?.utr
+      })
+    });
+    
+    <span class="code-comment">// Show thank you message</span>
+    <span class="code-function">alert</span>(<span class="code-string">'Thank you for your support!'</span>);
+  },
+  
+  <span class="code-comment">// Track tip jar interactions</span>
+  <span class="code-property">onTipJarShown</span>: (data) => {
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Tip Jar Shown'</span>, { <span class="code-property">sessionId</span>: data.sessionId });
+  },
+  
+  <span class="code-property">onTipJarOpened</span>: (data) => {
+    analytics.<span class="code-function">track</span>(<span class="code-string">'Tip Jar Opened'</span>, { <span class="code-property">sessionId</span>: data.sessionId });
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>TipJar Configuration</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">TipJar Setup</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-comment">// Basic TipJar</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>
+});
+
+<span class="code-comment">// Customized TipJar</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarIcon</span>: <span class="code-string">'💰'</span>,
+  <span class="code-property">tipJarPosition</span>: <span class="code-string">'bottom-left'</span>,
+  <span class="code-property">tipJarSize</span>: <span class="code-string">'large'</span>,
+  <span class="code-property">tipJarColor</span>: <span class="code-string">'#ff6b6b'</span>,
+  <span class="code-property">tipJarText</span>: <span class="code-string">'Support Us'</span>,
+  <span class="code-property">tipJarAutoShow</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarShowDelay</span>: <span class="code-number">3000</span>
+});
+
+<span class="code-comment">// Dynamic TipJar update</span>
+<span class="code-comment">// Change tip jar based on user behavior</span>
+window.<span class="code-function">addEventListener</span>(<span class="code-string">'scroll'</span>, () => {
+  <span class="code-keyword">const</span> scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * <span class="code-number">100</span>;
+  <span class="code-keyword">if</span> (scrollPercent > <span class="code-number">50</span>) {
+    <span class="code-function">ChaiPe</span>.<span class="code-function">updateTipJar</span>({
+      <span class="code-property">size</span>: <span class="code-string">'large'</span>,
+      <span class="code-property">color</span>: <span class="code-string">'#10b981'</span>,
+      <span class="code-property">text</span>: <span class="code-string">'Enjoyed? Tip us!'</span>
+    });
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Manual Modal Control</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Manual Control</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-comment">// Initialize with manual only mode</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">manualOnly</span>: <span class="code-keyword">true</span>
+});
+
+<span class="code-comment">// Show modal on button click</span>
+document.<span class="code-function">getElementById</span>(<span class="code-string">'tip-button'</span>).<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">show</span>();
+});
+
+<span class="code-comment">// Show modal after reading article</span>
+document.<span class="code-function">getElementById</span>(<span class="code-string">'finish-reading'</span>).<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">show</span>();
+});
+
+<span class="code-comment">// Show modal after delay</span>
+setTimeout(() => {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">show</span>();
+}, <span class="code-number">30000</span>); <span class="code-comment">// 30 seconds</span>
+
+<span class="code-comment">// Dismiss modal programmatically</span>
+<span class="code-keyword">function</span> <span class="code-function">dismissModal</span>() {
+  <span class="code-function">ChaiPe</span>.<span class="code-function">dismiss</span>();
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Theme Switching</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Theme Switching</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-comment">// Initialize with minimal theme</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>
+});
+
+<span class="code-comment">// Toggle dark mode</span>
+<span class="code-keyword">function</span> <span class="code-function">toggleDarkMode</span>() {
+  <span class="code-keyword">const</span> isDark = document.body.classList.<span class="code-function">contains</span>(<span class="code-string">'dark-mode'</span>);
+  <span class="code-function">ChaiPe</span>.<span class="code-function">setDarkMode</span>(!isDark);
+}
+
+<span class="code-comment">// Switch theme based on user preference</span>
+<span class="code-keyword">function</span> <span class="code-function">setTheme</span>(themeName) {
+  <span class="code-comment">// Note: You need to reinitialize to change theme</span>
+  <span class="code-comment">// This is just an example of how you might handle it</span>
+  console.<span class="code-function">log</span>(<span class="code-string">'Switching to theme:'</span>, themeName);
+  <span class="code-comment">// In practice, you would reload the page with new config</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Generate Custom Payment Links</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Custom Payment Links</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-comment">// Initialize ChaiPe</span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>
+});
+
+<span class="code-comment">// Generate payment link for specific amount</span>
+<span class="code-keyword">const</span> link = <span class="code-function">ChaiPe</span>.<span class="code-function">generateUpiLink</span>({ <span class="code-property">amount</span>: <span class="code-number">100</span> });
+console.<span class="code-function">log</span>(link);
+<span class="code-comment">// upi://pay?pa=yourname@upi&pn=Your+Name&am=100&cu=INR&tn=...</span>
+
+<span class="code-comment">// Create custom payment button</span>
+<span class="code-keyword">const</span> customButton = document.<span class="code-function">createElement</span>(<span class="code-string">'button'</span>);
+customButton.textContent = <span class="code-string">'Tip ₹50'</span>;
+customButton.<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  <span class="code-keyword">const</span> link = <span class="code-function">ChaiPe</span>.<span class="code-function">generateUpiLink</span>({ <span class="code-property">amount</span>: <span class="code-number">50</span> });
+  window.location.href = link;
+});
+document.body.<span class="code-function">appendChild</span>(customButton);
+
+<span class="code-comment">// Create multiple payment buttons</span>
+[<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>].<span class="code-function">forEach</span>(amount => {
+  <span class="code-keyword">const</span> button = document.<span class="code-function">createElement</span>(<span class="code-string">'button'</span>);
+  button.textContent = <span class="code-string">`Tip ₹${amount}`</span>;
+  button.<span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+    <span class="code-keyword">const</span> link = <span class="code-function">ChaiPe</span>.<span class="code-function">generateUpiLink</span>({ amount });
+    window.location.href = link;
+  });
+  document.body.<span class="code-function">appendChild</span>(button);
+});</code></pre>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ChaiPe</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                        A lightweight JavaScript library for accepting UPI micropayments through behavioral nudging.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="index.html">Getting Started</a></li>
+                        <li><a href="api.html">API Reference</a></li>
+                        <li><a href="configuration.html">Configuration</a></li>
+                        <li><a href="tipjar.html">Tip Jar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Demos</h4>
+                    <ul>
+                        <li><a href="../demos/playground.html">Interactive Playground</a></li>
+                        <li><a href="../demos/blog-demo.html">Blog Demo</a></li>
+                        <li><a href="../demos/edge-cases.html">Edge Cases</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="../legal/privacy.html">Privacy Policy</a></li>
+                        <li><a href="../legal/disclaimer.html">Disclaimer</a></li>
+                        <li><a href="../legal/releases.html">Releases</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Built with ❤️ for Indian creators • MIT License • © 2024 ChaiPe</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load ChaiPe -->
+    <script src="../chaipe.js"></script>
+    
+    <!-- Load ChaiPe Contribution Configuration -->
+    <script src="../shared/js/chaipe-contribution-config.js"></script>
+    
+    <!-- Load Documentation Navigation -->
+    <script src="../shared/js/docs-nav.js"></script>
+ 
+    <script>
+    // Copy code functionality
+    function copyCode(button) {
+        try {
+            const codeBlock = button.closest('.code-block');
+            if (!codeBlock) return;
+ 
+            const codeContent = codeBlock.querySelector('code');
+            if (!codeContent) return;
+ 
+            const text = codeContent.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        } catch (error) {
+            console.error('Error in copyCode:', error);
+        }
+    }
+    
+    // Initialize ChaiPe contribution for documentation
+    (function() {
+        'use strict';
+        
+        // Initialize with contribution config
+        initChaiPeContribution();
+        
+        // Add contribution section before footer
+        const mainContent = document.querySelector('main');
+        const footer = document.querySelector('.footer');
+        if (mainContent && footer) {
+            const contributionSection = document.createElement('div');
+            contributionSection.className = 'docs-contribution-section';
+            contributionSection.innerHTML = '<div class="alert alert-success" style="margin-top: 3rem;"><span class="alert-icon">☕</span><div class="alert-content"><div class="alert-title">Found this API helpful?</div><p>Consider supporting ChaiPe development to help us keep improving the library and maintaining this documentation.</p><button class="btn btn-primary btn-sm" onclick="ChaiPe.openTipJar()">Support ChaiPe</button></div></div>';
+            mainContent.appendChild(contributionSection);
+        }
+    })();
+    </script>
+</body>
+</html>

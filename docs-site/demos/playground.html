@@ -12,16 +12,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   
   <!-- Styles -->
-  <link rel="stylesheet" href="shared/css/common.css">
-  <link rel="stylesheet" href="shared/css/demo-components.css">
+  <link rel="stylesheet" href="../shared/css/common.css">
+  <link rel="stylesheet" href="../shared/css/components.css">
+  <link rel="stylesheet" href="../shared/css/demo-components.css">
   
   <style>
     .playground-layout {
       display: grid;
-      grid-template-columns: 350px 1fr;
-      gap: var(--space-lg);
+      grid-template-columns: 380px 1fr;
+      gap: var(--space-xl);
       min-height: calc(100vh - 80px);
-      padding: var(--space-lg) 0;
+      padding: var(--space-xl) 0;
     }
     
     .controls-sidebar {
@@ -32,16 +33,31 @@
       height: fit-content;
       position: sticky;
       top: 100px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+    
+    .controls-sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .controls-sidebar::-webkit-scrollbar-track {
+      background: var(--bg-tertiary);
+    }
+    
+    .controls-sidebar::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: var(--radius-full);
     }
     
     .demo-area {
-      min-height: 500px;
+      min-height: 600px;
     }
     
     .demo-article {
-      max-width: 720px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: var(--space-xl);
+      padding: var(--space-2xl);
       background: var(--bg-secondary);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
@@ -50,6 +66,7 @@
     .demo-article h2 {
       font-size: var(--text-2xl);
       margin-bottom: var(--space-lg);
+      color: var(--text-primary);
     }
     
     .demo-article p {
@@ -59,7 +76,7 @@
     }
     
     .control-group {
-      margin-bottom: var(--space-lg);
+      margin-bottom: var(--space-xl);
       padding-bottom: var(--space-lg);
       border-bottom: 1px solid var(--border-color);
     }
@@ -70,11 +87,14 @@
     
     .control-group-title {
       font-size: var(--text-sm);
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--accent-primary);
       margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
     }
     
     .control-row {
@@ -82,11 +102,13 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: var(--space-md);
+      gap: var(--space-md);
     }
     
     .control-row label {
       font-weight: 500;
       color: var(--text-primary);
+      flex: 1;
     }
     
     .toggle-switch {
@@ -97,6 +119,7 @@
       border-radius: var(--radius-full);
       cursor: pointer;
       transition: background var(--transition-fast);
+      flex-shrink: 0;
     }
     
     .toggle-switch.active {
@@ -133,10 +156,12 @@
       cursor: pointer;
       transition: all var(--transition-fast);
       font-weight: 500;
+      font-size: var(--text-sm);
     }
     
     .amount-chip:hover {
       border-color: var(--accent-primary);
+      transform: translateY(-1px);
     }
     
     .amount-chip.active {
@@ -160,6 +185,7 @@
       text-align: center;
       transition: all var(--transition-fast);
       font-weight: 500;
+      font-size: var(--text-sm);
     }
     
     .theme-option:hover {
@@ -169,6 +195,7 @@
     .theme-option.active {
       border-color: var(--accent-primary);
       background: rgba(102, 126, 234, 0.1);
+      color: var(--accent-primary);
     }
     
     .action-buttons {
@@ -181,6 +208,75 @@
       flex: 1;
     }
     
+    .range-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: var(--radius-full);
+      background: var(--bg-tertiary);
+      outline: none;
+      -webkit-appearance: none;
+    }
+    
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      cursor: pointer;
+      transition: transform var(--transition-fast);
+    }
+    
+    .range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    
+    .range-slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      cursor: pointer;
+      border: none;
+    }
+    
+    .tipjar-config {
+      background: rgba(102, 126, 234, 0.05);
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    
+    .tipjar-position-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    
+    .tipjar-position {
+      padding: var(--space-sm);
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: center;
+      font-size: var(--text-xs);
+      transition: all var(--transition-fast);
+    }
+    
+    .tipjar-position:hover {
+      border-color: var(--border-hover);
+    }
+    
+    .tipjar-position.active {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: white;
+    }
+    
     @media (max-width: 1024px) {
       .playground-layout {
         grid-template-columns: 1fr;
@@ -188,6 +284,17 @@
       
       .controls-sidebar {
         position: static;
+        max-height: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .theme-preview {
+        grid-template-columns: 1fr;
+      }
+      
+      .tipjar-position-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -200,9 +307,10 @@
   <!-- Navigation -->
   <nav class="demo-nav">
     <div class="container demo-nav-content">
-      <a href="index.html" class="demo-nav-logo">ChaiPe.js</a>
+      <a href="../index.html" class="demo-nav-logo">ChaiPe.js</a>
       <div class="demo-nav-links">
-        <a href="index.html" class="demo-nav-link">Home</a>
+        <a href="../index.html" class="demo-nav-link">Home</a>
+        <a href="../docs/index.html" class="demo-nav-link">Docs</a>
         <a href="playground.html" class="demo-nav-link active">Playground</a>
         <a href="blog-demo.html" class="demo-nav-link">Blog Demo</a>
         <a href="edge-cases.html" class="demo-nav-link">Edge Cases</a>
@@ -220,7 +328,7 @@
         
         <!-- Basic Settings -->
         <div class="control-group">
-          <div class="control-group-title">Basic Settings</div>
+          <div class="control-group-title">📋 Basic Settings</div>
           
           <div class="form-group">
             <label class="form-label">UPI ID</label>
@@ -235,22 +343,22 @@
           <div class="form-group">
             <label class="form-label">Tip Amounts (₹)</label>
             <div class="amount-chips" id="amount-chips">
-              <span class="amount-chip" data-value="10">10</span>
-              <span class="amount-chip active" data-value="25">25</span>
-              <span class="amount-chip" data-value="50">50</span>
-              <span class="amount-chip" data-value="100">100</span>
+              <span class="amount-chip" data-value="10">₹10</span>
+              <span class="amount-chip active" data-value="25">₹25</span>
+              <span class="amount-chip" data-value="50">₹50</span>
+              <span class="amount-chip" data-value="100">₹100</span>
             </div>
           </div>
           
           <div class="form-group">
             <label class="form-label">Custom Message</label>
-            <input type="text" class="form-input" id="message" value="Enjoyed this content?" placeholder="Custom message">
+            <input type="text" class="form-input" id="message" value="Contribute to ChaiPe" placeholder="Custom message">
           </div>
         </div>
         
         <!-- Theme -->
         <div class="control-group">
-          <div class="control-group-title">Theme</div>
+          <div class="control-group-title">🎨 Theme</div>
           
           <div class="theme-preview">
             <div class="theme-option active" data-theme="minimal">
@@ -269,6 +377,18 @@
             <div class="toggle-switch" id="tipJar"></div>
           </div>
           
+          <div class="tipjar-config" id="tipjar-config" style="display: none;">
+            <div class="form-group">
+              <label class="form-label">Tip Jar Position</label>
+              <div class="tipjar-position-grid">
+                <div class="tipjar-position active" data-position="bottom-right">Bottom Right</div>
+                <div class="tipjar-position" data-position="bottom-left">Bottom Left</div>
+                <div class="tipjar-position" data-position="top-right">Top Right</div>
+                <div class="tipjar-position" data-position="top-left">Top Left</div>
+              </div>
+            </div>
+          </div>
+          
           <div class="control-row">
             <label>Dark Mode</label>
             <div class="toggle-switch active" id="darkMode"></div>
@@ -277,7 +397,7 @@
         
         <!-- Triggers -->
         <div class="control-group">
-          <div class="control-group-title">Behavioral Triggers</div>
+          <div class="control-group-title">🎯 Behavioral Triggers</div>
           
           <div class="control-row">
             <label>Auto-trigger</label>
@@ -286,7 +406,7 @@
           
           <div class="form-group">
             <label class="form-label">Scroll Depth (%)</label>
-            <input type="range" class="form-input" id="scrollDepth" min="10" max="100" value="70" style="width: 100%;">
+            <input type="range" class="range-slider" id="scrollDepth" min="10" max="100" value="70">
             <div class="flex-between mt-sm">
               <span class="text-sm text-muted">10%</span>
               <span class="text-sm" id="scrollDepthValue">70%</span>
@@ -296,7 +416,7 @@
           
           <div class="form-group">
             <label class="form-label">Time on Page (seconds)</label>
-            <input type="range" class="form-input" id="timeOnPage" min="10" max="300" value="120" style="width: 100%;">
+            <input type="range" class="range-slider" id="timeOnPage" min="10" max="300" value="120">
             <div class="flex-between mt-sm">
               <span class="text-sm text-muted">10s</span>
               <span class="text-sm" id="timeOnPageValue">120s</span>
@@ -312,7 +432,7 @@
         
         <!-- Data Collection -->
         <div class="control-group">
-          <div class="control-group-title">Data Collection</div>
+          <div class="control-group-title">📊 Data Collection</div>
           
           <div class="control-row">
             <label>Collect Email</label>
@@ -375,11 +495,11 @@
             That's when conversion rates are highest.
           </p>
           
-          <p>
-            <strong>Try it out:</strong> Configure the settings on the left, then either scroll down 
+          <div class="alert alert-info">
+            <strong>💡 Pro Tip:</strong> Configure the settings on the left sidebar, then either scroll down 
             to trigger the automatic nudge, or click "Show Modal" to see it immediately. 
             The console in the bottom-left corner shows real-time events and behavioral tracking.
-          </p>
+          </div>
           
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -420,7 +540,7 @@
             Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
           </p>
           
-          <div class="alert alert-info mt-lg">
+          <div class="alert alert-success">
             <strong>🎯 Keep scrolling!</strong> The nudge will appear when you reach the configured scroll depth or time on page.
           </div>
         </div>
@@ -432,16 +552,19 @@
   <footer>
     <div class="container text-center">
       <p class="text-muted">
-        ChaiPe Interactive Playground • <a href="index.html">Back to Home</a>
+        ChaiPe Interactive Playground • <a href="../index.html">Back to Home</a>
       </p>
     </div>
   </footer>
   
-  <!-- Load ChaiPe -->
-  <script src="../dist/chaipe.js"></script>
+  <!-- Load ChaiPe Contribution Configuration -->
+  <script src="../shared/js/chaipe-contribution-config.js"></script>
   
   <!-- Load Demo Utilities -->
-  <script src="shared/js/demo-utils.js"></script>
+  <script src="../shared/js/demo-utils.js"></script>
+  
+  <!-- Load ChaiPe (will be copied to dist/docs/ during build) -->
+  <script src="../chaipe.js"></script>
   
   <script>
     // Initialize demo console
@@ -457,9 +580,10 @@
       name: 'Srikanth',
       note: 'Contributing to ChaiPe itself for its work',
       amounts: [10, 25, 50, 100],
-      message: 'Enjoyed this content?',
+      message: 'Contributing to ChaiPe itself for its work',
       theme: 'minimal',
       tipJar: false,
+      tipJarPosition: 'bottom-right',
       darkMode: true,
       autoTrigger: true,
       triggers: {
@@ -484,6 +608,7 @@
       timeOnPage: document.getElementById('timeOnPage'),
       timeOnPageValue: document.getElementById('timeOnPageValue'),
       tipJar: document.getElementById('tipJar'),
+      tipjarConfig: document.getElementById('tipjar-config'),
       darkMode: document.getElementById('darkMode'),
       autoTrigger: document.getElementById('autoTrigger'),
       exitIntent: document.getElementById('exitIntent'),
@@ -500,6 +625,7 @@
     // Amount chips
     const amountChips = document.querySelectorAll('.amount-chip');
     const themeOptions = document.querySelectorAll('.theme-option');
+    const tipjarPositions = document.querySelectorAll('.tipjar-position');
     
     // Initialize amount selection
     amountChips.forEach(chip => {
@@ -511,7 +637,7 @@
           currentConfig.amounts.push(value);
           currentConfig.amounts.sort((a, b) => a - b);
         }
-        demoConsole.info(`Amount ${value} added`);
+        demoConsole.info(`Amount ₹${value} added`);
       });
     });
     
@@ -525,6 +651,16 @@
       });
     });
     
+    // Initialize tipjar position selection
+    tipjarPositions.forEach(pos => {
+      pos.addEventListener('click', () => {
+        tipjarPositions.forEach(p => p.classList.remove('active'));
+        pos.classList.add('active');
+        currentConfig.tipJarPosition = pos.dataset.position;
+        demoConsole.info(`TipJar position: ${currentConfig.tipJarPosition}`);
+      });
+    });
+    
     // Toggle switches
     function setupToggle(element, configKey, subKey = null) {
       element.addEventListener('click', () => {
@@ -535,6 +671,11 @@
           currentConfig[configKey][subKey] = isActive;
         } else {
           currentConfig[configKey] = isActive;
+        }
+        
+        // Show/hide tipjar config
+        if (configKey === 'tipJar') {
+          elements.tipjarConfig.style.display = isActive ? 'block' : 'none';
         }
         
         demoConsole.info(`${configKey}${subKey ? '.' + subKey : ''}: ${isActive}`);
@@ -577,6 +718,7 @@
         message: currentConfig.message,
         theme: currentConfig.theme,
         tipJar: currentConfig.tipJar,
+        tipJarPosition: currentConfig.tipJarPosition,
         darkMode: currentConfig.darkMode,
         collectEmail: currentConfig.collectEmail,
         collectName: currentConfig.collectName,

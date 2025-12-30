@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChaiPe TipJar Documentation - Learn about persistent tip jar feature for UPI micropayments">
+    <title>TipJar Documentation - ChaiPe Documentation</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../shared/css/common.css">
+    <link rel="stylesheet" href="../shared/css/docs-layout.css">
+    <link rel="stylesheet" href="../shared/css/components.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Top Navigation -->
+    <nav class="docs-top-nav">
+        <div class="container docs-top-nav-content">
+            <a href="../index.html" class="docs-nav-logo">
+                <span class="docs-nav-logo-icon">☕</span>
+                ChaiPe
+            </a>
+            <div class="docs-nav-links">
+                <a href="../index.html" class="docs-nav-link">Home</a>
+                <a href="index.html" class="docs-nav-link active">Documentation</a>
+                <a href="../demos/playground.html" class="docs-nav-link">Playground</a>
+                <a href="https://github.com/CashlessConsumer/ChaiPe" target="_blank" class="docs-nav-link">GitHub</a>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+    
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="docs-sidebar-overlay" id="sidebar-overlay"></div>
+    
+    <!-- Main Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar" id="sidebar">
+            <ul class="docs-nav">
+                <li class="docs-nav-category">Getting Started</li>
+                <li><a href="index.html">Introduction</a></li>
+                <li><a href="integration.html">Integration Guide</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                
+                <li class="docs-nav-category">API Reference</li>
+                <li><a href="api.html">API Methods</a></li>
+                <li><a href="tipjar.html" class="active">Tip Jar API</a></li>
+                
+                <li class="docs-nav-category">Examples</li>
+                <li><a href="../demos/playground.html">Interactive Playground</a></li>
+                <li><a href="../demos/blog-demo.html">Blog Demo</a></li>
+                <li><a href="../demos/edge-cases.html">Edge Cases</a></li>
+                
+                <li class="docs-nav-category">Resources</li>
+                <li><a href="https://github.com/CashlessConsumer/ChaiPe" target="_blank">GitHub Repository</a></li>
+                <li><a href="https://github.com/CashlessConsumer/ChaiPe/issues" target="_blank">Report Issues</a></li>
+            </ul>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="docs-content" id="main-content">
+            <h1>TipJar Documentation</h1>
+            
+            <p>Learn about the TipJar feature - a persistent floating button that provides always-available tipping option for your users.</p>
+            
+            <!-- Table of Contents -->
+            <nav class="toc-container">
+                <h4>On This Page</h4>
+                <ul class="toc-list">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#modes">TipJar Modes</a></li>
+                    <li><a href="#configuration">Configuration Options</a></li>
+                    <li><a href="#api-methods">API Methods</a></li>
+                    <li><a href="#events">Event Callbacks</a></li>
+                    <li><a href="#examples">Examples</a></li>
+                    <li><a href="#best-practices">Best Practices</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Overview Section -->
+            <section id="overview">
+                <h2>Overview</h2>
+                
+                <p>TipJar provides a <strong>persistent floating button</strong> that stays visible on the page, allowing users to tip at any time. Unlike behavioral nudges that appear at specific moments, TipJar is always available.</p>
+                
+                <div class="alert alert-info">
+                    <span class="alert-icon">💡</span>
+                    <div class="alert-content">
+                        <div class="alert-title">TipJar vs Behavioral Nudges</div>
+                        <p><strong>TipJar:</strong> Always visible, non-intrusive, persistent access to tipping.</p>
+                        <p><strong>Behavioral Nudges:</strong> Appears at optimal moments (scroll, time, exit intent), shown once per session.</p>
+                        <p><strong>Best Practice:</strong> Use both! TipJar for always-available option + nudges for timely prompts.</p>
+                    </div>
+                </div>
+                
+                <h3>Key Benefits</h3>
+                <ul>
+                    <li><strong>Always Available:</strong> Users can tip anytime without waiting for triggers</li>
+                    <li><strong>Non-Intrusive:</strong> Floating button doesn't interrupt reading flow</li>
+                    <li><strong>Higher Conversion:</strong> Persistent visibility increases tipping opportunities</li>
+                    <li><strong>Mobile-Friendly:</strong> Optimized for touch interactions on mobile devices</li>
+                    <li><strong>Customizable:</strong> Position, colors, size, icon, and animations</li>
+                </ul>
+            </section>
+            
+            <!-- Modes Section -->
+            <section id="modes">
+                <h2>TipJar Modes</h2>
+                
+                <p>TipJar supports three different display modes for different use cases:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>Floating Button (Default)</h3>
+                        <p>A floating button fixed to viewport corners. Best for most websites and blogs.</p>
+                        <ul>
+                            <li>Always visible on screen</li>
+                            <li>Non-intrusive, doesn't block content</li>
+                            <li>Easy to access while scrolling</li>
+                            <li>Works on both mobile and desktop</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>Inline Widget</h3>
+                        <p>Embed TipJar within your page content at a specific location.</p>
+                        <ul>
+                            <li>Customizable placement in content</li>
+                            <li>Blends with page layout</li>
+                            <li>Good for article footers or sidebars</li>
+                            <li>Can be shown/hidden programmatically</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>Custom Container</h3>
+                        <p>Use any element on your page as TipJar container.</p>
+                        <ul>
+                            <li>Maximum flexibility in positioning</li>
+                            <li>Integrates with existing UI elements</li>
+                            <li>Perfect for custom layouts and designs</li>
+                            <li>Full control over TipJar behavior</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Configuration Section -->
+            <section id="configuration">
+                <h2>Configuration Options</h2>
+                
+                <p>Configure TipJar behavior and appearance with these options:</p>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJar</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Enable TipJar feature. Set to <code>true</code> to show persistent tip button.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Enable TipJar</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarPosition</code>
+                        <span class="api-type">'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Position of TipJar button on screen.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Position Configuration</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarPosition: 'bottom-right'  // Options: 'bottom-left', 'top-right', 'top-left'
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarSize</code>
+                        <span class="api-type">'small' | 'medium' | 'large'</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Size of TipJar button.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Size Configuration</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarSize: 'medium'  // Options: 'small', 'medium', 'large'
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarColor</code>
+                        <span class="api-type">string</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Background color of TipJar button. Accepts hex, rgb, or named colors.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Color Configuration</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarColor: '#4CAF50'  // Green
+  // Or: tipJarColor: '#ff6b6b'  // Red
+  // Or: tipJarColor: '#667eea'  // Purple
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarIcon</code>
+                        <span class="api-type">string</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Icon or emoji displayed on TipJar button.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Icon Configuration</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarIcon: '☕'  // Coffee cup
+  // Or: tipJarIcon: '💰'  // Money bag
+  // Or: tipJarIcon: '❤️'  // Heart
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarText</code>
+                        <span class="api-type">string</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Text shown on hover or for larger TipJar buttons.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Text Configuration</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarText: 'Support Us'
+  // Or: tipJarText: 'Buy me a chai'
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarAutoShow</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Automatically show TipJar after a delay. If <code>false</code>, you must manually call <code>ChaiPe.showTipJar()</code>.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Auto-Show Configuration</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarAutoShow: true,
+  tipJarShowDelay: 2000  // Show after 2 seconds
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarShowDelay</code>
+                        <span class="api-type">number</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Delay in milliseconds before auto-showing TipJar. Only used when <code>tipJarAutoShow</code> is <code>true</code>.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Show Delay Configuration</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarAutoShow: true,
+  tipJarShowDelay: 3000  // Show after 3 seconds
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarShowOnMobile</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Show TipJar on mobile devices.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Mobile Visibility</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarShowOnMobile: true
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarShowOnDesktop</code>
+                        <span class="api-type">boolean</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Show TipJar on desktop devices.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Desktop Visibility</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarShowOnDesktop: true
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarAnimation</code>
+                        <span class="api-type">'fade' | 'slide' | 'bounce' | 'none'</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">Animation effect when TipJar appears.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Animation Configuration</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarAnimation: 'bounce'  // Options: 'fade', 'slide', 'bounce', 'none'
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">tipJarContainer</code>
+                        <span class="api-type">string | null</span>
+                        <span class="api-optional">optional</span>
+                    </div>
+                    <p class="api-description">CSS selector for custom container element. Only used when <code>tipJarMode</code> is <code>'custom'</code>.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Custom Container</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  tipJarMode: 'custom',
+  tipJarContainer: '#my-custom-container'
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning">
+                    <span class="alert-icon">⚠️</span>
+                    <div class="alert-content">
+                        <div class="alert-title">TipJar vs Behavioral Nudges</div>
+                        <p>TipJar and behavioral nudges are <strong>independent features</strong>. You can use both simultaneously for maximum conversion. TipJar provides always-available access, while nudges provide timely prompts at optimal moments.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- API Methods Section -->
+            <section id="api-methods">
+                <h2>API Methods</h2>
+                
+                <p>Control TipJar behavior programmatically with these methods:</p>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.toggleTipJar()</code>
+                    </div>
+                    <p class="api-description">Toggles TipJar visibility state. If TipJar is hidden, it will be shown. If it's visible, it will be hidden.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Toggle TipJar</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>// Toggle button click handler
+document.getElementById('toggle-tipjar').addEventListener('click', () => {
+  ChaiPe.toggleTipJar();
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.openTipJar()</code>
+                    </div>
+                    <p class="api-description">Opens TipJar and displays payment modal. This is equivalent to clicking the TipJar button.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Open TipJar</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>// Tip button click handler
+document.getElementById('tip-now').addEventListener('click', () => {
+  ChaiPe.openTipJar();
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.closeTipJar()</code>
+                    </div>
+                    <p class="api-description">Closes TipJar. This is different from hiding - it removes TipJar from DOM.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Close TipJar</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.closeTipJar();</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.showTipJar()</code>
+                    </div>
+                    <p class="api-description">Displays persistent TipJar button. Use this if you initially disabled TipJar or hid it programmatically.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Show TipJar</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>// Show TipJar after user completes action
+document.getElementById('read-more').addEventListener('click', () => {
+  ChaiPe.showTipJar();
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.hideTipJar()</code>
+                    </div>
+                    <p class="api-description">Hides persistent TipJar button. Useful for temporarily removing button during specific user flows.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Hide TipJar</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>// Hide TipJar during checkout
+function startCheckout() {
+  ChaiPe.hideTipJar();
+  // ... checkout logic
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.removeTipJar()</code>
+                    </div>
+                    <p class="api-description">Removes TipJar from DOM completely. Use this when you want to permanently remove TipJar.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Remove TipJar</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.removeTipJar();</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">ChaiPe.updateTipJar(options)</code>
+                    </div>
+                    <p class="api-description">Updates TipJar configuration dynamically without re-initializing ChaiPe. Accepts any TipJar configuration option.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">Update TipJar</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>// Change TipJar position and color
+ChaiPe.updateTipJar({
+  position: 'top-right',
+  color: '#ff6b6b'
+});
+
+// Update multiple properties
+ChaiPe.updateTipJar({
+  icon: '💰',
+  text: 'Support Us',
+  size: 'large'
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Events Section -->
+            <section id="events">
+                <h2>Event Callbacks</h2>
+                
+                <p>Track TipJar interactions with these event callbacks:</p>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">onTipJarShown(data)</code>
+                    </div>
+                    <p class="api-description">Called when TipJar is displayed to user.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">TipJar Shown Event</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  onTipJarShown: (data) => {
+    console.log('TipJar shown:', data.sessionId);
+    analytics.track('TipJar Shown', { sessionId: data.sessionId });
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">onTipJarDismissed(data)</code>
+                    </div>
+                    <p class="api-description">Called when TipJar is dismissed or hidden.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">TipJar Dismissed Event</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  onTipJarDismissed: (data) => {
+    console.log('TipJar dismissed:', data.sessionId);
+    analytics.track('TipJar Dismissed', { sessionId: data.sessionId });
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <div class="api-signature">
+                        <code class="api-name">onTipJarOpened(data)</code>
+                    </div>
+                    <p class="api-description">Called when user clicks TipJar and opens payment modal.</p>
+                    <div class="code-block">
+                        <div class="code-block-header">
+                            <span class="code-block-title">TipJar Opened Event</span>
+                            <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block-content">
+                            <pre><code>ChaiPe.init({
+  tipJar: true,
+  onTipJarOpened: (data) => {
+    console.log('TipJar opened:', data.sessionId);
+    analytics.track('TipJar Opened', { sessionId: data.sessionId });
+  }
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Examples Section -->
+            <section id="examples">
+                <h2>Examples</h2>
+                
+                <h3>Basic TipJar Setup</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Basic TipJar</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  tipJar: true
+});</code></pre>
+                    </div>
+                </div>
+                
+                <h3>Customized TipJar</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Customized TipJar</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  tipJar: {
+    enabled: true,
+    position: 'bottom-right',
+    size: 'medium',
+    color: '#4CAF50',
+    icon: '☕',
+    text: 'Support Us',
+    autoShow: true,
+    showDelay: 2000,
+    animation: 'bounce'
+  }
+});</code></pre>
+                    </div>
+                </div>
+                
+                <h3>TipJar with Manual Trigger</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Manual TipJar</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  tipJar: {
+    enabled: true,
+    autoShow: false  // Don't auto-show
+  }
+});
+
+// Show TipJar manually
+document.getElementById('show-tipjar').addEventListener('click', () => {
+  ChaiPe.showTipJar();
+});</code></pre>
+                    </div>
+                </div>
+                
+                <h3>Dynamic TipJar Updates</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Dynamic Updates</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Change TipJar based on user behavior
+window.addEventListener('scroll', () => {
+  const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  
+  if (scrollPercent > 50) {
+    ChaiPe.updateTipJar({
+      size: 'large',
+      color: '#10b981',
+      text: 'Enjoyed? Tip us!'
+    });
+  }
+});</code></pre>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Best Practices Section -->
+            <section id="best-practices">
+                <h2>Best Practices</h2>
+                
+                <h3>Positioning Strategy</h3>
+                <ul>
+                    <li><strong>Bottom-Right (Default):</strong> Best for most websites, doesn't interfere with navigation</li>
+                    <li><strong>Bottom-Left:</strong> Good for sites with right sidebar</li>
+                    <li><strong>Top-Right:</strong> High visibility, good for dashboards</li>
+                    <li><strong>Top-Left:</strong> For LTR languages with left navigation</li>
+                </ul>
+                
+                <h3>Size Guidelines</h3>
+                <ul>
+                    <li><strong>Small:</strong> Minimal footprint, good for clean designs</li>
+                    <li><strong>Medium (Default):</strong> Balanced visibility and footprint</li>
+                    <li><strong>Large:</strong> High visibility, good for conversion-focused pages</li>
+                </ul>
+                
+                <h3>Animation Choice</h3>
+                <ul>
+                    <li><strong>None:</strong> No animation, minimalist approach</li>
+                    <li><strong>Fade:</strong> Subtle appearance, professional sites</li>
+                    <li><strong>Slide:</strong> Draws attention, modern sites</li>
+                    <li><strong>Bounce:</strong> Attention-grabbing, high-conversion pages</li>
+                </ul>
+                
+                <h3>Color Selection</h3>
+                <ul>
+                    <li>Match your brand colors for consistency</li>
+                    <li>Ensure sufficient contrast for accessibility (WCAG AA: 4.5:1)</li>
+                    <li>Test in both light and dark modes</li>
+                    <li>Consider color psychology: green for positive actions, red for urgent</li>
+                </ul>
+                
+                <h3>Mobile vs Desktop</h3>
+                <ul>
+                    <li><strong>Mobile:</strong> Use bottom corners for thumb accessibility</li>
+                    <li><strong>Desktop:</strong> Any corner works, consider user flow</li>
+                    <li><strong>Responsive:</strong> Consider different sizes for different screen sizes</li>
+                </ul>
+                
+                <h3>Timing Strategy</h3>
+                <ul>
+                    <li><strong>Auto-Show Delay:</strong> 2-3 seconds is optimal for most sites</li>
+                    <li><strong>Content-Based:</strong> Show TipJar after user engages with content</li>
+                    <li><strong>Manual Trigger:</strong> Let users choose when to see TipJar</li>
+                    <li><strong>Avoid Overwhelming:</strong> Don't show TipJar immediately on page load</li>
+                </ul>
+                
+                <div class="alert alert-success">
+                    <span class="alert-icon">✅</span>
+                    <div class="alert-content">
+                        <div class="alert-title">TipJar Best Practices Checklist</div>
+                        <ul>
+                            <li>✅ Use appropriate position for your layout</li>
+                            <li>✅ Choose size that balances visibility and footprint</li>
+                            <li>✅ Match colors to your brand</li>
+                            <li>✅ Test on both mobile and desktop</li>
+                            <li>✅ Use subtle animation or none</li>
+                            <li>✅ Set reasonable auto-show delay (2-3 seconds)</li>
+                            <li>✅ Make TipJar non-intrusive but accessible</li>
+                            <li>✅ Track TipJar events for analytics</li>
+                            <li>✅ Consider combining with behavioral nudges</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ChaiPe</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                        A lightweight JavaScript library for accepting UPI micropayments through behavioral nudging.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="index.html">Getting Started</a></li>
+                        <li><a href="api.html">API Reference</a></li>
+                        <li><a href="configuration.html">Configuration</a></li>
+                        <li><a href="tipjar.html">Tip Jar</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Demos</h4>
+                    <ul>
+                        <li><a href="../demos/playground.html">Interactive Playground</a></li>
+                        <li><a href="../demos/blog-demo.html">Blog Demo</a></li>
+                        <li><a href="../demos/edge-cases.html">Edge Cases</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="../legal/privacy.html">Privacy Policy</a></li>
+                        <li><a href="../legal/disclaimer.html">Disclaimer</a></li>
+                        <li><a href="../legal/releases.html">Releases</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Built with ❤️ for Indian creators • MIT License • © 2024 ChaiPe</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Load ChaiPe -->
+    <script src="../chaipe.js"></script>
+    
+    <!-- Load ChaiPe Contribution Configuration -->
+    <script src="../shared/js/chaipe-contribution-config.js"></script>
+    
+    <!-- Load Documentation Navigation -->
+    <script src="../shared/js/docs-nav.js"></script>
+    
+    <script>
+    // Copy code functionality
+    function copyCode(button) {
+        try {
+            const codeBlock = button.closest('.code-block');
+            if (!codeBlock) return;
+            
+            const codeContent = codeBlock.querySelector('code');
+            if (!codeContent) return;
+            
+            const text = codeContent.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        } catch (error) {
+            console.error('Error in copyCode:', error);
+        }
+    }
+    
+    // Initialize ChaiPe contribution for documentation
+    (function() {
+        'use strict';
+        
+        // Initialize with contribution config
+        initChaiPeContribution();
+        
+        // Add contribution section before footer
+        const mainContent = document.querySelector('main');
+        const footer = document.querySelector('.footer');
+        if (mainContent && footer) {
+            const contributionSection = document.createElement('div');
+            contributionSection.className = 'docs-contribution-section';
+            contributionSection.innerHTML = '<div class="alert alert-success" style="margin-top: 3rem;"><span class="alert-icon">☕</span><div class="alert-content"><div class="alert-title">Found this TipJar documentation helpful?</div><p>Consider supporting ChaiPe development to help us keep improving the library and maintaining this documentation.</p><button class="btn btn-primary btn-sm" onclick="ChaiPe.openTipJar()">Support ChaiPe</button></div></div>';
+            mainContent.appendChild(contributionSection);
+        }
+    })();
+    </script>
+</body>
+</html>

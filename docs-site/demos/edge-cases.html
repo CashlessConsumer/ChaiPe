@@ -12,14 +12,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   
   <!-- Styles -->
-  <link rel="stylesheet" href="shared/css/common.css">
-  <link rel="stylesheet" href="shared/css/demo-components.css">
+  <link rel="stylesheet" href="../shared/css/common.css">
+  <link rel="stylesheet" href="../shared/css/components.css">
+  <link rel="stylesheet" href="../shared/css/demo-components.css">
   
   <style>
     .edge-cases-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: var(--space-lg);
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: var(--space-xl);
       margin: var(--space-xl) 0;
     }
     
@@ -34,6 +35,7 @@
     .edge-case-card:hover {
       border-color: var(--accent-primary);
       box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
     }
     
     .edge-case-header {
@@ -46,14 +48,14 @@
     }
     
     .edge-case-icon {
-      width: 40px;
-      height: 40px;
+      width: 48px;
+      height: 48px;
       background: var(--accent-gradient);
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 24px;
       flex-shrink: 0;
     }
     
@@ -67,6 +69,7 @@
       color: var(--text-secondary);
       margin-bottom: var(--space-md);
       font-size: var(--text-sm);
+      line-height: 1.6;
     }
     
     .edge-case-actions {
@@ -81,6 +84,18 @@
       border-radius: var(--radius-md);
       font-size: var(--text-sm);
       display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     
     .test-result.success {
@@ -121,6 +136,7 @@
       margin-bottom: var(--space-lg);
       border-bottom: 1px solid var(--border-color);
       padding-bottom: var(--space-md);
+      flex-wrap: wrap;
     }
     
     .config-tab {
@@ -150,6 +166,7 @@
     
     .config-content.active {
       display: block;
+      animation: fadeIn 0.3s ease;
     }
     
     .error-scenario {
@@ -172,6 +189,7 @@
     .error-scenario-description {
       color: var(--text-secondary);
       font-size: var(--text-sm);
+      line-height: 1.6;
     }
     
     @media (max-width: 768px) {
@@ -193,9 +211,10 @@
   <!-- Navigation -->
   <nav class="demo-nav">
     <div class="container demo-nav-content">
-      <a href="index.html" class="demo-nav-logo">ChaiPe.js</a>
+      <a href="../index.html" class="demo-nav-logo">ChaiPe.js</a>
       <div class="demo-nav-links">
-        <a href="index.html" class="demo-nav-link">Home</a>
+        <a href="../index.html" class="demo-nav-link">Home</a>
+        <a href="../docs/index.html" class="demo-nav-link">Docs</a>
         <a href="playground.html" class="demo-nav-link">Playground</a>
         <a href="blog-demo.html" class="demo-nav-link">Blog Demo</a>
         <a href="edge-cases.html" class="demo-nav-link active">Edge Cases</a>
@@ -309,7 +328,7 @@
         <div class="edge-case-card">
           <div class="edge-case-header">
             <div class="edge-case-icon">🎮</div>
-          <div class="edge-case-title">Manual Only Mode</div>
+            <div class="edge-case-title">Manual Only Mode</div>
           </div>
           <p class="edge-case-description">
             Disable all automatic triggers. Modal only shows when <code>ChaiPe.show()</code> is called.
@@ -324,7 +343,7 @@
         <div class="edge-case-card">
           <div class="edge-case-header">
             <div class="edge-case-icon">🚫</div>
-          <div class="edge-case-title">All Triggers Disabled</div>
+            <div class="edge-case-title">All Triggers Disabled</div>
           </div>
           <p class="edge-case-description">
             Disable scroll, time, and exit intent triggers. Should behave like manual-only mode.
@@ -576,19 +595,25 @@
   <footer>
     <div class="container text-center">
       <p class="text-muted">
-        ChaiPe Edge Cases Demo • <a href="index.html">Back to Home</a>
+        ChaiPe Edge Cases Demo • <a href="../index.html">Back to Home</a>
       </p>
     </div>
   </footer>
   
-  <!-- Load ChaiPe -->
-  <script src="../dist/chaipe.js"></script>
+  <!-- Load ChaiPe Contribution Configuration -->
+  <script src="../shared/js/chaipe-contribution-config.js"></script>
+  
+  <!-- Load ChaiPe (will be copied to dist/docs/ during build) -->
+  <script src="../chaipe.js"></script>
   
   <script>
     // Theme toggle
     document.getElementById('theme-toggle').addEventListener('click', () => {
       document.documentElement.classList.toggle('light');
     });
+    
+    // Initialize ChaiPe with contribution config
+    initChaiPeContribution();
     
     // Config tabs
     const configTabs = document.querySelectorAll('.config-tab');

@@ -357,7 +357,7 @@ The demo suite is part of ChaiPe and is licensed under the MIT License.
 
 ## 🔗 Links
 
-- **Main Repository:** https://github.com/example/ChaiPe
+- **Main Repository:** https://github.com/CashlessConsumer/ChaiPe
 - **Documentation:** See `documentation.html` for complete API reference
 - **Issues:** Report bugs via GitHub Issues
 - **Discussions:** Use GitHub Discussions for questions

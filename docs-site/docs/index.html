@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChaiPe Documentation - Get started with UPI micropayments">
+    <title>Documentation - ChaiPe</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../shared/css/common.css">
+    <link rel="stylesheet" href="../shared/css/docs-layout.css">
+    <link rel="stylesheet" href="../shared/css/components.css">
+    <link rel="stylesheet" href="../shared/css/demo-components.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Navigation -->
+    <nav class="docs-top-nav">
+        <div class="container docs-top-nav-content">
+            <a href="../index.html" class="docs-nav-logo">
+                <span class="docs-nav-logo-icon">☕</span>
+                ChaiPe
+            </a>
+            <div class="docs-nav-links">
+                <a href="../index.html" class="docs-nav-link">Home</a>
+                <a href="index.html" class="docs-nav-link active">Documentation</a>
+                <a href="../demos/playground.html" class="docs-nav-link">Playground</a>
+                <a href="https://github.com/CashlessConsumer/ChaiPe" target="_blank" class="docs-nav-link">GitHub</a>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="docs-sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar" id="sidebar">
+            <ul class="docs-nav">
+                <li class="docs-nav-category">Getting Started</li>
+                <li><a href="index.html" class="active">Introduction</a></li>
+                <li><a href="integration.html">Integration Guide</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                
+                <li class="docs-nav-category">API Reference</li>
+                <li><a href="api.html">API Methods</a></li>
+                <li><a href="tipjar.html">Tip Jar API</a></li>
+                
+                <li class="docs-nav-category">Examples</li>
+                <li><a href="../demos/playground.html">Interactive Playground</a></li>
+                <li><a href="../demos/blog-demo.html">Blog Demo</a></li>
+                <li><a href="../demos/edge-cases.html">Edge Cases</a></li>
+                
+                <li class="docs-nav-category">Resources</li>
+                <li><a href="https://github.com/CashlessConsumer/ChaiPe" target="_blank">GitHub Repository</a></li>
+                <li><a href="https://github.com/CashlessConsumer/ChaiPe/issues" target="_blank">Report Issues</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content" id="main-content">
+            <h1>Documentation</h1>
+            
+            <p>Welcome to the ChaiPe documentation. This guide will help you integrate UPI micropayments into your website with behavioral nudging.</p>
+
+            <h2 id="quick-start">Quick Start</h2>
+            <p>Get started with ChaiPe in just a few minutes:</p>
+
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">Quick Start</span>
+                    <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                </div>
+                <div class="code-block-content">
+                    <pre><code><span class="code-comment"><!-- Include the script --></span>
+<span class="code-tag"><script</span> <span class="code-property">src</span>=<span class="code-string">"https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"</span><span class="code-tag">></script></span>
+
+<span class="code-comment"><!-- Initialize ChaiPe --></span>
+<span class="code-tag"><script></span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>]
+});
+<span class="code-tag"></script></span></code></pre>
+                </div>
+            </div>
+
+            <h2 id="features">Key Features</h2>
+            <ul>
+                <li><strong>Behavioral Nudging:</strong> Smart triggers based on scroll depth, time on page, and user engagement</li>
+                <li><strong>Mobile + Desktop:</strong> Deep links on mobile, QR codes on desktop</li>
+                <li><strong>Zero Dependencies:</strong> ~10KB minified, pure JavaScript</li>
+                <li><strong>PSP-less:</strong> No payment gateway needed, direct UPI links</li>
+                <li><strong>3 Themes:</strong> Minimal, Toast, and Floating with dark mode support</li>
+                <li><strong>Tip Jar Mode:</strong> Persistent floating button for always-visible tipping</li>
+                <li><strong>Event Callbacks:</strong> Track tips with onTipCompleted callback</li>
+            </ul>
+
+            <h2 id="next-steps">Next Steps</h2>
+            <div class="alert alert-info">
+                <span class="alert-icon">📚</span>
+                <div class="alert-content">
+                    <div class="alert-title">Continue Learning</div>
+                    <ul>
+                        <li><a href="integration.html">Integration Guide</a> - Learn how to integrate ChaiPe into your website</li>
+                        <li><a href="configuration.html">Configuration</a> - Explore all configuration options</li>
+                        <li><a href="api.html">API Reference</a> - Complete API documentation</li>
+                        <li><a href="../demos/playground.html">Interactive Playground</a> - Try ChaiPe in your browser</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 id="support">Support</h2>
+            <p>Need help? Here are some resources:</p>
+            <ul>
+                <li><a href="https://github.com/CashlessConsumer/ChaiPe/issues" target="_blank">GitHub Issues</a> - Report bugs or request features</li>
+                <li><a href="https://github.com/CashlessConsumer/ChaiPe/discussions" target="_blank">GitHub Discussions</a> - Ask questions and share ideas</li>
+                <li><a href="https://github.com/CashlessConsumer/ChaiPe" target="_blank">GitHub Repository</a> - Source code and contributions</li>
+            </ul>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ChaiPe</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                        A lightweight JavaScript library for accepting UPI micropayments through behavioral nudging.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="index.html">Getting Started</a></li>
+                        <li><a href="api.html">API Reference</a></li>
+                        <li><a href="configuration.html">Configuration</a></li>
+                        <li><a href="tipjar.html">Tip Jar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Demos</h4>
+                    <ul>
+                        <li><a href="../demos/playground.html">Interactive Playground</a></li>
+                        <li><a href="../demos/blog-demo.html">Blog Demo</a></li>
+                        <li><a href="../demos/edge-cases.html">Edge Cases</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="../legal/privacy.html">Privacy Policy</a></li>
+                        <li><a href="../legal/disclaimer.html">Disclaimer</a></li>
+                        <li><a href="../legal/releases.html">Releases</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Built with ❤️ for Indian creators • MIT License • © 2024 ChaiPe</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load ChaiPe -->
+    <script src="../chaipe.js"></script>
+    
+    <!-- Load ChaiPe Contribution Configuration -->
+    <script src="../shared/js/chaipe-contribution-config.js"></script>
+    
+    <!-- Load Documentation Navigation -->
+    <script src="../shared/js/docs-nav.js"></script>
+
+    <script>
+    // Copy code functionality
+    function copyCode(button) {
+        try {
+            const codeBlock = button.closest('.code-block');
+            if (!codeBlock) return;
+
+            const codeContent = codeBlock.querySelector('code');
+            if (!codeContent) return;
+
+            const text = codeContent.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        } catch (error) {
+            console.error('Error in copyCode:', error);
+        }
+    }
+    
+    // Initialize ChaiPe contribution for documentation
+    (function() {
+        'use strict';
+        
+        // Initialize with contribution config
+        initChaiPeContribution();
+        
+        // Add contribution section before footer
+        const mainContent = document.querySelector('main');
+        const footer = document.querySelector('.footer');
+        if (mainContent && footer) {
+            const contributionSection = document.createElement('div');
+            contributionSection.className = 'docs-contribution-section';
+            contributionSection.innerHTML = '<div class="alert alert-success" style="margin-top: 3rem;"><span class="alert-icon">☕</span><div class="alert-content"><div class="alert-title">Enjoyed this documentation?</div><p>Consider supporting ChaiPe development to help us keep improving the library and maintaining this documentation.</p><button class="btn btn-primary btn-sm" onclick="ChaiPe.openTipJar()">Support ChaiPe</button></div></div>';
+            mainContent.appendChild(contributionSection);
+        }
+    })();
+    </script>
+</body>
+</html>

@@ -12,8 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- Styles -->
-  <link rel="stylesheet" href="shared/css/common.css">
-  <link rel="stylesheet" href="shared/css/demo-components.css">
+  <link rel="stylesheet" href="../shared/css/common.css">
+  <link rel="stylesheet" href="../shared/css/components.css">
+  <link rel="stylesheet" href="../shared/css/demo-components.css">
   
   <style>
     body {
@@ -58,7 +59,7 @@
     }
     
     .article-container {
-      max-width: 720px;
+      max-width: 800px;
       margin: 0 auto;
       padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
     }
@@ -213,7 +214,7 @@
       padding: var(--space-md);
       font-family: 'Inter', monospace;
       font-size: 13px;
-      min-width: 220px;
+      min-width: 240px;
     }
     
     .tracker-title {
@@ -312,7 +313,7 @@
   <!-- Blog Header -->
   <header class="blog-header">
     <div class="container blog-header-content">
-      <a href="index.html" class="blog-logo">ChaiPe</a>
+      <a href="../index.html" class="blog-logo">ChaiPe</a>
       <div style="display: flex; align-items: center; gap: 16px;">
         <span id="scroll-indicator" style="font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text-muted);">0% read</span>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
@@ -391,7 +392,7 @@
     </p>
     
     <p>
-      This creates a paradox: the creators who need support most—those building their audience—are least likely to convert readers into paying subscribers. Only established creators with massive followings can overcome the subscription fatigue barrier.
+      This creates a paradox: creators who need support most—those building their audience—are least likely to convert readers into paying subscribers. Only established creators with massive followings can overcome the subscription fatigue barrier.
     </p>
     
     <h2>Enter Micropayments: A Different Philosophy</h2>
@@ -464,7 +465,7 @@
     
     <ul>
       <li><strong>Scroll Depth:</strong> Someone who has scrolled through 70% or more of an article has likely read most of it. They've invested time and attention.</li>
-      <li><strong>Time on Page:</strong> A reader who has spent 3+ minutes on an article isn't just skimming. They're genuinely consuming the content.</li>
+      <li><strong>Time on Page:</strong> A reader who has spent 3+ minutes on an article isn't just skimming. They're genuinely consuming content.</li>
       <li><strong>Return Visits:</strong> A returning reader who comes back to your content has demonstrated ongoing interest. They're prime candidates for a nudge.</li>
       <li><strong>Interaction Patterns:</strong> Clicks, text selections, and other interactions signal active engagement rather than passive scrolling.</li>
     </ul>
@@ -482,7 +483,7 @@
     <h3>The Technical Setup</h3>
     
     <p>
-      With ChaiPe.js, the implementation is surprisingly simple. Here's the basic setup:
+      With ChaiPe.js, implementation is surprisingly simple. Here's the basic setup:
     </p>
     
     <pre><code><script src="ChaiPe.min.js"></script>
@@ -518,7 +519,7 @@ ChaiPe.init({
     
     <ul>
       <li><strong>Start small:</strong> Your lowest option should be truly micro—₹10 or ₹20. This gives hesitant readers an easy entry point.</li>
-      <li><strong>Offer a "recommended" middle option:</strong> Highlight ₹25 or ₹50 as the default. Most people will select whatever appears pre-selected.</li>
+      <li><strong>Offer a "recommended" middle option:</strong> Highlight ₹25 or ₹50 as default. Most people will select whatever appears pre-selected.</li>
       <li><strong>Include an aspirational high:</strong> Having ₹100 or ₹200 as an option signals that generous tips are welcome and normal.</li>
       <li><strong>Allow custom amounts:</strong> Some readers will want to give ₹15 or ₹75. Let them.</li>
     </ul>
@@ -560,7 +561,7 @@ ChaiPe.init({
     <h2>Building Long-Term Supporter Relationships</h2>
     
     <p>
-      A one-time tip is great, but real value comes from building relationships with your most engaged readers. Here's how to turn occasional tippers into consistent supporters.
+      A one-time tip is great, but the real value comes from building relationships with your most engaged readers. Here's how to turn occasional tippers into consistent supporters.
     </p>
     
     <h3>Collect (With Permission)</h3>
@@ -653,7 +654,7 @@ ChaiPe.init({
     
     <div class="highlight-box">
       <h4>🚀 Ready to Try It?</h4>
-      <p style="margin: 0;">You've been reading this article powered by ChaiPe. When you scrolled past 70% of the content, a behavioral nudge was triggered. If you've enjoyed this guide and found it valuable, consider leaving a tip—it's how we keep creating content like this.</p>
+      <p style="margin: 0;">You've been reading this article powered by ChaiPe. When you scrolled past 70% of content, a behavioral nudge was triggered. If you've enjoyed this guide and found it valuable, consider leaving a tip—it's how we keep creating content like this.</p>
     </div>
     
     <p>
@@ -691,8 +692,11 @@ ChaiPe.init({
     </div>
   </div>
   
-  <!-- Load ChaiPe -->
-  <script src="../dist/chaipe.js"></script>
+  <!-- Load ChaiPe Contribution Configuration -->
+  <script src="../shared/js/chaipe-contribution-config.js"></script>
+  
+  <!-- Load ChaiPe (will be copied to dist/docs/ during build) -->
+  <script src="../chaipe.js"></script>
   
   <script>
     // Track scroll and time
@@ -745,43 +749,29 @@ ChaiPe.init({
     window.addEventListener('scroll', updateTracker, { passive: true });
     setInterval(updateTracker, 1000);
     
-    // Initialize ChaiPe with scroll-based triggers
-    ChaiPe.init({
-      upiId: 'srikanthlogic@icici',
-      name: 'Srikanth',
-      note: 'Contributing to ChaiPe itself for its work',
-      amounts: [10, 25, 50, 100],
-      theme: 'minimal',
-      message: 'Enjoyed this guide?',
-      buttonText: 'Buy me a chai ☕',
-      darkMode: false,
-      
-      // Collect supporter info
-      collectEmail: true,
-      collectName: true,
-      
-      // Scroll-based triggers
-      triggers: {
-        scrollDepth: 70,
-        timeOnPage: 120,
-        exitIntent: false
-      },
-      
-      onNudgeShown: (data) => {
-        nudgeTriggered = true;
-        updateTracker();
-        console.log('Nudge triggered!', data);
-      },
-      
-      onNudgeDismissed: (data) => {
-        console.log('Nudge dismissed', data);
-      },
-      
-      onTipCompleted: (data) => {
-        console.log('Tip received!', data);
-        alert('Thank you for the tip! ₹' + data.amount);
-      }
-    });
+    // Initialize ChaiPe with contribution config
+    initChaiPeContribution();
+    
+    // Override onTipCompleted for demo-specific behavior
+    const originalOnTipCompleted = CHAIPE_CONTRIBUTION_CONFIG.onTipCompleted;
+    CHAIPE_CONTRIBUTION_CONFIG.onTipCompleted = (data) => {
+      nudgeTriggered = true;
+      updateTracker();
+      console.log('Tip received!', data);
+      showThankYouModal(data.amount);
+    };
+    
+    // Re-initialize with overridden callback
+    ChaiPe.init(CHAIPE_CONTRIBUTION_CONFIG);
+    
+    // Override onNudgeShown for tracker
+    const originalOnNudgeShown = CHAIPE_CONTRIBUTION_CONFIG.onNudgeShown;
+    CHAIPE_CONTRIBUTION_CONFIG.onNudgeShown = (data) => {
+      nudgeTriggered = true;
+      updateTracker();
+      console.log('Nudge triggered!', data);
+      if (originalOnNudgeShown) originalOnNudgeShown(data);
+    };
   </script>
 </body>
 </html>

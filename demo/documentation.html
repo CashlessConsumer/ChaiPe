@@ -303,8 +303,9 @@
 
 <span class="code-comment">// 2. Initialize with your configuration</span>
 <span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
-  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
-  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">upiId</span>: <span class="code-string">'srikanthlogic@icici'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Srikanth'</span>,
+  <span class="code-property">note</span>: <span class="code-string">'Contributing to ChaiPe itself for its work'</span>,
   <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>],
   <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>
 });
@@ -514,8 +515,9 @@
             <div class="example-box">
               <div class="example-title">Example</div>
               <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
-  <span class="code-property">upiId</span>: <span class="code-string">'demo@upi'</span>,
-  <span class="code-property">name</span>: <span class="code-string">'Demo Creator'</span>,
+  <span class="code-property">upiId</span>: <span class="code-string">'srikanthlogic@icici'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Srikanth'</span>,
+  <span class="code-property">note</span>: <span class="code-string">'Contributing to ChaiPe itself for its work'</span>,
   <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>],
   <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>
 });</code></pre>
@@ -729,6 +731,9 @@ document.<span class="code-function">getElementById</span>(<span class="code-str
             <div class="example-box">
               <div class="example-title">Custom Scroll Trigger</div>
               <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'srikanthlogic@icici'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Srikanth'</span>,
+  <span class="code-property">note</span>: <span class="code-string">'Contributing to ChaiPe itself for its work'</span>,
   <span class="code-property">manualOnly</span>: <span class="code-keyword">true</span>
 });
 
@@ -749,6 +754,9 @@ window.<span class="code-function">addEventListener</span>(<span class="code-str
             <div class="example-box">
               <div class="example-title">Google Analytics</div>
               <pre><code><span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'srikanthlogic@icici'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Srikanth'</span>,
+  <span class="code-property">note</span>: <span class="code-string">'Contributing to ChaiPe itself for its work'</span>,
   <span class="code-property">onTipCompleted</span>: (data) => {
     <span class="code-comment">// Track with Google Analytics 4</span>
     gtag(<span class="code-string">'event'</span>, {
@@ -777,6 +785,9 @@ window.<span class="code-function">addEventListener</span>(<span class="code-str
 <span class="code-keyword">const</span> randomTheme = themes[<span class="code-function">Math</span>.<span class="code-function">floor</span>(<span class="code-function">Math</span>.<span class="code-function">random</span>() * themes.length)];
 
 <span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'srikanthlogic@icici'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Srikanth'</span>,
+  <span class="code-property">note</span>: <span class="code-string">'Contributing to ChaiPe itself for its work'</span>,
   <span class="code-property">theme</span>: randomTheme,
   <span class="code-property">onTipCompleted</span>: (data) => {
     <span class="code-comment">// Track which theme converted</span>

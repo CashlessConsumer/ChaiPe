@@ -1,0 +1,22 @@
+{
+  "name": "chaipe-docs-site",
+  "version": "0.1.0",
+  "description": "ChaiPe Documentation Website",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Building documentation site...' && npm run build:copy",
+    "build:copy": "mkdir -p ../dist/docs && cp -r . ../dist/docs/ && cp ../dist/chaipe.min.js ../dist/docs/ 2>/dev/null || true && cp ../dist/chaipe.js ../dist/docs/ 2>/dev/null || true && cp ../dist/chaipe.esm.js ../dist/docs/ 2>/dev/null || true",
+    "preview": "npx http-server . -p 8080 -o",
+    "clean": "rm -rf ../dist/docs"
+  },
+  "keywords": [
+    "chaipe",
+    "documentation",
+    "github-pages"
+  ],
+  "author": "ChaiPe Contributors",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
