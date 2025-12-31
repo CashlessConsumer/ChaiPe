@@ -37,8 +37,8 @@ jobs:
           path: coverage/
       - name: Check coverage thresholds
         run: |
-          npx nyc report --reporter=json-summary
           COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
+          echo "Line coverage: $COVERAGE%"
           if (( $(echo "$COVERAGE < 90" | bc -l) )); then
             echo "❌ Coverage is below 90% threshold"
             exit 1
@@ -59,10 +59,11 @@ jobs:
       - name: Check build sizes
         run: |
           minified_size=$(stat -c%s dist/chaipe.min.js)
-          max_size=$((50 * 1024)) # 50KB
+          max_size=$((60 * 1024)) # 60KB (includes QR code library)
+          echo "Minified build size: $minified_size bytes ($(($minified_size / 1024))KB)"
           if [ $minified_size -gt $max_size ]; then
-            echo "❌ Minified build exceeds 50KB limit"
+            echo "❌ Minified build exceeds 60KB limit"
             exit 1
           else
-            echo "✅ Minified build is under 50KB"
+            echo "✅ Minified build is under 60KB"
           fi

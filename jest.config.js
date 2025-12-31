@@ -17,7 +17,7 @@ module.exports = {
   // Coverage configuration
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  coverageReporters: ['text', 'text-summary', 'html', 'lcov', 'json'],
+  coverageReporters: ['text', 'text-summary', 'html', 'lcov', 'json', 'json-summary'],
   coverageThreshold: {
     global: {
       branches: 90,
