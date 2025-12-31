@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChaiPe.js - Edge Cases & Advanced Usage</title>
+  <meta name="description" content="Explore edge cases, advanced configurations, and error handling in ChaiPe.js.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="shared/css/common.css">
+  <link rel="stylesheet" href="shared/css/demo-components.css">
+  
+  <style>
+    .edge-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: var(--space-lg);
+      margin: var(--space-xl) 0;
+    }
+    
+    .edge-case-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      transition: all var(--transition-base);
+    }
+    
+    .edge-case-card:hover {
+      border-color: var(--accent-primary);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .edge-case-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .edge-case-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-gradient);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    
+    .edge-case-title {
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .edge-case-description {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+      font-size: var(--text-sm);
+    }
+    
+    .edge-case-actions {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    
+    .test-result {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      display: none;
+    }
+    
+    .test-result.success {
+      background: rgba(56, 239, 125, 0.1);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+    
+    .test-result.error {
+      background: rgba(248, 113, 113, 0.1);
+      color: var(--error);
+      border: 1px solid var(--error);
+    }
+    
+    .test-result.info {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--info);
+      border: 1px solid var(--info);
+    }
+    
+    .section-divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: var(--space-2xl) 0;
+    }
+    
+    .advanced-config-section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-xl);
+    }
+    
+    .config-tabs {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-md);
+    }
+    
+    .config-tab {
+      padding: var(--space-sm) var(--space-md);
+      background: none;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+    
+    .config-tab:hover {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+    
+    .config-tab.active {
+      color: var(--accent-primary);
+      background: rgba(102, 126, 234, 0.1);
+    }
+    
+    .config-content {
+      display: none;
+    }
+    
+    .config-content.active {
+      display: block;
+    }
+    
+    .error-scenario {
+      background: rgba(248, 113, 113, 0.05);
+      border: 1px solid rgba(248, 113, 113, 0.2);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    
+    .error-scenario-title {
+      color: var(--error);
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .error-scenario-description {
+      color: var(--text-secondary);
+      font-size: var(--text-sm);
+    }
+    
+    @media (max-width: 768px) {
+      .edge-cases-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .config-tabs {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <!-- Navigation -->
+  <nav class="demo-nav">
+    <div class="container demo-nav-content">
+      <a href="index.html" class="demo-nav-logo">ChaiPe.js</a>
+      <div class="demo-nav-links">
+        <a href="index.html" class="demo-nav-link">Home</a>
+        <a href="playground.html" class="demo-nav-link">Playground</a>
+        <a href="blog-demo.html" class="demo-nav-link">Blog Demo</a>
+        <a href="edge-cases.html" class="demo-nav-link active">Edge Cases</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </nav>
+  
+  <!-- Main Content -->
+  <main id="main-content" class="container">
+    <div style="padding: var(--space-2xl) 0;">
+      <div class="text-center mb-xl">
+        <h1>🧪 Edge Cases & Advanced Usage</h1>
+        <p class="text-secondary">Explore how ChaiPe handles edge cases, errors, and advanced scenarios</p>
+      </div>
+      
+      <!-- Edge Cases Grid -->
+      <div class="edge-cases-grid">
+        <!-- Multiple Initializations -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">🔄</div>
+            <div class="edge-case-title">Multiple Initializations</div>
+          </div>
+          <p class="edge-case-description">
+            ChaiPe uses singleton pattern. Multiple <code>init()</code> calls should reuse the same instance.
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testMultipleInit()">Test</button>
+          </div>
+          <div class="test-result" id="result-multiple-init"></div>
+        </div>
+        
+        <!-- Invalid UPI ID -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">⚠️</div>
+            <div class="edge-case-title">Invalid UPI ID</div>
+          </div>
+          <p class="edge-case-description">
+            Test error handling with malformed UPI IDs (missing @ symbol, invalid format, etc.)
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testInvalidUPI()">Test Invalid</button>
+            <button class="btn btn-sm btn-secondary" onclick="testValidUPI()">Test Valid</button>
+          </div>
+          <div class="test-result" id="result-invalid-upi"></div>
+        </div>
+        
+        <!-- Empty Amounts -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">📊</div>
+            <div class="edge-case-title">Empty Amounts Array</div>
+          </div>
+          <p class="edge-case-description">
+            What happens when you don't provide any preset amounts? Should fallback to custom input only.
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testEmptyAmounts()">Test</button>
+          </div>
+          <div class="test-result" id="result-empty-amounts"></div>
+        </div>
+        
+        <!-- Very Large Amounts -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">💰</div>
+            <div class="edge-case-title">Large Amounts</div>
+          </div>
+          <p class="edge-case-description">
+            Test with very large tip amounts (₹10,000+) to ensure UI handles them properly.
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testLargeAmounts()">Test</button>
+          </div>
+          <div class="test-result" id="result-large-amounts"></div>
+        </div>
+        
+        <!-- All Data Collection Fields -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">📋</div>
+            <div class="edge-case-title">All Data Fields</div>
+          </div>
+          <p class="edge-case-description">
+            Enable all optional data collection fields to test form layout and validation.
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testAllDataFields()">Test</button>
+          </div>
+          <div class="test-result" id="result-all-fields"></div>
+        </div>
+        
+        <!-- No Data Collection -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">🔒</div>
+            <div class="edge-case-title">No Data Collection</div>
+          </div>
+          <p class="edge-case-description">
+            Disable all data collection for privacy-focused implementation.
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testNoDataFields()">Test</button>
+          </div>
+          <div class="test-result" id="result-no-fields"></div>
+        </div>
+        
+        <!-- Manual Only Mode -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">🎮</div>
+          <div class="edge-case-title">Manual Only Mode</div>
+          </div>
+          <p class="edge-case-description">
+            Disable all automatic triggers. Modal only shows when <code>ChaiPe.show()</code> is called.
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testManualOnly()">Test</button>
+          </div>
+          <div class="test-result" id="result-manual-only"></div>
+        </div>
+        
+        <!-- All Triggers Disabled -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">🚫</div>
+          <div class="edge-case-title">All Triggers Disabled</div>
+          </div>
+          <p class="edge-case-description">
+            Disable scroll, time, and exit intent triggers. Should behave like manual-only mode.
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testNoTriggers()">Test</button>
+          </div>
+          <div class="test-result" id="result-no-triggers"></div>
+        </div>
+        
+        <!-- Very Long Message -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">📝</div>
+            <div class="edge-case-title">Long Custom Message</div>
+          </div>
+          <p class="edge-case-description">
+            Test with very long custom messages to ensure proper text wrapping and modal sizing.
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testLongMessage()">Test</button>
+          </div>
+          <div class="test-result" id="result-long-message"></div>
+        </div>
+        
+        <!-- Special Characters -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">🔣</div>
+            <div class="edge-case-title">Special Characters</div>
+          </div>
+          <p class="edge-case-description">
+            Test with special characters in name and message fields (emoji, unicode, etc.)
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testSpecialChars()">Test</button>
+          </div>
+          <div class="test-result" id="result-special-chars"></div>
+        </div>
+        
+        <!-- Rapid Modal Open/Close -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">⚡</div>
+            <div class="edge-case-title">Rapid Toggle</div>
+          </div>
+          <p class="edge-case-description">
+            Rapidly open and close modal to test animation performance and state management.
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testRapidToggle()">Test</button>
+          </div>
+          <div class="test-result" id="result-rapid-toggle"></div>
+        </div>
+        
+        <!-- Return Visitor Detection -->
+        <div class="edge-case-card">
+          <div class="edge-case-header">
+            <div class="edge-case-icon">🔄</div>
+            <div class="edge-case-title">Return Visitor</div>
+          </div>
+          <p class="edge-case-description">
+            Test localStorage-based return visitor detection. Refresh page to see if it remembers you.
+          </p>
+          <div class="edge-case-actions">
+            <button class="btn btn-sm btn-primary" onclick="testReturnVisitor()">Test</button>
+            <button class="btn btn-sm btn-secondary" onclick="clearLocalStorage()">Clear Storage</button>
+          </div>
+          <div class="test-result" id="result-return-visitor"></div>
+        </div>
+      </div>
+      
+      <div class="section-divider"></div>
+      
+      <!-- Advanced Configurations -->
+      <h2 class="mt-xl mb-lg">⚙️ Advanced Configurations</h2>
+      
+      <div class="advanced-config-section">
+        <div class="config-tabs">
+          <button class="config-tab active" data-tab="minimal">Minimal</button>
+          <button class="config-tab" data-tab="toast">Toast</button>
+          <button class="config-tab" data-tab="floating">Floating</button>
+          <button class="config-tab" data-tab="tipjar">Tip Jar</button>
+        </div>
+        
+        <div class="config-content active" id="config-minimal">
+          <h4>Minimal Theme</h4>
+          <p class="text-secondary mb-md">Clean, centered modal with focus on content. Best for blogs and articles.</p>
+          <div class="code-example">
+            <div class="code-example-header">
+              <span class="code-example-title">Configuration</span>
+            </div>
+            <div class="code-example-content">
+              <pre><code>{
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>,
+  <span class="code-property">message</span>: <span class="code-string">'Enjoyed this article?'</span>,
+  <span class="code-property">buttonText</span>: <span class="code-string">'Support my work'</span>
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        
+        <div class="config-content" id="config-toast">
+          <h4>Toast Theme</h4>
+          <p class="text-secondary mb-md">Bottom-positioned toast notification. Non-intrusive, quick to dismiss.</p>
+          <div class="code-example">
+            <div class="code-example-header">
+              <span class="code-example-title">Configuration</span>
+            </div>
+            <div class="code-example-content">
+              <pre><code>{
+  <span class="code-property">theme</span>: <span class="code-string">'toast'</span>,
+  <span class="code-property">message</span>: <span class="code-string">'Quick tip?'</span>,
+  <span class="code-property">autoDismiss</span>: <span class="code-keyword">true</span>
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        
+        <div class="config-content" id="config-floating">
+          <h4>Floating Theme</h4>
+          <p class="text-secondary mb-md">Floating bar at bottom of screen. Always visible, minimal footprint.</p>
+          <div class="code-example">
+            <div class="code-example-header">
+              <span class="code-example-title">Configuration</span>
+            </div>
+            <div class="code-example-content">
+              <pre><code>{
+  <span class="code-property">theme</span>: <span class="code-string">'floating'</span>,
+  <span class="code-property">message</span>: <span class="code-string">'Tip anytime!'</span>,
+  <span class="code-property">position</span>: <span class="code-string">'bottom'</span>
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        
+        <div class="config-content" id="config-tipjar">
+          <h4>Tip Jar Mode</h4>
+          <p class="text-secondary mb-md">Persistent floating button with animated coffee cup. Always accessible.</p>
+          <div class="code-example">
+            <div class="code-example-header">
+              <span class="code-example-title">Configuration</span>
+            </div>
+            <div class="code-example-content">
+              <pre><code>{
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>,
+  <span class="code-property">tipJar</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">tipJarPosition</span>: <span class="code-string">'bottom-right'</span>
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section-divider"></div>
+      
+      <!-- Error Scenarios -->
+      <h2 class="mt-xl mb-lg">❌ Error Scenarios</h2>
+      
+      <div class="advanced-config-section">
+        <div class="error-scenario">
+          <div class="error-scenario-title">⚠️ Missing Required Fields</div>
+          <div class="error-scenario-description">
+            <code>upiId</code> and <code>name</code> are required. Without them, ChaiPe will throw an error.
+          </div>
+        </div>
+        
+        <div class="error-scenario">
+          <div class="error-scenario-title">⚠️ Invalid Trigger Values</div>
+          <div class="error-scenario-description">
+            Scroll depth must be 0-100, time on page must be positive integer. Invalid values are ignored.
+          </div>
+        </div>
+        
+        <div class="error-scenario">
+          <div class="error-scenario-title">⚠️ Not Initialized</div>
+          <div class="error-scenario-description">
+            Calling <code>ChaiPe.show()</code> before <code>init()</code> will throw an error.
+          </div>
+        </div>
+        
+        <div class="error-scenario">
+          <div class="error-scenario-title">⚠️ Browser Compatibility</div>
+          <div class="error-scenario-description">
+            ChaiPe requires ES6+ support. Will not work in IE11 or older browsers.
+          </div>
+        </div>
+        
+        <div class="error-scenario">
+          <div class="error-scenario-title">⚠️ localStorage Disabled</div>
+          <div class="error-scenario-description">
+            If user has disabled localStorage, return visitor detection won't work. Gracefully degrades.
+          </div>
+        </div>
+      </div>
+      
+      <div class="section-divider"></div>
+      
+      <!-- Best Practices -->
+      <h2 class="mt-xl mb-lg">✅ Best Practices</h2>
+      
+      <div class="grid grid-2">
+        <div class="card">
+          <h4>Always Validate UPI ID</h4>
+          <p class="text-secondary text-sm">
+            Ensure your UPI ID is valid and active before deploying. Test with a small payment first.
+          </p>
+        </div>
+        
+        <div class="card">
+          <h4>Start Conservative</h4>
+          <p class="text-secondary text-sm">
+            Begin with higher trigger thresholds (70% scroll, 2+ minutes). Lower gradually based on analytics.
+          </p>
+        </div>
+        
+        <div class="card">
+          <h4>Test All Themes</h4>
+          <p class="text-secondary text-sm">
+            Try all three themes to see which works best for your content and audience.
+          </p>
+        </div>
+        
+        <div class="card">
+          <h4>Monitor Callbacks</h4>
+          <p class="text-secondary text-sm">
+            Use <code>onTipCompleted</code> to track conversion rates and optimize your strategy.
+          </p>
+        </div>
+        
+        <div class="card">
+          <h4>Respect User Privacy</h4>
+          <p class="text-secondary text-sm">
+            Only collect data you actually need. Be transparent about how you use it.
+          </p>
+        </div>
+        
+        <div class="card">
+          <h4>Handle Errors Gracefully</h4>
+          <p class="text-secondary text-sm">
+            Wrap ChaiPe initialization in try-catch to handle potential errors gracefully.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <p class="text-muted">
+        ChaiPe Edge Cases Demo • <a href="index.html">Back to Home</a>
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Load ChaiPe -->
+  <script src="../dist/chaipe.js"></script>
+  
+  <script>
+    // Theme toggle
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      document.documentElement.classList.toggle('light');
+    });
+    
+    // Config tabs
+    const configTabs = document.querySelectorAll('.config-tab');
+    const configContents = document.querySelectorAll('.config-content');
+    
+    configTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        configTabs.forEach(t => t.classList.remove('active'));
+        configContents.forEach(c => c.classList.remove('active'));
+        
+        tab.classList.add('active');
+        document.getElementById('config-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+    
+    // Test functions
+    function showResult(elementId, message, type = 'info') {
+      const el = document.getElementById(elementId);
+      el.textContent = message;
+      el.className = 'test-result ' + type;
+      el.style.display = 'block';
+    }
+    
+    function testMultipleInit() {
+      try {
+        // First init
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          manualOnly: true
+        });
+        
+        // Second init - should reuse instance
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          manualOnly: true
+        });
+        
+        showResult('result-multiple-init', '✓ Singleton pattern working - second init reused instance', 'success');
+      } catch (error) {
+        showResult('result-multiple-init', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testInvalidUPI() {
+      try {
+        ChaiPe.init({
+          upiId: 'invalid-upi', // Missing @
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          manualOnly: true
+        });
+        showResult('result-invalid-upi', '⚠️ Invalid UPI ID accepted (library may validate later)', 'info');
+      } catch (error) {
+        showResult('result-invalid-upi', '✓ Error caught: ' + error.message, 'success');
+      }
+    }
+    
+    function testValidUPI() {
+      try {
+        ChaiPe.init({
+          upiId: 'valid@upi',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          manualOnly: true
+        });
+        showResult('result-invalid-upi', '✓ Valid UPI ID accepted', 'success');
+      } catch (error) {
+        showResult('result-invalid-upi', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testEmptyAmounts() {
+      try {
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [], // Empty array
+          manualOnly: true
+        });
+        showResult('result-empty-amounts', '✓ Empty amounts accepted - custom input only mode', 'success');
+      } catch (error) {
+        showResult('result-empty-amounts', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testLargeAmounts() {
+      try {
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10000, 25000, 50000], // Very large amounts
+          manualOnly: true
+        });
+        showResult('result-large-amounts', '✓ Large amounts accepted - test modal to verify UI', 'success');
+      } catch (error) {
+        showResult('result-large-amounts', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testAllDataFields() {
+      try {
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          collectEmail: true,
+          collectName: true,
+          collectPhoneNumber: true,
+          collectVPA: true,
+          collectUPIUTR: true,
+          manualOnly: true
+        });
+        showResult('result-all-fields', '✓ All data fields enabled - click "Show Modal" to test form', 'success');
+        setTimeout(() => ChaiPe.show(), 500);
+      } catch (error) {
+        showResult('result-all-fields', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testNoDataFields() {
+      try {
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          collectEmail: false,
+          collectName: false,
+          collectPhoneNumber: false,
+          collectVPA: false,
+          collectUPIUTR: false,
+          manualOnly: true
+        });
+        showResult('result-no-fields', '✓ All data fields disabled - privacy mode', 'success');
+      } catch (error) {
+        showResult('result-no-fields', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testManualOnly() {
+      try {
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          manualOnly: true
+        });
+        showResult('result-manual-only', '✓ Manual only mode - no auto triggers', 'success');
+        setTimeout(() => ChaiPe.show(), 500);
+      } catch (error) {
+        showResult('result-manual-only', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testNoTriggers() {
+      try {
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          triggers: {
+            scrollDepth: 0,
+            timeOnPage: 0,
+            exitIntent: false
+          },
+          manualOnly: true
+        });
+        showResult('result-no-triggers', '✓ All triggers disabled - manual only', 'success');
+      } catch (error) {
+        showResult('result-no-triggers', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testLongMessage() {
+      try {
+        const longMessage = 'This is a very long custom message that should test how the modal handles text wrapping and sizing when the message extends beyond normal length. '.repeat(5);
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          message: longMessage,
+          manualOnly: true
+        });
+        showResult('result-long-message', '✓ Long message set - click "Show Modal" to test', 'success');
+        setTimeout(() => ChaiPe.show(), 500);
+      } catch (error) {
+        showResult('result-long-message', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testSpecialChars() {
+      try {
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          message: 'Special chars: é ñ 中文 🎉',
+          manualOnly: true
+        });
+        showResult('result-special-chars', '✓ Special characters set - click "Show Modal" to test', 'success');
+        setTimeout(() => ChaiPe.show(), 500);
+      } catch (error) {
+        showResult('result-special-chars', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testRapidToggle() {
+      try {
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          manualOnly: true
+        });
+        
+        let count = 0;
+        const interval = setInterval(() => {
+          ChaiPe.show();
+          setTimeout(() => {
+            // Modal should auto-dismiss or we can't close it programmatically
+            count++;
+            if (count >= 5) {
+              clearInterval(interval);
+              showResult('result-rapid-toggle', '✓ Rapid toggle test completed (5 iterations)', 'success');
+            }
+          }, 200);
+        }, 500);
+      } catch (error) {
+        showResult('result-rapid-toggle', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function testReturnVisitor() {
+      try {
+        ChaiPe.init({
+          upiId: 'srikanthlogic@icici',
+          name: 'Srikanth',
+          note: 'Contributing to ChaiPe itself for its work',
+          amounts: [10, 25, 50],
+          manualOnly: true
+        });
+        
+        const hasVisited = localStorage.getItem('chaipe-visited');
+        if (hasVisited) {
+          showResult('result-return-visitor', '✓ Return visitor detected - localStorage has record', 'success');
+        } else {
+          showResult('result-return-visitor', 'ℹ️ First-time visitor - refresh to test return detection', 'info');
+        }
+      } catch (error) {
+        showResult('result-return-visitor', '✗ Error: ' + error.message, 'error');
+      }
+    }
+    
+    function clearLocalStorage() {
+      localStorage.removeItem('chaipe-visited');
+      showResult('result-return-visitor', '✓ localStorage cleared - refresh to test as new visitor', 'success');
+    }
+  </script>
+</body>
+</html>

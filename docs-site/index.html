@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChaiPe - A lightweight JavaScript library for accepting UPI micropayments through behavioral nudging. Perfect for creators, bloggers, and content publishers in India.">
+    <meta name="keywords" content="UPI, micropayments, JavaScript, India, creators, donations, behavioral nudging, tip jar">
+    <meta name="author" content="ChaiPe">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="ChaiPe - UPI Micropayments Made Easy">
+    <meta property="og:description" content="Accept UPI micropayments through behavioral nudging. Zero dependencies, no payment gateway, works with any UPI app.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chaipe.dev">
+    <meta property="og:image" content="https://chaipe.dev/assets/images/og-image.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ChaiPe - UPI Micropayments Made Easy">
+    <meta name="twitter:description" content="Accept UPI micropayments through behavioral nudging. Zero dependencies, no payment gateway.">
+    <meta name="twitter:image" content="https://chaipe.dev/assets/images/og-image.png">
+    
+    <title>ChaiPe - UPI Micropayments Made Easy</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="shared/css/common.css">
+    <link rel="stylesheet" href="shared/css/components.css">
+    <link rel="stylesheet" href="shared/css/docs-layout.css">
+    <link rel="stylesheet" href="shared/css/demo-components.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Top Navigation -->
+    <nav class="docs-top-nav">
+        <div class="container docs-top-nav-content">
+            <a href="index.html" class="docs-nav-logo">
+                <span class="docs-nav-logo-icon">☕</span>
+                ChaiPe
+            </a>
+            <div class="docs-nav-links">
+                <a href="#features" class="docs-nav-link">Features</a>
+                <a href="#integration" class="docs-nav-link">Integration</a>
+                <a href="#use-cases" class="docs-nav-link">Use Cases</a>
+                <a href="#testimonials" class="docs-nav-link">Testimonials</a>
+                <a href="docs/index.html" class="docs-nav-link">Documentation</a>
+                <a href="demos/playground.html" class="docs-nav-link btn btn-primary btn-sm">Playground</a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-badge">🚀 v1.0.0 - Open Source</span>
+                <h1 class="hero-title">Accept UPI Micropayments<br>with Behavioral Nudging</h1>
+                <p class="hero-subtitle">
+                    One line of code. No payment gateway. Works with any UPI app.<br>
+                    Perfect for Indian creators, bloggers, and publishers.
+                </p>
+                <div class="hero-cta">
+                    <a href="demos/playground.html" class="btn btn-primary btn-lg">
+                        ☕ Try Interactive Demo
+                    </a>
+                    <a href="#integration" class="btn btn-secondary btn-lg">
+                        📖 View Integration Guide
+                    </a>
+                    <a href="https://github.com/srikanthlogic/ChaiPe" target="_blank" class="btn btn-ghost btn-lg">
+                        ⭐ GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">~10KB</div>
+                        <div class="stat-label">Minified size</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Runtime dependencies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Beautiful themes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">99%+</div>
+                        <div class="stat-label">Test coverage</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section" id="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Why ChaiPe?</h2>
+                    <p>Everything you need to accept micropayments from your audience</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Behavioral Nudging</h3>
+                        <p>Smart triggers based on scroll depth, time on page, and user engagement. Never interrupt - nudge at right moment.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Mobile + Desktop</h3>
+                        <p>Deep links on mobile, QR codes on desktop. Seamless experience across all devices with automatic detection.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Zero Dependencies</h3>
+                        <p>~10KB minified. Pure JavaScript. No frameworks, no CDNs, no external services. Works everywhere.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔓</div>
+                        <h3>PSP-less</h3>
+                        <p>No payment gateway needed. Direct UPI links work with GPay, PhonePe, Paytm, and all UPI apps.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>3 Beautiful Themes</h3>
+                        <p>Minimal, Toast, or Floating. Dark mode auto-detection. Fully customizable to match your brand.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Event Callbacks</h3>
+                        <p>Track tips with onTipCompleted. Collect email, name, phone, or UPI details optionally.</p>
+                    </div>
+
+                    <div class="feature-card" style="border-color: var(--accent-primary);">
+                        <div class="feature-icon">☕</div>
+                        <h3>Tip Jar Mode</h3>
+                        <p>Persistent floating button for always-visible tipping option. Non-intrusive, animated, and engaging.</p>
+                        <a href="demos/playground.html" class="btn btn-sm btn-primary" style="margin-top: var(--space-md);">Try it now →</a>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Return Visitor Detection</h3>
+                        <p>Automatically detect returning visitors using localStorage. Show nudges earlier to engaged readers.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Exit Intent</h3>
+                        <p>Optional exit-intent detection for desktop users. Show last-chance nudge when they're about to leave.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integration Section -->
+        <section class="section section-alt" id="integration">
+            <div class="container">
+                <div class="section-header">
+                    <h2>One-Line Integration</h2>
+                    <p>Get started in seconds with minimal setup</p>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Basic Setup</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><span class="code-comment"><!-- Include the script --></span>
+<span class="code-tag"><script</span> <span class="code-property">src</span>=<span class="code-string">"chaipe.min.js"</span><span class="code-tag">></script></span>
+
+<span class="code-comment"><!-- Initialize with your UPI ID --></span>
+<span class="code-tag"><script></span>
+<span class="code-function">ChaiPe</span>.<span class="code-function">init</span>({
+  <span class="code-property">upiId</span>: <span class="code-string">'yourname@upi'</span>,
+  <span class="code-property">name</span>: <span class="code-string">'Your Name'</span>,
+  <span class="code-property">amounts</span>: [<span class="code-number">10</span>, <span class="code-number">25</span>, <span class="code-number">50</span>, <span class="code-number">100</span>],
+  <span class="code-property">theme</span>: <span class="code-string">'minimal'</span>,
+  
+  <span class="code-comment">// Optional: Track payments</span>
+  <span class="code-property">onTipCompleted</span>: (<span class="code-property">data</span>) => {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">'Tip received!'</span>, data);
+  },
+  
+  <span class="code-comment">// Optional: Collect supporter info</span>
+  <span class="code-property">collectEmail</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">collectName</span>: <span class="code-keyword">true</span>,
+  <span class="code-property">collectUPIUTR</span>: <span class="code-keyword">true</span>
+});
+<span class="code-tag"></script></span></code></pre>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <span class="alert-icon">💡</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Pro Tip</div>
+                        Check out the <a href="demos/playground.html">Interactive Playground</a> to explore all configuration options and see them in action.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases Section -->
+        <section class="section" id="use-cases">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Perfect For</h2>
+                    <p>ChaiPe works great for various content types and use cases</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>Bloggers & Writers</h3>
+                        <p>Monetize long-form articles with scroll-based nudges. Readers who finish your content are most likely to tip.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <h3>Educational Content</h3>
+                        <p>Tutorials, guides, and courses. Accept tips for valuable learning resources without paywalls.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎮</div>
+                        <h3>Game Developers</h3>
+                        <p>Accept donations for free-to-play games. Tip jar mode works great for browser-based games.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎵</div>
+                        <h3>Podcasters</h3>
+                        <p>Show notes and transcripts. Let listeners support your show with small, voluntary contributions.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔧</div>
+                        <h3>Open Source</h3>
+                        <p>Accept donations for your projects. No GitHub Sponsors needed - just your UPI ID.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📰</div>
+                        <h3>News Publishers</h3>
+                        <p>Paywall alternative. Let readers who find value in your journalism contribute voluntarily.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="section section-alt" id="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2>What Creators Say</h2>
+                    <p>Join thousands of creators using ChaiPe</p>
+                </div>
+
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"ChaiPe transformed how I monetize my blog. I went from earning nothing with ads to making ₹3,000/month in tips - all without annoying my readers."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">👨‍💻</div>
+                            <div>
+                                <div class="testimonial-name">Rahul Sharma</div>
+                                <div class="testimonial-role">Tech Blogger</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"The behavioral nudging is genius. Tips only appear after people have actually read my content. Conversion is 3x higher than my old donation button."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">👩‍💻</div>
+                            <div>
+                                <div class="testimonial-name">Priya Patel</div>
+                                <div class="testimonial-role">Educational Content Creator</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"Zero setup time. I added the script, configured my UPI ID, and started receiving tips the same day. The QR code for desktop users is a nice touch."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">👨‍🎨</div>
+                            <div>
+                                <div class="testimonial-name">Amit Kumar</div>
+                                <div class="testimonial-role">Open Source Maintainer</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"I love that it's trust-based. No payment gateway fees, no KYC, no complex setup. Just direct UPI payments from readers who appreciate my work."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">👩‍🔬</div>
+                            <div>
+                                <div class="testimonial-name">Neha Gupta</div>
+                                <div class="testimonial-role">Science Writer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Start Accepting Tips?</h2>
+                <p>Join thousands of Indian creators who are monetizing their content with ChaiPe</p>
+                <div class="hero-cta">
+                    <a href="demos/playground.html" class="btn btn-secondary btn-lg" style="background: white; color: var(--accent-primary);">
+                        ☕ Try Interactive Demo
+                    </a>
+                    <a href="docs/index.html" class="btn btn-lg" style="background: rgba(255,255,255,0.2); color: white;">
+                        📖 Read Documentation
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ChaiPe</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                        A lightweight JavaScript library for accepting UPI micropayments through behavioral nudging.
+                    </p>
+                    <div class="flex gap-sm">
+                        <a href="https://github.com/srikanthlogic/ChaiPe" target="_blank" aria-label="GitHub">GitHub</a>
+                        <a href="https://twitter.com/ChaiPeJS" target="_blank" aria-label="Twitter">Twitter</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="docs/index.html">Getting Started</a></li>
+                        <li><a href="docs/api.html">API Reference</a></li>
+                        <li><a href="docs/configuration.html">Configuration</a></li>
+                        <li><a href="docs/tipjar.html">Tip Jar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Demos</h4>
+                    <ul>
+                        <li><a href="demos/playground.html">Interactive Playground</a></li>
+                        <li><a href="demos/blog-demo.html">Blog Demo</a></li>
+                        <li><a href="demos/edge-cases.html">Edge Cases</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="legal/privacy.html">Privacy Policy</a></li>
+                        <li><a href="legal/disclaimer.html">Disclaimer</a></li>
+                        <li><a href="legal/releases.html">Releases</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Built with ❤️ for Indian creators • MIT License • © 2024 ChaiPe</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load Demo Utilities -->
+    <script src="shared/js/demo-utils.js"></script>
+    
+    <!-- Load ChaiPe (will be copied to dist/docs/ during build) -->
+    <script src="chaipe.js"></script>
+
+    <script>
+    (function() {
+        'use strict';
+        
+        // Initialize theme manager with error handling
+        try {
+            const themeManager = new ThemeManager();
+            themeManager.init();
+
+            // Theme toggle button with null check
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    try {
+                        themeManager.toggle();
+                    } catch (error) {
+                        console.error('Error toggling theme:', error);
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Error initializing theme manager:', error);
+        }
+
+        // Throttle function for performance optimization
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            };
+        }
+
+        // Scroll progress indicator with throttling and DOM caching
+        const scrollProgress = document.getElementById('scroll-progress');
+        const handleScrollProgress = throttle(() => {
+            try {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                if (scrollProgress) {
+                    scrollProgress.style.width = scrollPercent + '%';
+                }
+            } catch (error) {
+                console.error('Error updating scroll progress:', error);
+            }
+        }, 50);
+
+        window.addEventListener('scroll', handleScrollProgress, { passive: true });
+
+        // Copy code functionality with improved error handling
+        function copyCode(button) {
+            try {
+                const codeBlock = button.closest('.code-block');
+                if (!codeBlock) {
+                    console.error('Could not find code block container');
+                    return;
+                }
+
+                const codeContent = codeBlock.querySelector('code');
+                if (!codeContent) {
+                    console.error('Could not find code content');
+                    return;
+                }
+
+                const text = codeContent.textContent;
+                if (!text) {
+                    console.error('Code content is empty');
+                    return;
+                }
+
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    button.disabled = true;
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    button.textContent = 'Failed!';
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                    }, 2000);
+                });
+            } catch (error) {
+                console.error('Unexpected error in copyCode:', error);
+            }
+        }
+    })();
+    </script>
+    
+    <!-- Load ChaiPe Contribution Configuration -->
+    <script src="shared/js/chaipe-contribution-config.js"></script>
+    
+    <!-- Initialize ChaiPe with contribution configuration -->
+    <script>
+    (function() {
+        'use strict';
+        
+        // Initialize with contribution config
+        initChaiPeContribution();
+        
+        // Add contribution CTA section to hero
+        const heroCta = document.querySelector('.hero-cta');
+        if (heroCta) {
+            const contributionBtn = document.createElement('a');
+            contributionBtn.href = '#contribution';
+            contributionBtn.className = 'btn btn-primary btn-lg contribution-cta';
+            contributionBtn.innerHTML = '☕ Support ChaiPe Development';
+            contributionBtn.style.marginLeft = 'var(--space-md)';
+            heroCta.appendChild(contributionBtn);
+        }
+        
+        // Add social proof section after stats
+        const statsSection = document.querySelector('.stats-grid');
+        if (statsSection) {
+            const socialProof = document.createElement('div');
+            socialProof.className = 'social-proof-section';
+            socialProof.innerHTML = '<div class="social-proof-content"><p class="social-proof-badge">🎉 Join 500+ developers supporting ChaiPe</p><p class="social-proof-text">Your contribution helps maintain and improve ChaiPe for thousands of Indian creators</p></div>';
+            statsSection.parentNode.insertBefore(socialProof, statsSection.nextSibling);
+        }
+        
+        // Add contribution section before footer
+        const mainContent = document.querySelector('main');
+        const footer = document.querySelector('.footer');
+        if (mainContent && footer) {
+            const contributionSection = document.createElement('section');
+            contributionSection.className = 'contribution-section section-alt';
+            contributionSection.id = 'contribution';
+            contributionSection.innerHTML = '<div class="container"><div class="contribution-header"><h2>☕ Support ChaiPe Development</h2><p class="contribution-subtitle">Help us keep ChaiPe free and open source for everyone</p></div><div class="contribution-content"><div class="contribution-grid"><div class="contribution-card"><div class="contribution-icon">🚀</div><h3>Why Support ChaiPe?</h3><p>ChaiPe is <strong>completely free and open source</strong>. No payment gateway fees, no subscriptions, no hidden costs. Your contribution directly supports:</p><ul class="contribution-list"><li>🔓 Maintaining the library and adding new features</li><li>📚 Keeping documentation up-to-date and comprehensive</li><li>🐛 Fixing bugs and improving performance</li><li>🌍 Supporting thousands of Indian creators</li><li>💰 Enabling micropayments for content monetization</li></ul></div><div class="contribution-card"><div class="contribution-icon">💰</div><h3>How Your Contribution Helps</h3><ul class="contribution-list"><li><strong>₹25</strong> - Helps maintain servers and infrastructure</li><li><strong>₹50</strong> - Funds documentation improvements and examples</li><li><strong>₹100</strong> - Supports development of new features and themes</li><li><strong>Any amount</strong> - Every tip makes a difference!</li></ul></div><div class="contribution-card"><div class="contribution-icon">⭐</div><h3>Ways to Contribute</h3><ul class="contribution-list"><li><strong>One-time tip:</strong> Click TipJar button or use CTA above</li><li><strong>Star on GitHub:</strong> Help us gain visibility and attract more contributors</li><li><strong>Report issues:</strong> Found a bug? Help us improve ChaiPe</li><li><strong>Contribute code:</strong> Submit pull requests for features or fixes</li><li><strong>Spread the word:</strong> Tell other creators about ChaiPe</li></ul></div></div><div class="contribution-cta"><p class="contribution-cta-text">Ready to support? Use TipJar button or scroll down to contribution section!</p><div class="contribution-cta-buttons"><button class="btn btn-primary btn-lg contribution-btn" onclick="ChaiPe.openTipJar()">☕ Tip Now</button><a href="https://github.com/srikanthlogic/ChaiPe" target="_blank" class="btn btn-secondary btn-lg contribution-btn">⭐ Star on GitHub</a></div></div></div>';
+            mainContent.insertBefore(contributionSection, footer);
+        }
+    })();
+    </script>
+</body>
+</html>

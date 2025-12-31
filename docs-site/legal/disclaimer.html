@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChaiPe Disclaimer - Legal terms and limitations">
+    <title>Disclaimer - ChaiPe</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../shared/css/common.css">
+    <link rel="stylesheet" href="../shared/css/docs-layout.css">
+    <link rel="stylesheet" href="../shared/css/components.css">
+    
+    <style>
+        /* Legal Page Specific Styles */
+        .legal-page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .legal-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .legal-header h1 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .legal-header .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .legal-content {
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .legal-content h2 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .legal-content h3 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .legal-content h4 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        .legal-content p {
+            margin-bottom: 15px;
+        }
+
+        .legal-content ul,
+        .legal-content ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .legal-content li {
+            margin-bottom: 10px;
+        }
+
+        .legal-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .legal-content a:hover {
+            text-decoration: underline;
+        }
+
+        .legal-content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+        }
+
+        .legal-content .highlight-box {
+            background: var(--highlight-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .legal-content .warning-box {
+            background: var(--warning-bg);
+            border-left: 4px solid var(--warning-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .legal-content .danger-box {
+            background: var(--danger-bg);
+            border-left: 4px solid var(--danger-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .legal-content .info-box {
+            background: var(--info-bg);
+            border-left: 4px solid var(--info-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .toc a:hover {
+            background: var(--hover-bg);
+            color: var(--primary-color);
+        }
+
+        /* Collapsible Sections */
+        .collapsible {
+            margin: 20px 0;
+        }
+
+        .collapsible-header {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .collapsible-header:hover {
+            background: var(--hover-bg);
+        }
+
+        .collapsible-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .collapsible-header .toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .collapsible-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .collapsible-content.active {
+            max-height: 2000px;
+        }
+
+        .collapsible-inner {
+            padding: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* License Box */
+        .license-box {
+            background: var(--card-bg);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .license-box h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .license-box pre {
+            background: var(--code-bg);
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-section h3 {
+            margin-top: 0;
+        }
+
+        .contact-section a {
+            display: inline-block;
+            margin-right: 20px;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .contact-section a:hover {
+            background: var(--primary-hover);
+            text-decoration: none;
+        }
+
+        /* Print Styles */
+        @media print {
+            .docs-top-nav,
+            .footer,
+            .theme-toggle {
+                display: none !important;
+            }
+
+            .legal-page {
+                max-width: 100%;
+            }
+
+            .legal-content {
+                color: #000;
+            }
+
+            .legal-content a {
+                color: #000;
+                text-decoration: underline;
+            }
+
+            .collapsible-content {
+                max-height: none !important;
+            }
+
+            .collapsible-header .toggle-icon {
+                display: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .legal-header h1 {
+                font-size: 2rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .legal-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .contact-section a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Navigation -->
+    <nav class="docs-top-nav">
+        <div class="container docs-top-nav-content">
+            <a href="../index.html" class="docs-nav-logo">
+                <span class="docs-nav-logo-icon">☕</span>
+                ChaiPe
+            </a>
+            <div class="docs-nav-links">
+                <a href="../index.html" class="docs-nav-link">Home</a>
+                <a href="../docs/index.html" class="docs-nav-link">Documentation</a>
+                <a href="../demos/playground.html" class="docs-nav-link">Playground</a>
+                <a href="https://github.com/srikanthlogic/ChaiPe" target="_blank" class="docs-nav-link">GitHub</a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="legal-page">
+            <div class="legal-header">
+                <h1>Disclaimer</h1>
+                <p class="last-updated">Last updated: December 29, 2024</p>
+                <p style="margin-top: 10px; color: var(--text-secondary);">Effective Date: December 29, 2024</p>
+            </div>
+
+            <div class="legal-content">
+                <!-- Introduction -->
+                <div class="danger-box">
+                    <p><strong>Important Legal Notice:</strong> Please read this disclaimer carefully before using ChaiPe. By using ChaiPe, you agree to be bound by the terms and conditions outlined below.</p>
+                </div>
+
+                <!-- Table of Contents -->
+                <nav class="toc" aria-label="Table of Contents">
+                    <h3>📋 Table of Contents</h3>
+                    <ul>
+                        <li><a href="#payment-processing">Payment Processing</a></li>
+                        <li><a href="#no-warranty">No Warranty</a></li>
+                        <li><a href="#limitation-liability">Limitation of Liability</a></li>
+                        <li><a href="#user-responsibility">User Responsibility</a></li>
+                        <li><a href="#third-party-services">Third-Party Services</a></li>
+                        <li><a href="#no-financial-advice">No Financial Advice</a></li>
+                        <li><a href="#open-source-license">Open Source License</a></li>
+                        <li><a href="#jurisdiction">Jurisdiction and Dispute Resolution</a></li>
+                        <li><a href="#india-specific">India-Specific Regulations</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Payment Processing -->
+                <section id="payment-processing">
+                    <h2>1. Payment Processing</h2>
+
+                    <h3>Frontend Library Only</h3>
+                    <p>ChaiPe is a <strong>frontend JavaScript library only</strong>. It provides user interface components and facilitates payment initiation, but does not process payments itself.</p>
+
+                    <h3>No Payment Gateway Integration</h3>
+                    <p>ChaiPe does not integrate with any payment gateway. It works directly with the Unified Payments Interface (UPI) system:</p>
+                    <ul>
+                        <li>No merchant account required</li>
+                        <li>No payment gateway fees</li>
+                        <li>No transaction processing by ChaiPe</li>
+                        <li>No payment verification infrastructure</li>
+                    </ul>
+
+                    <h3>No Backend Verification</h3>
+                    <p>ChaiPe does not verify payment completion. The system operates on a trust-based model:</p>
+                    <ul>
+                        <li>Users self-confirm payment completion</li>
+                        <li>No server-side payment verification</li>
+                        <li>No transaction status tracking</li>
+                        <li>No automated payment confirmation</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Trust-Based System:</strong> ChaiPe relies on user honesty. There is no technical mechanism to verify whether a payment was actually completed. Website owners should implement their own verification methods if needed.</p>
+                    </div>
+
+                    <h3>User Confirms Payment Completion</h3>
+                    <p>After initiating a payment:</p>
+                    <ul>
+                        <li>Mobile: User is redirected to UPI app, completes payment, returns to confirm</li>
+                        <li>Desktop: User scans QR code, completes payment in UPI app, confirms on website</li>
+                        <li>Confirmation is based solely on user's statement</li>
+                        <li>No technical verification is performed</li>
+                    </ul>
+
+                    <div class="collapsible">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <h3>How Payment Verification Works (or Doesn't)</h3>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p><strong>ChaiPe's Payment Flow:</strong></p>
+                                <ol>
+                                    <li>User clicks tip amount</li>
+                                    <li>ChaiPe generates UPI deep link or QR code</li>
+                                    <li>User is redirected to UPI app (mobile) or scans QR code (desktop)</li>
+                                    <li>User completes payment in UPI app</li>
+                                    <li>User returns to website and clicks "I've made the payment"</li>
+                                    <li>ChaiPe triggers <code>onTipCompleted</code> callback</li>
+                                </ol>
+                                <p><strong>What ChaiPe Does NOT Do:</strong></p>
+                                <ul>
+                                    <li>Check bank transaction status</li>
+                                    <li>Verify UPI transaction ID</li>
+                                    <li>Confirm payment amount received</li>
+                                    <li>Validate UTR (Unique Transaction Reference)</li>
+                                    <li>Communicate with payment processors</li>
+                                </ul>
+                                <p><strong>Recommendation:</strong> Collect UTR for manual verification if needed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- No Warranty -->
+                <section id="no-warranty">
+                    <h2>2. No Warranty</h2>
+
+                    <div class="danger-box">
+                        <p><strong>CHAIPE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</strong></p>
+                    </div>
+
+                    <h3>No Guarantee of Payment Receipt</h3>
+                    <p>ChaiPe does not guarantee that:</p>
+                    <ul>
+                        <li>Payments will be successfully received</li>
+                        <li>Users will complete initiated transactions</li>
+                        <li>UPI links will function correctly</li>
+                        <li>QR codes will scan properly</li>
+                        <li>Payment confirmations are accurate</li>
+                    </ul>
+
+                    <h3>No Guarantee of UPI Link Functionality</h3>
+                    <p>ChaiPe does not guarantee that:</p>
+                    <ul>
+                        <li>UPI deep links will open on all devices</li>
+                        <li>All UPI apps will support the generated links</li>
+                        <li>QR codes will be scannable by all UPI apps</li>
+                        <li>Payment parameters will be accepted by all banks</li>
+                        <li>UPI system will be available at all times</li>
+                    </ul>
+
+                    <h3>No Guarantee of System Availability</h3>
+                    <p>ChaiPe does not guarantee:</p>
+                    <ul>
+                        <li>Uptime or availability of the library</li>
+                        <li>Compatibility with future browser updates</li>
+                        <li>Compatibility with future UPI protocol changes</li>
+                        <li>That the library will work on all devices or browsers</li>
+                    </ul>
+
+                    <h3>No Technical Support</h3>
+                    <p>ChaiPe is an open-source project maintained by volunteers. We do not guarantee:</p>
+                    <ul>
+                        <li>Technical support availability</li>
+                        <li>Response time to issues or questions</li>
+                        <li>Bug fixes or feature requests</li>
+                        <li>Timely updates or security patches</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Use at Your Own Risk:</strong> You assume all risks associated with using ChaiPe, including but not limited to loss of revenue, failed transactions, and technical issues.</p>
+                    </div>
+                </section>
+
+                <!-- Limitation of Liability -->
+                <section id="limitation-liability">
+                    <h2>3. Limitation of Liability</h2>
+
+                    <div class="danger-box">
+                        <p><strong>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL CHAIPE, ITS CONTRIBUTORS, OR MAINTAINERS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES.</strong></p>
+                    </div>
+
+                    <h3>Maximum Liability</h3>
+                    <p>ChaiPe's total liability is limited to:</p>
+                    <ul>
+                        <li>The amount you paid for ChaiPe (if any)</li>
+                        <li>Since ChaiPe is free and open-source, maximum liability is <strong>₹0 (zero)</strong></li>
+                        <li>No liability for damages exceeding this amount</li>
+                    </ul>
+
+                    <h3>No Liability for Indirect Damages</h3>
+                    <p>ChaiPe is not liable for:</p>
+                    <ul>
+                        <li>Loss of revenue or profits</li>
+                        <li>Lost business opportunities</li>
+                        <li>Damage to reputation</li>
+                        <li>Loss of customers or clients</li>
+                        <li>Any indirect or consequential damages</li>
+                    </ul>
+
+                    <h3>No Liability for Data Loss</h3>
+                    <p>ChaiPe is not liable for:</p>
+                    <ul>
+                        <li>Loss of payment data</li>
+                        <li>Loss of user information</li>
+                        <li>Corruption of localStorage data</li>
+                        <li>Any data loss or corruption</li>
+                    </ul>
+
+                    <h3>No Liability for Business Interruption</h3>
+                    <p>ChaiPe is not liable for:</p>
+                    <ul>
+                        <li>Downtime of your website</li>
+                        <li>Interruption of payment services</li>
+                        <li>Loss of business due to technical issues</li>
+                        <li>Any operational disruptions</li>
+                    </ul>
+
+                    <h3>No Liability for Failed Transactions</h3>
+                    <p>ChaiPe is not liable for:</p>
+                    <ul>
+                        <li>Failed UPI transactions</li>
+                        <li>Payment reversals or chargebacks</li>
+                        <li>Transaction errors or failures</li>
+                        <li>Any financial losses from failed payments</li>
+                    </ul>
+
+                    <h3>No Liability for Third-Party Actions</h3>
+                    <p>ChaiPe is not liable for:</p>
+                    <ul>
+                        <li>Actions or inactions of UPI apps</li>
+                        <li>Bank processing errors</li>
+                        <li>UPI system failures</li>
+                        <li>Any third-party service issues</li>
+                    </ul>
+
+                    <div class="collapsible">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <h3>Examples of Non-Liable Scenarios</h3>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p><strong>ChaiPe is not liable if:</strong></p>
+                                <ul>
+                                    <li>User initiates payment but doesn't complete it</li>
+                                    <li>User claims to have paid but didn't</li>
+                                    <li>UPI app crashes during payment</li>
+                                    <li>Bank rejects the transaction</li>
+                                    <li>QR code doesn't scan on user's device</li>
+                                    <li>User's internet connection fails during payment</li>
+                                    <li>UPI system is down for maintenance</li>
+                                    <li>User provides incorrect UPI ID</li>
+                                    <li>Payment is made to wrong UPI ID</li>
+                                    <li>User disputes a legitimate payment</li>
+                                    <li>Browser compatibility issues prevent payment</li>
+                                    <li>Library bugs cause payment failures</li>
+                                    <li>Security vulnerabilities are exploited</li>
+                                    <li>Data is lost due to localStorage clearing</li>
+                                    <li>Any other technical or user error</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- User Responsibility -->
+                <section id="user-responsibility">
+                    <h2>4. User Responsibility</h2>
+
+                    <h3>Valid UPI ID Requirement</h3>
+                    <p>Website owners using ChaiPe are responsible for:</p>
+                    <ul>
+                        <li>Providing a valid, active UPI ID</li>
+                        <li>Ensuring the UPI ID can receive payments</li>
+                        <li>Verifying the UPI ID works before going live</li>
+                        <li>Keeping the UPI ID updated if changed</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Important:</strong> If you provide an invalid UPI ID, users will not be able to send payments. ChaiPe cannot validate UPI IDs before use.</p>
+                    </div>
+
+                    <h3>Payment Verification Responsibility</h3>
+                    <p>Website owners are responsible for:</p>
+                    <ul>
+                        <li>Verifying payments if needed (manual check of bank statements)</li>
+                        <li>Implementing their own verification systems</li>
+                        <li>Collecting UTR for transaction tracking</li>
+                        <li>Handling payment disputes or reversals</li>
+                        <li>Maintaining records of received payments</li>
+                    </ul>
+
+                    <h3>UTR Collection for Verification</h3>
+                    <p>For payment verification, website owners should:</p>
+                    <ul>
+                        <li>Enable UTR collection in ChaiPe configuration</li>
+                        <li>Ask users to provide UTR after payment</li>
+                        <li>Verify UTR against bank statements</li>
+                        <li>Keep records of UTRs for audit purposes</li>
+                    </ul>
+
+                    <h3>Tax and Legal Compliance</h3>
+                    <p>Website owners are responsible for:</p>
+                    <ul>
+                        <li>Reporting income from tips to tax authorities</li>
+                        <li>Paying applicable taxes on received payments</li>
+                        <li>Complying with Indian financial regulations</li>
+                        <li>Obtaining necessary licenses or permits</li>
+                        <li>Following RBI guidelines for digital payments</li>
+                        <li>Complying with GST regulations if applicable</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <p><strong>Tax Note:</strong> Income received through ChaiPe may be taxable. Consult a tax professional for advice on reporting and paying taxes on tip income.</p>
+                    </div>
+
+                    <h3>Website Security</h3>
+                    <p>Website owners are responsible for:</p>
+                    <ul>
+                        <li>Securing their website against hacking</li>
+                        <li>Protecting user data collected through ChaiPe</li>
+                        <li>Implementing HTTPS for secure payments</li>
+                        <li>Following web security best practices</li>
+                        <li>Protecting against XSS and other attacks</li>
+                    </ul>
+
+                    <h3>User Education</h3>
+                    <p>Website owners should:</p>
+                    <ul>
+                        <li>Educate users about the trust-based payment system</li>
+                        <li>Provide clear instructions for making payments</li>
+                        <li>Explain that payment confirmation is user-provided</li>
+                        <li>Set appropriate expectations about payment verification</li>
+                    </ul>
+                </section>
+
+                <!-- Third-Party Services -->
+                <section id="third-party-services">
+                    <h2>5. Third-Party Services</h2>
+
+                    <h3>UPI App Functionality</h3>
+                    <p>ChaiPe integrates with third-party UPI apps but:</p>
+                    <ul>
+                        <li>We do not control UPI app functionality</li>
+                        <li>We are not responsible for UPI app bugs or issues</li>
+                        <li>We cannot guarantee UPI app compatibility</li>
+                        <li>We have no control over UPI app updates</li>
+                    </ul>
+
+                    <h3>Supported UPI Apps</h3>
+                    <p>ChaiPe works with standard UPI apps including:</p>
+                    <ul>
+                        <li>Google Pay (GPay)</li>
+                        <li>PhonePe</li>
+                        <li>Paytm</li>
+                        <li>BharatPe</li>
+                        <li>Amazon Pay</li>
+                        <li>Mobile banking apps with UPI</li>
+                    </ul>
+                    <p>However, we cannot guarantee compatibility with all apps or future versions.</p>
+
+                    <h3>Bank/UPI Provider Terms</h3>
+                    <p>When using ChaiPe:</p>
+                    <ul>
+                        <li>Your bank's terms and conditions apply</li>
+                        <li>UPI provider's terms and conditions apply</li>
+                        <li>ChaiPe's terms do not override bank or UPI terms</li>
+                        <li>You must comply with all applicable financial regulations</li>
+                    </ul>
+
+                    <h3>No Control Over Transaction Success</h3>
+                    <p>ChaiPe cannot control:</p>
+                    <ul>
+                        <li>Whether a transaction succeeds or fails</li>
+                        <li>Bank approval or rejection of transactions</li>
+                        <li>UPI system availability</li>
+                        <li>Network connectivity during payment</li>
+                        <li>User's account balance or limits</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Third-Party Risk:</strong> ChaiPe relies on third-party services (UPI apps, banks, UPI infrastructure) that are outside our control. Issues with these services are not our responsibility.</p>
+                    </div>
+                </section>
+
+                <!-- No Financial Advice -->
+                <section id="no-financial-advice">
+                    <h2>6. No Financial Advice</h2>
+
+                    <div class="info-box">
+                        <p><strong>ChaiPe is a technical tool, not a financial advisory service.</strong></p>
+                    </div>
+
+                    <h3>Technical Tool Only</h3>
+                    <p>ChaiPe provides:</p>
+                    <ul>
+                        <li>Technical infrastructure for accepting payments</li>
+                        <li>User interface components</li>
+                        <li>Payment initiation functionality</li>
+                        <li>Behavioral nudging features</li>
+                    </ul>
+
+                    <h3>Not Financial Advice</h3>
+                    <p>ChaiPe does not provide:</p>
+                    <ul>
+                        <li>Financial advice or recommendations</li>
+                        <li>Investment advice</li>
+                        <li>Tax advice</li>
+                        <li>Business strategy advice</li>
+                        <li>Legal advice</li>
+                    </ul>
+
+                    <h3>Consult Professionals</h3>
+                    <p>For financial decisions, consult:</p>
+                    <ul>
+                        <li>A qualified financial advisor</li>
+                        <li>A tax professional or CA</li>
+                        <li>A legal professional</li>
+                        <li>Your bank or financial institution</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Disclaimer:</strong> Any information provided by ChaiPe or its documentation is for informational purposes only and should not be considered financial, tax, or legal advice.</p>
+                    </div>
+                </section>
+
+                <!-- Open Source License -->
+                <section id="open-source-license">
+                    <h2>7. Open Source License</h2>
+
+                    <div class="license-box">
+                        <h3>MIT License</h3>
+                        <p>ChaiPe is licensed under the MIT License. Below is the full license text:</p>
+                        <pre>
+MIT License
+
+Copyright (c) 2024 ChaiPe Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+                        </pre>
+                    </div>
+
+                    <h3>No Commercial Support Guarantee</h3>
+                    <p>The MIT License means:</p>
+                    <ul>
+                        <li>No commercial support is guaranteed</li>
+                        <li>No service level agreements (SLAs)</li>
+                        <li>No guaranteed response times</li>
+                        <li>No guaranteed uptime or availability</li>
+                        <li>No indemnification or liability protection</li>
+                    </ul>
+
+                    <h3>Community-Maintained Project</h3>
+                    <p>ChaiPe is:</p>
+                    <ul>
+                        <li>Maintained by community volunteers</li>
+                        <li>Developed in contributors' spare time</li>
+                        <li>Not backed by any company or organization</li>
+                        <li>Subject to volunteer availability</li>
+                    </ul>
+
+                    <h3>No Official Endorsement</h3>
+                    <p>Use of ChaiPe does not imply:</p>
+                    <ul>
+                        <li>Endorsement by ChaiPe maintainers</li>
+                        <li>Endorsement by any organization</li>
+                        <li>Approval of your website or content</li>
+                        <li>Partnership or affiliation</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <p><strong>Contribution Welcome:</strong> ChaiPe is open source. Contributions are welcome! Please check our GitHub repository for contribution guidelines.</p>
+                    </div>
+                </section>
+
+                <!-- Jurisdiction -->
+                <section id="jurisdiction">
+                    <h2>8. Jurisdiction and Dispute Resolution</h2>
+
+                    <h3>Governing Law</h3>
+                    <p>This disclaimer is governed by:</p>
+                    <ul>
+                        <li>The laws of India</li>
+                        <li>Applicable Indian financial regulations</li>
+                        <li>International copyright laws where applicable</li>
+                    </ul>
+
+                    <h3>Dispute Resolution</h3>
+                    <p>In case of disputes:</p>
+                    <ul>
+                        <li>Parties agree to attempt amicable resolution first</li>
+                        <li>Disputes shall be subject to the jurisdiction of courts in India</li>
+                        <li>Arbitration may be pursued if agreed by both parties</li>
+                        <li>Mediation is encouraged before legal action</li>
+                    </ul>
+
+                    <h3>Venue for Legal Proceedings</h3>
+                    <p>Any legal proceedings shall be brought in:</p>
+                    <ul>
+                        <li>Courts having jurisdiction in India</li>
+                        <li>Appropriate forums as per Indian law</li>
+                        <li>International forums for cross-border disputes (if applicable)</li>
+                    </ul>
+
+                    <h3>Severability</h3>
+                    <p>If any provision of this disclaimer is found to be:</p>
+                    <ul>
+                        <li>Invalid or unenforceable, it shall be severed</li>
+                        <li>Remaining provisions shall continue in full force</li>
+                        <li>Invalid provision shall be reformed to the extent necessary</li>
+                    </ul>
+
+                    <h3>Entire Agreement</h3>
+                    <p>This disclaimer constitutes:</p>
+                    <ul>
+                        <li>The entire agreement between parties</li>
+                        <li>Supersedes all prior agreements or understandings</li>
+                        <li>Can only be modified in writing</li>
+                        <li>Is binding upon use of ChaiPe</li>
+                    </ul>
+                </section>
+
+                <!-- India-Specific Regulations -->
+                <section id="india-specific">
+                    <h2>9. India-Specific Regulations</h2>
+
+                    <h3>RBI Guidelines</h3>
+                    <p>ChaiPe operates within the framework of:</p>
+                    <ul>
+                        <li>Reserve Bank of India (RBI) guidelines</li>
+                        <li>National Payments Corporation of India (NPCI) regulations</li>
+                        <li>Unified Payments Interface (UPI) standards</li>
+                    </ul>
+
+                    <h3>Financial Regulations</h3>
+                    <p>Users must comply with:</p>
+                    <ul>
+                        <li>Foreign Exchange Management Act (FEMA)</li>
+                        <li>Prevention of Money Laundering Act (PMLA)</li>
+                        <li>Income Tax Act provisions</li>
+                        <li>Goods and Services Tax (GST) regulations</li>
+                    </ul>
+
+                    <h3>Know Your Customer (KYC)</h3>
+                    <p>Regarding KYC requirements:</p>
+                    <ul>
+                        <li>ChaiPe does not perform KYC verification</li>
+                        <li>UPI apps perform KYC as per RBI guidelines</li>
+                        <li>Website owners may need to comply with KYC for large transactions</li>
+                        <li>Consult your bank for KYC requirements</li>
+                    </ul>
+
+                    <h3>Transaction Limits</h3>
+                    <p>UPI transaction limits apply:</p>
+                    <ul>
+                        <li>Daily transaction limits set by RBI</li>
+                        <li>Per-transaction limits set by banks</li>
+                        <li>Monthly limits for certain categories</li>
+                        <li>Check with your bank for specific limits</li>
+                    </ul>
+
+                    <h3>Tax Compliance</h3>
+                    <p>For tax compliance in India:</p>
+                    <ul>
+                        <li>Report all income from tips</li>
+                        <li>Pay applicable income tax</li>
+                        <li>Collect TDS if required (for large amounts)</li>
+                        <li>File GST returns if registered</li>
+                        <li>Maintain proper records of all transactions</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Legal Compliance:</strong> This disclaimer does not constitute legal advice. Consult a qualified legal professional in India for guidance on compliance with Indian laws and regulations.</p>
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contact">
+                    <h2>10. Contact Us</h2>
+
+                    <p>If you have questions, concerns, or need clarification about this disclaimer, please contact us through the following channels:</p>
+
+                    <div class="contact-section">
+                        <h3>Get in Touch</h3>
+                        <p style="margin-bottom: 20px;">We typically respond to inquiries within 1-3 business days.</p>
+                        
+                        <a href="https://github.com/srikanthlogic/ChaiPe/issues" target="_blank" rel="noopener">
+                            📝 Open an Issue on GitHub
+                        </a>
+                        <a href="https://github.com/srikanthlogic/ChaiPe/discussions" target="_blank" rel="noopener">
+                            💬 Start a Discussion
+                        </a>
+                        <a href="mailto:legal@chaipe.dev" rel="noopener">
+                            📧 Email: legal@chaipe.dev
+                        </a>
+                    </div>
+
+                    <h3>For Specific Inquiries</h3>
+                    <ul>
+                        <li><strong>License Questions:</strong> Review the MIT License above or ask on GitHub</li>
+                        <li><strong>Legal Disputes:</strong> Contact legal@chaipe.dev</li>
+                        <li><strong>Security Issues:</strong> Report via GitHub's private vulnerability reporting</li>
+                        <li><strong>General Questions:</strong> Use GitHub Discussions</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <p><strong>Note:</strong> This disclaimer is provided for informational purposes only and does not constitute legal advice. For specific legal concerns, please consult a qualified attorney.</p>
+                    </div>
+                </section>
+
+                <!-- Disclaimer Footer -->
+                <div style="margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border-color); color: var(--text-secondary);">
+                    <p><strong>Disclaimer Version:</strong> 1.0</p>
+                    <p><strong>Last Updated:</strong> December 29, 2024</p>
+                    <p><strong>Effective Date:</strong> December 29, 2024</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ChaiPe</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                        A lightweight JavaScript library for accepting UPI micropayments through behavioral nudging.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="../docs/index.html">Getting Started</a></li>
+                        <li><a href="../docs/api.html">API Reference</a></li>
+                        <li><a href="../docs/configuration.html">Configuration</a></li>
+                        <li><a href="../docs/tipjar.html">Tip Jar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="disclaimer.html" class="active">Disclaimer</a></li>
+                        <li><a href="releases.html">Releases</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Built with ❤️ for Indian creators • MIT License • © 2024 ChaiPe</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Initialize theme manager
+    (function() {
+        'use strict';
+        try {
+            const themeManager = new ThemeManager();
+            themeManager.init();
+
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    themeManager.toggle();
+                });
+            }
+        } catch (error) {
+            console.error('Error initializing theme manager:', error);
+        }
+    })();
+
+    // Collapsible sections functionality
+    function toggleCollapsible(header) {
+        header.classList.toggle('active');
+        const content = header.nextElementSibling;
+        content.classList.toggle('active');
+    }
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add active state to TOC on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const tocLinks = document.querySelectorAll('.toc a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= sectionTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        tocLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+    </script>
+</body>
+</html>

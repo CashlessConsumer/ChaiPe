@@ -1,0 +1,99 @@
+{
+    "name": "chaipe",
+    "version": "0.1.0",
+    "description": "ChaiPe - A web monetisation enablement micropayment library for UPI. Accept tips and micropayments with behavioral nudging.",
+    "main": "dist/chaipe.js",
+    "module": "dist/chaipe.esm.js",
+    "unpkg": "dist/chaipe.min.js",
+    "jsdelivr": "dist/chaipe.min.js",
+    "types": "src/chaipe.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/chaipe.esm.js",
+            "require": "./dist/chaipe.js",
+            "browser": "./dist/chaipe.min.js"
+        },
+        "./src/*": "./src/*"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "react/"
+    ],
+    "scripts": {
+        "build": "rollup -c rollup.config.mjs",
+        "build:watch": "rollup -c rollup.config.mjs -w",
+        "dev": "http-server . -p 3000 -o /demo/index.html",
+        "prepublishOnly": "npm run build",
+        "test": "jest",
+        "test:unit": "jest tests/unit",
+        "test:integration": "jest tests/integration",
+        "test:performance": "jest tests/performance",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "test:e2e": "playwright test",
+        "test:e2e:ui": "playwright test --ui",
+        "test:e2e:debug": "playwright test --debug",
+        "test:e2e:headed": "playwright test --headed",
+        "test:all": "npm run test && npm run test:e2e && npm run test:performance",
+        "lint": "echo 'No linter configured'",
+        "validate": "npm run test && npm run build",
+        "docs:build": "npm run build && cd docs-site && npm run build",
+        "docs:deploy": "npm run docs:build && gh-pages -d docs-site -b gh-pages --dotfiles",
+        "docs:preview": "cd docs-site && npm run preview",
+        "docs:dev": "cd docs-site && npm run preview"
+    },
+    "keywords": [
+        "upi",
+        "payments",
+        "micropayments",
+        "tips",
+        "donations",
+        "india",
+        "behavioral",
+        "nudge",
+        "qr-code",
+        "chai",
+        "web-monetization"
+    ],
+    "author": "",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/srikanthlogic/ChaiPe.git"
+    },
+    "bugs": {
+        "url": "https://github.com/srikanthlogic/ChaiPe/issues"
+    },
+    "homepage": "https://github.com/srikanthlogic/ChaiPe#readme",
+    "peerDependencies": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        },
+        "react-dom": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "@babel/core": "^7.28.5",
+        "@babel/preset-env": "^7.28.5",
+        "@jest/globals": "^30.2.0",
+        "@playwright/test": "^1.57.0",
+        "@rollup/plugin-node-resolve": "^16.0.3",
+        "@rollup/plugin-terser": "^0.4.4",
+        "babel-jest": "^30.2.0",
+        "gh-pages": "^6.1.1",
+        "http-server": "^14.1.1",
+        "jest": "^30.2.0",
+        "jest-environment-jsdom": "^30.2.0",
+        "nyc": "^17.1.0",
+        "rollup": "^4.54.0"
+    },
+    "dependencies": {
+        "qrcode-generator": "^2.0.4"
+    }
+}

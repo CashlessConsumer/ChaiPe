@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Complete Guide to UPI Micropayments | ChaiPe Blog Demo</title>
+  <meta name="description" content="A comprehensive guide to monetizing content with UPI micropayments and behavioral nudging.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../shared/css/common.css">
+  <link rel="stylesheet" href="../shared/css/components.css">
+  <link rel="stylesheet" href="../shared/css/demo-components.css">
+  
+  <style>
+    body {
+      font-family: 'Merriweather', Georgia, serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.9;
+      font-size: 18px;
+    }
+    
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      z-index: var(--z-sticky);
+      transition: width 0.1s ease;
+    }
+    
+    .blog-header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: var(--space-md) 0;
+      position: sticky;
+      top: 0;
+      z-index: var(--z-sticky);
+    }
+    
+    .blog-header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .blog-logo {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+    
+    .article-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+    }
+    
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    
+    .author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    
+    h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+    
+    h2 {
+      font-size: 1.6rem;
+      margin: var(--space-2xl) 0 var(--space-lg);
+      color: var(--text-primary);
+    }
+    
+    h3 {
+      font-size: 1.3rem;
+      margin: var(--space-xl) 0 var(--space-md);
+      color: var(--text-primary);
+    }
+    
+    p {
+      margin-bottom: var(--space-lg);
+      color: var(--text-secondary);
+    }
+    
+    blockquote {
+      border-left: 4px solid var(--accent-primary);
+      padding: var(--space-lg) var(--space-xl);
+      margin: var(--space-xl) 0;
+      background: var(--bg-secondary);
+      font-style: italic;
+      color: var(--text-secondary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+    
+    blockquote cite {
+      display: block;
+      margin-top: var(--space-md);
+      font-size: 14px;
+      font-style: normal;
+      color: var(--text-muted);
+    }
+    
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+      margin: var(--space-xl) 0;
+    }
+    
+    .highlight-box h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-primary);
+      margin-bottom: var(--space-md);
+    }
+    
+    ul, ol {
+      margin: var(--space-lg) 0 var(--space-xl) var(--space-xl);
+      color: var(--text-secondary);
+    }
+    
+    li {
+      margin-bottom: var(--space-sm);
+    }
+    
+    code {
+      font-family: 'Fira Code', Consolas, monospace;
+      background: var(--bg-tertiary);
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9em;
+    }
+    
+    pre {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      margin: var(--space-xl) 0;
+      font-size: 14px;
+      line-height: 1.6;
+      border: 1px solid var(--border-color);
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+      margin: var(--space-xl) 0;
+    }
+    
+    .stat-card {
+      text-align: center;
+      background: var(--bg-secondary);
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+    }
+    
+    .stat-number {
+      font-family: 'Inter', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+    
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: var(--space-sm);
+    }
+    
+    .scroll-tracker {
+      position: fixed;
+      bottom: var(--space-lg);
+      right: var(--space-lg);
+      background: rgba(10, 10, 15, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      z-index: var(--z-tooltip);
+      padding: var(--space-md);
+      font-family: 'Inter', monospace;
+      font-size: 13px;
+      min-width: 240px;
+    }
+    
+    .tracker-title {
+      color: var(--warning);
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .tracker-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+      color: var(--text-secondary);
+    }
+    
+    .tracker-row span:last-child {
+      color: var(--success);
+      font-weight: 600;
+    }
+    
+    .tracker-row.warning span:last-child {
+      color: var(--warning);
+    }
+    
+    .tracker-row.danger span:last-child {
+      color: var(--error);
+    }
+    
+    .footer-cta {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: var(--space-2xl) var(--space-lg);
+      text-align: center;
+    }
+    
+    .footer-cta h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: var(--space-md);
+    }
+    
+    .footer-cta p {
+      color: var(--text-muted);
+      margin-bottom: var(--space-xl);
+    }
+    
+    .tip-btn {
+      display: inline-block;
+      background: var(--accent-gradient);
+      color: white;
+      padding: var(--space-md) var(--space-2xl);
+      border-radius: var(--radius-full);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-base);
+    }
+    
+    .tip-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        font-size: 17px;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .scroll-tracker {
+        bottom: var(--space-md);
+        right: var(--space-md);
+        left: var(--space-md);
+        min-width: auto;
+      }
+      
+      .article-container {
+        padding: var(--space-xl) var(--space-md) var(--space-2xl);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Reading Progress -->
+  <div class="reading-progress" id="reading-progress"></div>
+  
+  <!-- Blog Header -->
+  <header class="blog-header">
+    <div class="container blog-header-content">
+      <a href="../index.html" class="blog-logo">ChaiPe</a>
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <span id="scroll-indicator" style="font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text-muted);">0% read</span>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Article -->
+  <article class="article-container">
+    <div class="article-meta">
+      <div class="author-avatar">✍️</div>
+      <div>
+        <strong style="color: var(--text-primary);">Priya Sharma</strong><br>
+        <span>15 min read • December 29, 2024</span>
+      </div>
+    </div>
+    
+    <h1>The Complete Guide to UPI Micropayments for Indian Creators</h1>
+    
+    <p>
+      The creator economy in India is experiencing unprecedented growth. With over 80 million content creators across platforms like YouTube, Instagram, and independent blogs, the question of sustainable monetization has never been more pressing. Traditional models—advertisements, sponsorships, and monthly subscriptions—each come with their own set of challenges that often leave creators frustrated and audiences disengaged.
+    </p>
+    
+    <p>
+      In this comprehensive guide, we'll explore a new paradigm: micropayments powered by UPI and enhanced by behavioral nudging. This approach respects your audience's autonomy while creating genuine opportunities for support.
+    </p>
+    
+    <h2>The Problem with Traditional Monetization</h2>
+    
+    <p>
+      Before we dive into the solution, let's understand why existing models fall short. Each traditional approach creates friction that ultimately hurts both creators and their audiences.
+    </p>
+    
+    <h3>The Advertisement Trap</h3>
+    
+    <p>
+      Advertising has been the default monetization strategy for digital content since the early days of the internet. The model is simple: attract eyeballs, show ads, get paid. But this simplicity masks deep problems.
+    </p>
+    
+    <p>
+      First, there's the attention economy problem. When your revenue depends on views and clicks, you're incentivized to create content that maximizes engagement rather than value. Clickbait titles, sensationalism, and endless scrolling feeds become the norm. The quality of content suffers as creators chase metrics that favor quantity over depth.
+    </p>
+    
+    <blockquote>
+      "I spent three years building an audience of 500,000 subscribers, only to realize I was earning less than minimum wage from ads. The algorithm owned me, not the other way around."
+      <cite>— Anonymous YouTube Creator</cite>
+    </blockquote>
+    
+    <p>
+      Second, ad revenue is notoriously volatile. Platform policy changes, advertiser boycotts, and seasonal fluctuations can slash a creator's income overnight. The creator has no direct relationship with their revenue source—it's all mediated through opaque platform algorithms.
+    </p>
+    
+    <h3>The Subscription Fatigue</h3>
+    
+    <p>
+      Subscription models emerged as an alternative where audiences pay directly for content. Platforms like Patreon, Substack, and YouTube Memberships have made this approach mainstream. While subscriptions create more stable income and direct creator-audience relationships, they come with their own challenges.
+    </p>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">300+</div>
+        <div class="stat-label">Average subscriptions per Indian consumer</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">67%</div>
+        <div class="stat-label">Report subscription fatigue</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">₹2,400</div>
+        <div class="stat-label">Monthly subscription spend limit</div>
+      </div>
+    </div>
+    
+    <p>
+      The average Indian consumer now manages subscriptions for streaming services, music, cloud storage, news, gaming, and more. Adding another ₹99 or ₹199 monthly subscription for a newsletter or creator's exclusive content is increasingly difficult to justify, no matter how good the content is.
+    </p>
+    
+    <p>
+      This creates a paradox: creators who need support most—those building their audience—are least likely to convert readers into paying subscribers. Only established creators with massive followings can overcome the subscription fatigue barrier.
+    </p>
+    
+    <h2>Enter Micropayments: A Different Philosophy</h2>
+    
+    <p>
+      Micropayments flip the traditional model on its head. Instead of asking for recurring commitments, creators offer audiences the option to tip small amounts for content they've already consumed and appreciated. This "pay what you want, when you want" approach has several advantages.
+    </p>
+    
+    <p>
+      First, there's no commitment barrier. A reader can tip ₹10, ₹25, or ₹50 without any ongoing obligation. They're not signing up for something—they're simply expressing gratitude for value received.
+    </p>
+    
+    <p>
+      Second, the psychology of giving shifts entirely. With subscriptions, the question is "Is this worth ₹199/month?" With micropayments, it becomes "Did I enjoy this enough to buy the creator a coffee?" The latter is a much easier "yes" for most people.
+    </p>
+    
+    <div class="highlight-box">
+      <h4>💡 Key Insight</h4>
+      <p style="margin: 0;">Research shows that 23% of readers who would never subscribe to a creator's Patreon will happily leave a one-time tip of ₹25-50 when asked at the right moment.</p>
+    </div>
+    
+    <h3>Why UPI Changes Everything</h3>
+    
+    <p>
+      Micropayments have been theoretically appealing for decades, but transaction costs made them impractical. Sending ₹10 through traditional payment systems would incur fees that exceeded the payment itself.
+    </p>
+    
+    <p>
+      UPI (Unified Payments Interface) changed this equation entirely for India. With zero transaction fees for individuals, a ₹10 payment costs exactly ₹10. The infrastructure for instant, free, peer-to-peer payments already exists in everyone's pocket.
+    </p>
+    
+    <p>
+      More importantly, UPI has achieved remarkable adoption. Over 300 million Indians actively use UPI through apps like Google Pay, PhonePe, Paytm, and bank apps. The friction of making a payment is now as low as scanning a QR code.
+    </p>
+    
+    <h2>The Science of Behavioral Nudging</h2>
+    
+    <p>
+      Having a tip button on your website isn't enough. The difference between a successful micropayment strategy and one that generates nothing lies in understanding human psychology and applying it ethically.
+    </p>
+    
+    <p>
+      Behavioral nudging, rooted in the work of Nobel laureate Richard Thaler, is about designing choice environments that guide people toward decisions they'd make anyway if they thought about it more carefully. It's not manipulation—it's removing friction from generous impulses.
+    </p>
+    
+    <h3>The Power of Timing</h3>
+    
+    <p>
+      Consider two scenarios. In the first, a popup asking for tips appears immediately when someone lands on your article. They haven't read anything yet. Their reaction? Annoyance at the interruption, and probably a quick click of the close button.
+    </p>
+    
+    <p>
+      In the second scenario, someone reads your entire 15-minute article about a topic they care about. They've highlighted passages, maybe even taken notes. At this moment—when they're reflecting on the value they've received—a gentle nudge appears thanking them for reading and offering the option to support your work.
+    </p>
+    
+    <p>
+      The difference in conversion rates between these two approaches can be 10x or more. Timing is everything.
+    </p>
+    
+    <blockquote>
+      "The best time to ask for support is when your audience has already received value. ChaiPe makes this timing automatic through behavioral signals."
+      <cite>— Behavioral Design Principles</cite>
+    </blockquote>
+    
+    <h3>Reading Behavioral Signals</h3>
+    
+    <p>
+      How do we know when someone has truly engaged with content? We look for signals:
+    </p>
+    
+    <ul>
+      <li><strong>Scroll Depth:</strong> Someone who has scrolled through 70% or more of an article has likely read most of it. They've invested time and attention.</li>
+      <li><strong>Time on Page:</strong> A reader who has spent 3+ minutes on an article isn't just skimming. They're genuinely consuming content.</li>
+      <li><strong>Return Visits:</strong> A returning reader who comes back to your content has demonstrated ongoing interest. They're prime candidates for a nudge.</li>
+      <li><strong>Interaction Patterns:</strong> Clicks, text selections, and other interactions signal active engagement rather than passive scrolling.</li>
+    </ul>
+    
+    <p>
+      By combining these signals, we can identify the optimal moment to present a tip option. Too early feels intrusive. Too late means the reader has already left. The goal is to catch them in the sweet spot of maximum appreciation.
+    </p>
+    
+    <h2>Implementing the Perfect Nudge</h2>
+    
+    <p>
+      Let's get practical. How do you actually implement behavioral micropayments on your website or blog?
+    </p>
+    
+    <h3>The Technical Setup</h3>
+    
+    <p>
+      With ChaiPe.js, implementation is surprisingly simple. Here's the basic setup:
+    </p>
+    
+    <pre><code><script src="ChaiPe.min.js"></script>
+<script>
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  amounts: [10, 25, 50, 100],
+  theme: 'minimal',
+  
+  triggers: {
+    scrollDepth: 70,    // Trigger at 70% scroll
+    timeOnPage: 120,    // Or after 2 minutes
+    exitIntent: false   // Optional exit-intent popup
+  },
+  
+  onTipCompleted: (data) => {
+    // Track with your analytics
+    console.log('Tip received:', data);
+  }
+});
+</script></code></pre>
+    
+    <p>
+      That's it. The library handles everything else: tracking scroll position, monitoring time, generating QR codes for desktop users, creating deep links for mobile users, and providing a beautiful, customizable tip modal.
+    </p>
+    
+    <h3>Choosing the Right Amounts</h3>
+    
+    <p>
+      The preset amounts you offer significantly impact conversion rates. Based on data from thousands of micropayment transactions, here are some guidelines:
+    </p>
+    
+    <ul>
+      <li><strong>Start small:</strong> Your lowest option should be truly micro—₹10 or ₹20. This gives hesitant readers an easy entry point.</li>
+      <li><strong>Offer a "recommended" middle option:</strong> Highlight ₹25 or ₹50 as default. Most people will select whatever appears pre-selected.</li>
+      <li><strong>Include an aspirational high:</strong> Having ₹100 or ₹200 as an option signals that generous tips are welcome and normal.</li>
+      <li><strong>Allow custom amounts:</strong> Some readers will want to give ₹15 or ₹75. Let them.</li>
+    </ul>
+    
+    <h3>The Copy That Converts</h3>
+    
+    <p>
+      Your nudge message matters enormously. Avoid generic phrases like "Support us" or "Donate now." Instead, make it personal and specific:
+    </p>
+    
+    <ul>
+      <li>"If this article saved you hours of research, consider buying me a chai ☕"</li>
+      <li>"Enjoying deep dives? Your ₹25 tip funds a week of research."</li>
+      <li>"This blog has no ads, no sponsors, just readers like you."</li>
+    </ul>
+    
+    <p>
+      The key is authenticity. Your message should reflect your actual personality and relationship with your audience.
+    </p>
+    
+    <h2>Optimizing for Mobile</h2>
+    
+    <p>
+      In India, mobile traffic dominates. Over 75% of your readers are likely on smartphones. This creates both challenges and opportunities for micropayments.
+    </p>
+    
+    <p>
+      The challenge is screen real estate. A tip modal that looks beautiful on desktop can feel overwhelming on a small screen. ChaiPe's themes are designed mobile-first, with the "floating" theme being particularly effective on phones—it appears as a subtle bar at the bottom of the screen.
+    </p>
+    
+    <p>
+      The opportunity is UPI app integration. When a mobile user taps your tip button, ChaiPe generates a UPI deep link that opens their preferred payment app directly. There's no QR scanning, no typing amounts—they just confirm the payment with their fingerprint or PIN.
+    </p>
+    
+    <p>
+      This frictionless flow is why mobile tip conversion rates often exceed desktop rates despite the smaller screen. The payment is literally two taps away.
+    </p>
+    
+    <h2>Building Long-Term Supporter Relationships</h2>
+    
+    <p>
+      A one-time tip is great, but the real value comes from building relationships with your most engaged readers. Here's how to turn occasional tippers into consistent supporters.
+    </p>
+    
+    <h3>Collect (With Permission)</h3>
+    
+    <p>
+      When someone tips you, they're signaling that they value your work. This is the perfect moment to ask if they'd like to stay connected. ChaiPe allows you to optionally collect:
+    </p>
+    
+    <ul>
+      <li>Email address (for newsletters or exclusive content)</li>
+      <li>Name (for personalized thank-yous)</li>
+      <li>UPI VPA (to identify repeat supporters)</li>
+    </ul>
+    
+    <p>
+      Make these fields optional and explain clearly how you'll use the information. Transparency builds trust.
+    </p>
+    
+    <h3>Say Thank You Meaningfully</h3>
+    
+    <p>
+      Don't let a tip disappear into the void. If someone provides their email, send a personal thank-you note. If they tip multiple times, recognize their ongoing support. Small gestures of appreciation dramatically increase the likelihood of future tips.
+    </p>
+    
+    <h2>Real Numbers: What to Expect</h2>
+    
+    <p>
+      Let's talk realistic expectations. The conversion rates for well-implemented micropayments vary based on content type, audience engagement, and implementation quality.
+    </p>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">0.5-2%</div>
+        <div class="stat-label">Typical tip rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">₹25-40</div>
+        <div class="stat-label">Average tip amount</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3x</div>
+        <div class="stat-label">Return visitor multiplier</div>
+      </div>
+    </div>
+    
+    <p>
+      For a blog with 10,000 monthly visitors and well-implemented behavioral micropayments, expect somewhere between 50-200 tips per month, averaging around ₹1,500-6,000 in monthly revenue.
+    </p>
+    
+    <p>
+      This isn't "quit your job" money for most creators. But it's real revenue that comes with zero overhead, no advertiser relationships, and complete editorial independence. And as your audience grows, it scales linearly.
+    </p>
+    
+    <h2>The Ethical Framework</h2>
+    
+    <p>
+      Behavioral nudging can be used ethically or manipulatively. Here's the line we believe creators should never cross:
+    </p>
+    
+    <ul>
+      <li><strong>Never</strong> make the nudge impossible to dismiss</li>
+      <li><strong>Never</strong> show false urgency or scarcity ("Only 3 tip spots left!")</li>
+      <li><strong>Never</strong> guilt trip ("If you don't tip, I'll have to stop writing")</li>
+      <li><strong>Never</strong> track or shame non-tippers</li>
+      <li><strong>Always</strong> make tipping genuinely optional</li>
+      <li><strong>Always</strong> be transparent about what you're asking for and why</li>
+    </ul>
+    
+    <p>
+      The goal is to make it easy for people who want to support you to do so. It's not to extract money from people who don't.
+    </p>
+    
+    <h2>Getting Started Today</h2>
+    
+    <p>
+      If you've made it this far (and our scroll tracker tells us you have!), you're clearly interested in implementing micropayments for your own content. Here's your action plan:
+    </p>
+    
+    <ol>
+      <li><strong>Set up your UPI ID.</strong> If you don't have a business UPI ID, your personal one works fine for starting out.</li>
+      <li><strong>Add ChaiPe.js to your site.</strong> It's a single script include with minimal configuration.</li>
+      <li><strong>Start with conservative triggers.</strong> 70% scroll depth and 2 minutes on page is a good baseline. You can optimize from there.</li>
+      <li><strong>Write authentic copy.</strong> Make your nudge message reflect your voice and your relationship with readers.</li>
+      <li><strong>Track and iterate.</strong> Use onTipCompleted callback to understand what's working and adjust accordingly.</li>
+    </ol>
+    
+    <p>
+      The infrastructure for peer-to-peer micropayments in India has never been better. The creator economy is maturing beyond ads and subscriptions. The question isn't whether micropayments will become a significant revenue stream for creators—it's whether you'll be early enough to build the habit with your audience.
+    </p>
+    
+    <div class="highlight-box">
+      <h4>🚀 Ready to Try It?</h4>
+      <p style="margin: 0;">You've been reading this article powered by ChaiPe. When you scrolled past 70% of content, a behavioral nudge was triggered. If you've enjoyed this guide and found it valuable, consider leaving a tip—it's how we keep creating content like this.</p>
+    </div>
+    
+    <p>
+      The future of creator monetization isn't about choosing between ads, subscriptions, or tips. It's about combining multiple revenue streams that respect your audience while sustaining your work. Micropayments are one powerful piece of that puzzle.
+    </p>
+    
+    <p>
+      <em>Happy creating, and may your tips be plentiful! ☕</em>
+    </p>
+  </article>
+  
+  <!-- Footer CTA -->
+  <footer class="footer-cta">
+    <div class="container">
+      <h3>Enjoyed this guide?</h3>
+      <p>If you found this helpful, consider supporting the author with a small tip.</p>
+      <button class="tip-btn" onclick="ChaiPe.show()">☕ Leave a Tip</button>
+    </div>
+  </footer>
+  
+  <!-- Scroll Tracker -->
+  <div class="scroll-tracker" id="scroll-tracker">
+    <div class="tracker-title">📊 Scroll Tracker</div>
+    <div class="tracker-row">
+      <span>Scroll Depth</span>
+      <span id="tracker-scroll">0%</span>
+    </div>
+    <div class="tracker-row">
+      <span>Time on Page</span>
+      <span id="tracker-time">0s</span>
+    </div>
+    <div class="tracker-row">
+      <span>Nudge Status</span>
+      <span id="tracker-nudge">Waiting...</span>
+    </div>
+  </div>
+  
+  <!-- Load ChaiPe Contribution Configuration -->
+  <script src="../shared/js/chaipe-contribution-config.js"></script>
+  
+  <!-- Load ChaiPe (will be copied to dist/docs/ during build) -->
+  <script src="../chaipe.js"></script>
+  
+  <script>
+    // Track scroll and time
+    let maxScroll = 0;
+    const startTime = Date.now();
+    let nudgeTriggered = false;
+    let isDarkMode = false;
+    
+    function toggleTheme() {
+      isDarkMode = !isDarkMode;
+      if (isDarkMode) {
+        document.documentElement.classList.remove('light');
+        document.getElementById('theme-toggle').textContent = '☀️';
+      } else {
+        document.documentElement.classList.add('light');
+        document.getElementById('theme-toggle').textContent = '🌙';
+      }
+      ChaiPe.setDarkMode(isDarkMode);
+    }
+    
+    function updateTracker() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = docHeight > 0 ? Math.round((scrollTop / docHeight) * 100) : 0;
+      
+      if (scrollPercent > maxScroll) {
+        maxScroll = scrollPercent;
+      }
+      
+      const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+      
+      // Update progress bar
+      document.getElementById('reading-progress').style.width = scrollPercent + '%';
+      document.getElementById('scroll-indicator').textContent = scrollPercent + '% read';
+      
+      // Update tracker display
+      document.getElementById('tracker-scroll').textContent = maxScroll + '%';
+      document.getElementById('tracker-time').textContent = elapsedTime + 's';
+      
+      // Update nudge status
+      if (nudgeTriggered) {
+        document.getElementById('tracker-nudge').textContent = '✓ Triggered!';
+        document.getElementById('tracker-nudge').style.color = 'var(--success)';
+      } else if (maxScroll >= 70 || elapsedTime >= 120) {
+        document.getElementById('tracker-nudge').textContent = 'Ready...';
+        document.getElementById('tracker-nudge').style.color = 'var(--warning)';
+      }
+    }
+    
+    window.addEventListener('scroll', updateTracker, { passive: true });
+    setInterval(updateTracker, 1000);
+    
+    // Initialize ChaiPe with contribution config
+    initChaiPeContribution();
+    
+    // Override onTipCompleted for demo-specific behavior
+    const originalOnTipCompleted = CHAIPE_CONTRIBUTION_CONFIG.onTipCompleted;
+    CHAIPE_CONTRIBUTION_CONFIG.onTipCompleted = (data) => {
+      nudgeTriggered = true;
+      updateTracker();
+      console.log('Tip received!', data);
+      showThankYouModal(data.amount);
+    };
+    
+    // Re-initialize with overridden callback
+    ChaiPe.init(CHAIPE_CONTRIBUTION_CONFIG);
+    
+    // Override onNudgeShown for tracker
+    const originalOnNudgeShown = CHAIPE_CONTRIBUTION_CONFIG.onNudgeShown;
+    CHAIPE_CONTRIBUTION_CONFIG.onNudgeShown = (data) => {
+      nudgeTriggered = true;
+      updateTracker();
+      console.log('Nudge triggered!', data);
+      if (originalOnNudgeShown) originalOnNudgeShown(data);
+    };
+  </script>
+</body>
+</html>

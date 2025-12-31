@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChaiPe Configuration Guide - Learn how to configure ChaiPe for optimal performance and user experience">
+    <title>Configuration Guide - ChaiPe Documentation</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../shared/css/common.css">
+    <link rel="stylesheet" href="../shared/css/docs-layout.css">
+    <link rel="stylesheet" href="../shared/css/components.css">
+    <link rel="stylesheet" href="../shared/css/demo-components.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Navigation -->
+    <nav class="docs-top-nav">
+        <div class="container docs-top-nav-content">
+            <a href="../index.html" class="docs-nav-logo">
+                <span class="docs-nav-logo-icon">☕</span>
+                ChaiPe
+            </a>
+            <div class="docs-nav-links">
+                <a href="../index.html" class="docs-nav-link">Home</a>
+                <a href="index.html" class="docs-nav-link active">Documentation</a>
+                <a href="../demos/playground.html" class="docs-nav-link">Playground</a>
+                <a href="https://github.com/srikanthlogic/ChaiPe" target="_blank" class="docs-nav-link">GitHub</a>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="docs-sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar" id="sidebar">
+            <ul class="docs-nav">
+                <li class="docs-nav-category">Getting Started</li>
+                <li><a href="index.html">Introduction</a></li>
+                <li><a href="integration.html">Integration Guide</a></li>
+                <li><a href="configuration.html" class="active">Configuration</a></li>
+                
+                <li class="docs-nav-category">API Reference</li>
+                <li><a href="api.html">API Methods</a></li>
+                <li><a href="tipjar.html">Tip Jar API</a></li>
+                
+                <li class="docs-nav-category">Examples</li>
+                <li><a href="../demos/playground.html">Interactive Playground</a></li>
+                <li><a href="../demos/blog-demo.html">Blog Demo</a></li>
+                <li><a href="../demos/edge-cases.html">Edge Cases</a></li>
+                
+                <li class="docs-nav-category">Resources</li>
+                <li><a href="https://github.com/srikanthlogic/ChaiPe" target="_blank">GitHub Repository</a></li>
+                <li><a href="https://github.com/srikanthlogic/ChaiPe/issues" target="_blank">Report Issues</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content" id="main-content">
+            <h1>Configuration Guide</h1>
+            
+            <p>Comprehensive guide to configuring ChaiPe for optimal performance, user experience, and conversion rates.</p>
+
+            <!-- Table of Contents -->
+            <nav class="toc-container">
+                <h4>On This Page</h4>
+                <ul class="toc-list">
+                    <li><a href="#basic-configuration">Basic Configuration</a></li>
+                    <li><a href="#theme-configuration">Theme Configuration</a></li>
+                    <li><a href="#trigger-configuration">Trigger Configuration</a></li>
+                    <li><a href="#data-collection-configuration">Data Collection Configuration</a></li>
+                    <li><a href="#tipjar-configuration">TipJar Configuration</a></li>
+                    <li><a href="#performance-optimization">Performance Optimization</a></li>
+                    <li><a href="#security-considerations">Security Considerations</a></li>
+                </ul>
+            </nav>
+
+            <!-- Basic Configuration Section -->
+            <section id="basic-configuration">
+                <h2>Basic Configuration</h2>
+                <p>Learn the essential configuration options to get ChaiPe working on your website.</p>
+
+                <h3>Required Parameters</h3>
+                <p>Only two parameters are required to get started:</p>
+                
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>upiId</code></td>
+                            <td>string</td>
+                            <td>Your UPI ID (e.g., <code>yourname@upi</code>)</td>
+                        </tr>
+                        <tr>
+                            <td><code>name</code></td>
+                            <td>string</td>
+                            <td>Your display name (shown in payment apps)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Minimal Setup Example</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Minimal Configuration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name'
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Common Configuration Mistakes</h3>
+                
+                <div class="callout error">
+                    <h4>Wrong UPI ID Format</h4>
+                    <pre><code>// Wrong - missing @ symbol
+ChaiPe.init({
+  upiId: 'yournameupi',
+  name: 'Your Name'
+});
+
+// Wrong - uppercase
+ChaiPe.init({
+  upiId: 'YOURNAME@UPI',
+  name: 'Your Name'
+});</code></pre>
+                </div>
+
+                <div class="callout success">
+                    <h4>Correct UPI ID Format</h4>
+                    <pre><code>// Correct - lowercase with @ symbol
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name'
+});</code></pre>
+                </div>
+
+                <div class="alert alert-warning">
+                    <span class="alert-icon">⚠️</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Important Notes</div>
+                        <ul>
+                            <li>UPI IDs are case-sensitive and should be lowercase</li>
+                            <li>The <code>@</code> symbol is required</li>
+                            <li>Test your UPI ID in a payment app before using in production</li>
+                            <li>The <code>name</code> parameter appears in payment app when users tip</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Theme Configuration Section -->
+            <section id="theme-configuration">
+                <h2>Theme Configuration</h2>
+                <p>Customize the appearance of ChaiPe to match your brand and provide optimal user experience.</p>
+
+                <h3>Choosing the Right Theme</h3>
+                <p>ChaiPe offers three built-in themes, each designed for different use cases:</p>
+
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Theme</th>
+                            <th>Best For</th>
+                            <th>Characteristics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>minimal</code></td>
+                            <td>Professional sites, blogs</td>
+                            <td>Clean, unobtrusive, blends with content</td>
+                        </tr>
+                        <tr>
+                            <td><code>toast</code></td>
+                            <td>Notifications, quick tips</td>
+                            <td>Compact, slides from corner</td>
+                        </tr>
+                        <tr>
+                            <td><code>floating</code></td>
+                            <td>Modern sites, apps</td>
+                            <td>Eye-catching, centered modal</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Theme Customization Guide</h3>
+                <p>You can customize colors, fonts, and spacing to match your brand.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Theme Customization</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  // Theme selection
+  theme: 'minimal',
+  
+  // Color customization
+  colors: {
+    primary: '#4CAF50',      // Main brand color
+    secondary: '#45a049',    // Hover/active color
+    text: '#333333',          // Text color
+    background: '#ffffff',    // Modal background
+    border: '#e0e0e0'        // Border color
+  },
+  
+  // Custom message
+  message: 'Enjoying this content?',
+  
+  // Custom button text
+  buttonText: 'Buy me a chai ☕'
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Dark Mode Configuration</h3>
+                <p>ChaiPe automatically detects system dark mode preferences. You can also manually configure dark mode colors.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Dark Mode Colors</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  // Light mode colors (default)
+  colors: {
+    primary: '#4CAF50',
+    text: '#333333',
+    background: '#ffffff'
+  },
+  
+  // Dark mode colors (automatic)
+  // ChaiPe automatically switches based on system preference
+  // You can override with CSS if needed
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Custom CSS Overrides</h3>
+                <p>For advanced customization, you can override ChaiPe styles with custom CSS.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">CSS Overrides</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><style>
+/* Override ChaiPe modal styles */
+.ChaiPe-modal {
+  border-radius: 16px !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
+}
+
+/* Override button styles */
+.ChaiPe-button {
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Override amount buttons */
+.ChaiPe-amount-button {
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.ChaiPe-amount-button:hover {
+  transform: translateY(-2px) !important;
+}
+</style></code></pre>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <span class="alert-icon">💡</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Theme Best Practices</div>
+                        <ul>
+                            <li>Use colors that match your brand for consistency</li>
+                            <li>Ensure sufficient contrast for accessibility (WCAG AA: 4.5:1)</li>
+                            <li>Test themes in both light and dark mode</li>
+                            <li>Consider mobile users when choosing button sizes</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trigger Configuration Section -->
+            <section id="trigger-configuration">
+                <h2>Trigger Configuration</h2>
+                <p>Configure behavioral triggers to show payment nudge at optimal moments.</p>
+
+                <h3>Understanding Behavioral Triggers</h3>
+                <p>ChaiPe uses three types of behavioral triggers:</p>
+                
+                <ul>
+                    <li><strong>Scroll Depth:</strong> Shows nudge when user scrolls to a certain percentage of the page</li>
+                    <li><strong>Time on Page:</strong> Shows nudge after user spends a certain amount of time on the page</li>
+                    <li><strong>Exit Intent:</strong> Shows nudge when user is about to leave (desktop only)</li>
+                </ul>
+
+                <h3>Scroll Depth Best Practices</h3>
+                <p>Scroll depth is the most effective trigger for long-form content like blog posts.</p>
+                
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Content Type</th>
+                            <th>Recommended Scroll Depth</th>
+                            <th>Reasoning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Blog posts</td>
+                            <td>70-80%</td>
+                            <td>User has consumed most content</td>
+                        </tr>
+                        <tr>
+                            <td>Tutorials</td>
+                            <td>60-70%</td>
+                            <td>User found value in tutorial</td>
+                        </tr>
+                        <tr>
+                            <td>News articles</td>
+                            <td>50-60%</td>
+                            <td>Quick reading, show earlier</td>
+                        </tr>
+                        <tr>
+                            <td>Landing pages</td>
+                            <td>Not recommended</td>
+                            <td>Use manual trigger instead</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Scroll Depth Configuration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  triggers: {
+    scrollDepth: 70  // Show at 70% scroll
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Time on Page Optimization</h3>
+                <p>Time on page triggers work well for content that takes time to consume.</p>
+                
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Content Length</th>
+                            <th>Recommended Time</th>
+                            <th>Reasoning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Short (5-10 min read)</td>
+                            <td>90-120 seconds</td>
+                            <td>User has started reading</td>
+                        </tr>
+                        <tr>
+                            <td>Medium (10-20 min read)</td>
+                            <td>180-240 seconds</td>
+                            <td>User is engaged</td>
+                        </tr>
+                        <tr>
+                            <td>Long (20+ min read)</td>
+                            <td>300-360 seconds</td>
+                            <td>User has invested time</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Time on Page Configuration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  triggers: {
+    timeOnPage: 180  // Show after 3 minutes (180 seconds)
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Exit Intent Usage</h3>
+                <p>Exit intent triggers when user's mouse leaves the viewport (desktop only).</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Exit Intent Configuration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  triggers: {
+    exitIntent: true  // Show when user tries to leave
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning">
+                    <span class="alert-icon">⚠️</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Exit Intent Limitations</div>
+                        <ul>
+                            <li>Only works on desktop (not mobile)</li>
+                            <li>Can be intrusive if used frequently</li>
+                            <li>Best for high-value content</li>
+                            <li>Consider combining with other triggers</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Conservative vs Aggressive Trigger Settings</h3>
+                
+                <div class="callout success">
+                    <h4>Conservative (Recommended)</h4>
+                    <p>Show nudge later, less frequently. Better for user experience and brand reputation.</p>
+                    <pre><code>ChaiPe.init({
+  triggers: {
+    scrollDepth: 80,
+    timeOnPage: 300,
+    exitIntent: false
+  }
+});</code></pre>
+                </div>
+
+                <div class="callout warning">
+                    <h4>Aggressive</h4>
+                    <p>Show nudge earlier, more frequently. Higher conversion but may annoy users.</p>
+                    <pre><code>ChaiPe.init({
+  triggers: {
+    scrollDepth: 50,
+    timeOnPage: 60,
+    exitIntent: true
+  }
+});</code></pre>
+                </div>
+
+                <h3>Trigger Combinations and Conflicts</h3>
+                <p>You can combine multiple triggers. The first one to fire will show the nudge.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Combined Triggers</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  triggers: {
+    // Show at 70% scroll OR after 2 minutes
+    scrollDepth: 70,
+    timeOnPage: 120,
+    exitIntent: false
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <span class="alert-icon">💡</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Trigger Tips</div>
+                        <ul>
+                            <li>Test different trigger values to find optimal settings</li>
+                            <li>Use analytics to measure conversion rates</li>
+                            <li>Consider your audience when choosing triggers</li>
+                            <li>A/B test different configurations</li>
+                            <li>Monitor user feedback and adjust accordingly</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Collection Configuration Section -->
+            <section id="data-collection-configuration">
+                <h2>Data Collection Configuration</h2>
+                <p>Configure optional data collection from users who tip you.</p>
+
+                <h3>Privacy Considerations</h3>
+                <p>When collecting user data, consider:</p>
+                <ul>
+                    <li>Only collect data you actually need</li>
+                    <li>Be transparent about why you're collecting data</li>
+                    <li>Provide a clear privacy policy</li>
+                    <li>Allow users to opt out of data collection</li>
+                    <li>Store data securely and follow best practices</li>
+                </ul>
+
+                <h3>When to Collect Data</h3>
+                
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Data Type</th>
+                            <th>When to Collect</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Email</td>
+                            <td>When you want to send updates or thank you</td>
+                            <td>Newsletter, updates, relationship building</td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>When you want to personalize communication</td>
+                            <td>Personalized thank you messages</td>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <td>Rarely needed, only if necessary</td>
+                            <td>Direct communication (use sparingly)</td>
+                        </tr>
+                        <tr>
+                            <td>VPA</td>
+                            <td>When you want to track payment source</td>
+                            <td>Analytics, payment tracking</td>
+                        </tr>
+                        <tr>
+                            <td>UTR</td>
+                            <td>For record-keeping and verification</td>
+                            <td>Payment tracking, disputes</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Data Security Best Practices</h3>
+                <ul>
+                    <li>Never store sensitive payment information</li>
+                    <li>Encrypt data at rest and in transit</li>
+                    <li>Use HTTPS for all data transmission</li>
+                    <li>Implement proper access controls</li>
+                    <li>Regularly review and update security practices</li>
+                    <li>Comply with data protection regulations (GDPR, etc.)</li>
+                </ul>
+
+                <h3>GDPR Compliance Notes</h3>
+                <p>If you have users from EU, you must comply with GDPR:</p>
+                <ul>
+                    <li>Obtain explicit consent for data collection</li>
+                    <li>Provide clear information about data usage</li>
+                    <li>Allow users to access and delete their data</li>
+                    <li>Implement data protection measures</li>
+                    <li>Have a Data Protection Officer if required</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Data Collection Configuration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  // Data collection options
+  collectEmail: true,
+  collectName: true,
+  collectPhone: false,
+  collectVPA: true,
+  collectUPIUTR: true,
+  
+  // Optional: Make fields required
+  requireEmail: false,
+  requireName: false,
+  
+  // Optional: Custom labels
+  emailLabel: 'Email (optional)',
+  nameLabel: 'Name (optional)',
+  utrLabel: 'UTR Number (for verification)'
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Example Data Collection Setups</h3>
+                
+                <div class="callout success">
+                    <h4>Minimal Collection (Recommended)</h4>
+                    <pre><code>ChaiPe.init({
+  collectUPIUTR: true  // Only collect UTR for record-keeping
+});</code></pre>
+                </div>
+
+                <div class="callout info">
+                    <h4>Moderate Collection</h4>
+                    <pre><code>ChaiPe.init({
+  collectEmail: true,
+  collectName: true,
+  collectUPIUTR: true
+});</code></pre>
+                </div>
+
+                <div class="callout warning">
+                    <h4>Full Collection (Use Carefully)</h4>
+                    <pre><code>ChaiPe.init({
+  collectEmail: true,
+  collectName: true,
+  collectPhone: true,
+  collectVPA: true,
+  collectUPIUTR: true
+});</code></pre>
+                </div>
+            </section>
+
+            <!-- TipJar Configuration Section -->
+            <section id="tipjar-configuration">
+                <h2>TipJar Configuration</h2>
+                <p>Configure the persistent TipJar for always-available tipping option.</p>
+
+                <h3>TipJar vs Modal-Only Approach</h3>
+                
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>TipJar</th>
+                            <th>Modal Only</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Always visible</td>
+                            <td>✅ Yes</td>
+                            <td>❌ No</td>
+                        </tr>
+                        <tr>
+                            <td>Non-intrusive</td>
+                            <td>✅ Yes</td>
+                            <td>❌ No</td>
+                        </tr>
+                        <tr>
+                            <td>Higher conversion</td>
+                            <td>✅ Yes</td>
+                            <td>❌ No</td>
+                        </tr>
+                        <tr>
+                            <td>Best for</td>
+                            <td>Content sites, blogs</td>
+                            <td>Landing pages, quick actions</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Positioning Strategies</h3>
+                <p>Choose the best position for your TipJar based on your site layout.</p>
+                
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Best For</th>
+                            <th>Visibility</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>bottom-right</code></td>
+                            <td>Most sites (default)</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td><code>bottom-left</code></td>
+                            <td>Sites with right sidebar</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td><code>top-right</code></td>
+                            <td>Mobile apps, dashboards</td>
+                            <td>Very High</td>
+                        </tr>
+                        <tr>
+                            <td><code>top-left</code></td>
+                            <td>LTR languages with left nav</td>
+                            <td>Very High</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Icon and Color Customization</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">TipJar Customization</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  tipJar: {
+    enabled: true,
+    mode: 'floating',
+    position: 'bottom-right',
+    
+    // Appearance
+    icon: '☕',
+    label: 'Tip',
+    size: 'medium',
+    
+    // Colors
+    colors: {
+      primary: '#4CAF50',
+      secondary: '#45a049',
+      text: '#ffffff'
+    },
+    
+    // Animation
+    animation: 'bounce'
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Auto-Show vs Manual Trigger</h3>
+                
+                <div class="callout info">
+                    <h4>Auto-Show (Default)</h4>
+                    <p>TipJar appears automatically after a delay.</p>
+                    <pre><code>ChaiPe.init({
+  tipJar: {
+    enabled: true,
+    autoShow: true,
+    showDelay: 2000  // Show after 2 seconds
+  }
+});</code></pre>
+                </div>
+
+                <div class="callout warning">
+                    <h4>Manual Trigger</h4>
+                    <p>TipJar is hidden until you call <code>ChaiPe.showTipJar()</code>.</p>
+                    <pre><code>ChaiPe.init({
+  tipJar: {
+    enabled: true,
+    autoShow: false
+  }
+});
+
+// Show TipJar manually
+document.getElementById('show-tipjar').addEventListener('click', () => {
+  ChaiPe.showTipJar();
+});</code></pre>
+                </div>
+
+                <h3>Mobile vs Desktop Behavior</h3>
+                <p>TipJar works seamlessly on both mobile and desktop.</p>
+                
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Mobile</th>
+                            <th>Desktop</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Position</td>
+                            <td>Bottom corners (thumb-friendly)</td>
+                            <td>Any corner</td>
+                        </tr>
+                        <tr>
+                            <td>Size</td>
+                            <td>Large (44px+)</td>
+                            <td>Medium (36-44px)</td>
+                        </tr>
+                        <tr>
+                            <td>Animation</td>
+                            <td>Subtle (fade)</td>
+                            <td>Any (bounce, slide, fade)</td>
+                        </tr>
+                        <tr>
+                            <td>Click action</td>
+                            <td>Opens UPI app</td>
+                            <td>Opens modal with QR code</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Animation Effects</h3>
+                <p>Choose an animation effect for TipJar.</p>
+                
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Animation</th>
+                            <th>Description</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>fade</code></td>
+                            <td>Fades in smoothly</td>
+                            <td>Professional sites</td>
+                        </tr>
+                        <tr>
+                            <td><code>slide</code></td>
+                            <td>Slides in from corner</td>
+                            <td>Modern sites</td>
+                        </tr>
+                        <tr>
+                            <td><code>bounce</code></td>
+                            <td>Bounces on appearance</td>
+                            <td>Attention-grabbing</td>
+                        </tr>
+                        <tr>
+                            <td><code>none</code></td>
+                            <td>No animation</td>
+                            <td>Minimalist sites</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Animation Configuration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  tipJar: {
+    enabled: true,
+    animation: 'bounce'  // Options: 'fade', 'slide', 'bounce', 'none'
+  }
+});</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Optimization Section -->
+            <section id="performance-optimization">
+                <h2>Performance Optimization</h2>
+                <p>Optimize ChaiPe for fast loading and minimal impact on your site.</p>
+
+                <h3>Lazy Loading ChaiPe</h3>
+                <p>Load ChaiPe after your main content has loaded to improve initial page load time.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Lazy Loading</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Load ChaiPe after page load
+window.addEventListener('load', () => {
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js';
+  script.async = true;
+  
+  script.onload = () => {
+    ChaiPe.init({
+      upiId: 'yourname@upi',
+      name: 'Your Name'
+    });
+  };
+  
+  document.body.appendChild(script);
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Minimizing Bundle Size</h3>
+                <p>ChaiPe is already optimized (~10KB minified), but you can further reduce impact:</p>
+                <ul>
+                    <li>Use CDN version (already minified)</li>
+                    <li>Enable gzip compression on your server</li>
+                    <li>Use browser caching for the script</li>
+                    <li>Load from a fast CDN (jsdelivr is recommended)</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Server Configuration for Caching</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code># Apache .htaccess
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType application/javascript "access plus 1 year"
+</IfModule>
+
+# Nginx
+location ~* \.js$ {
+  expires 1y;
+  add_header Cache-Control "public, immutable";
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Reducing Initialization Time</h3>
+                <ul>
+                    <li>Only configure options you need</li>
+                    <li>Avoid heavy callbacks in initialization</li>
+                    <li>Use manual triggers when appropriate</li>
+                    <li>Defer non-critical features</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Optimized Initialization</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Optimized - minimal configuration
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  amounts: [10, 25, 50, 100]
+});
+
+// Add callbacks separately if needed
+ChaiPe.onTipCompleted = (data) => {
+  // Handle tip completion
+};</code></pre>
+                    </div>
+                </div>
+
+                <h3>Optimizing for Slow Connections</h3>
+                <p>Ensure ChaiPe works well on slow internet connections.</p>
+                <ul>
+                    <li>Use async loading for the script</li>
+                    <li>Provide fallback for users without JavaScript</li>
+                    <li>Test on 3G connections</li>
+                    <li>Consider progressive enhancement</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Progressive Enhancement</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><noscript>
+  <div class="fallback-tip">
+    <p>Enjoying this content? Send a tip via UPI:</p>
+    <a href="upi://pay?pa=yourname@upi&pn=Your+Name">
+      Tip via UPI
+    </a>
+  </div>
+</noscript>
+
+<script async src="https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"></script></code></pre>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    <span class="alert-icon">🚀</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Performance Checklist</div>
+                        <ul>
+                            <li>✅ Load ChaiPe asynchronously</li>
+                            <li>✅ Use CDN for fast delivery</li>
+                            <li>✅ Enable browser caching</li>
+                            <li>✅ Enable gzip compression</li>
+                            <li>✅ Test on slow connections</li>
+                            <li>✅ Monitor performance metrics</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Considerations Section -->
+            <section id="security-considerations">
+                <h2>Security Considerations</h2>
+                <p>Implement proper security measures when using ChaiPe.</p>
+
+                <h3>UPI ID Validation</h3>
+                <p>Always validate UPI IDs before using them in production.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">UPI ID Validation</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>function validateUPIId(upiId) {
+  // UPI ID format: username@provider
+  const regex = /^[a-z0-9._-]+@[a-z0-9.-]+$/i;
+  return regex.test(upiId);
+}
+
+// Usage
+const upiId = 'yourname@upi';
+if (validateUPIId(upiId)) {
+  ChaiPe.init({
+    upiId: upiId,
+    name: 'Your Name'
+  });
+} else {
+  console.error('Invalid UPI ID format');
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Preventing XSS</h3>
+                <p>ChaiPe is designed to prevent XSS, but follow these best practices:</p>
+                <ul>
+                    <li>Never inject user-provided data into ChaiPe configuration</li>
+                    <li>Sanitize all user input before using it</li>
+                    <li>Use Content Security Policy (CSP) headers</li>
+                    <li>Keep ChaiPe updated to the latest version</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Content Security Policy</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self' https://cdn.jsdelivr.net; 
+               style-src 'self' 'unsafe-inline'; 
+               img-src 'self' data: https:;">></code></pre>
+                    </div>
+                </div>
+
+                <h3>Secure Data Handling</h3>
+                <ul>
+                    <li>Always use HTTPS for your website</li>
+                    <li>Never log sensitive payment information</li>
+                    <li>Encrypt data at rest in your database</li>
+                    <li>Use secure APIs for data transmission</li>
+                    <li>Implement proper authentication and authorization</li>
+                </ul>
+
+                <h3>HTTPS Requirements</h3>
+                <p>HTTPS is required for secure payment flows.</p>
+                
+                <div class="callout success">
+                    <h4>✅ HTTPS Enabled</h4>
+                    <ul>
+                        <li>Secure data transmission</li>
+                        <li>Browser trust indicators</li>
+                        <li>SEO benefits</li>
+                        <li>Required for modern browsers</li>
+                    </ul>
+                </div>
+
+                <div class="callout error">
+                    <h4>❌ HTTP (Not Secure)</h4>
+                    <ul>
+                        <li>Data transmitted in plain text</li>
+                        <li>Browser warnings</li>
+                        <li>Security vulnerabilities</li>
+                        <li>Payment apps may block</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-warning">
+                    <span class="alert-icon">🔒</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Security Checklist</div>
+                        <ul>
+                            <li>✅ Use HTTPS for your website</li>
+                            <li>✅ Validate UPI IDs before use</li>
+                            <li>✅ Implement Content Security Policy</li>
+                            <li>✅ Sanitize user input</li>
+                            <li>✅ Keep ChaiPe updated</li>
+                            <li>✅ Monitor for security vulnerabilities</li>
+                            <li>✅ Follow OWASP security guidelines</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ChaiPe</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                        A lightweight JavaScript library for accepting UPI micropayments through behavioral nudging.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="index.html">Getting Started</a></li>
+                        <li><a href="api.html">API Reference</a></li>
+                        <li><a href="configuration.html">Configuration</a></li>
+                        <li><a href="tipjar.html">Tip Jar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Demos</h4>
+                    <ul>
+                        <li><a href="../demos/playground.html">Interactive Playground</a></li>
+                        <li><a href="../demos/blog-demo.html">Blog Demo</a></li>
+                        <li><a href="../demos/edge-cases.html">Edge Cases</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="../legal/privacy.html">Privacy Policy</a></li>
+                        <li><a href="../legal/disclaimer.html">Disclaimer</a></li>
+                        <li><a href="../legal/releases.html">Releases</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Built with ❤️ for Indian creators • MIT License • © 2024 ChaiPe</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load ChaiPe -->
+    <script src="../chaipe.js"></script>
+    
+    <!-- Load ChaiPe Contribution Configuration -->
+    <script src="../shared/js/chaipe-contribution-config.js"></script>
+    
+    <!-- Load Documentation Navigation -->
+    <script src="../shared/js/docs-nav.js"></script>
+ 
+    <script>
+    // Copy code functionality
+    function copyCode(button) {
+        try {
+            const codeBlock = button.closest('.code-block');
+            if (!codeBlock) return;
+ 
+            const codeContent = codeBlock.querySelector('code');
+            if (!codeContent) return;
+ 
+            const text = codeContent.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        } catch (error) {
+            console.error('Error in copyCode:', error);
+        }
+    }
+    
+    // Initialize ChaiPe contribution for documentation
+    (function() {
+        'use strict';
+        
+        // Initialize with contribution config
+        initChaiPeContribution();
+        
+        // Add contribution section before footer
+        const mainContent = document.querySelector('main');
+        const footer = document.querySelector('.footer');
+        if (mainContent && footer) {
+            const contributionSection = document.createElement('div');
+            contributionSection.className = 'docs-contribution-section';
+            contributionSection.innerHTML = '<div class="alert alert-success" style="margin-top: 3rem;"><span class="alert-icon">☕</span><div class="alert-content"><div class="alert-title">Found this configuration guide helpful?</div><p>Consider supporting ChaiPe development to help us keep improving the library and maintaining this documentation.</p><button class="btn btn-primary btn-sm" onclick="ChaiPe.openTipJar()">Support ChaiPe</button></div></div>';
+            mainContent.appendChild(contributionSection);
+        }
+    })();
+    </script>
+</body>
+</html>

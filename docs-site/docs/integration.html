@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChaiPe Integration Guide - Learn how to integrate UPI micropayments into your website">
+    <title>Integration Guide - ChaiPe Documentation</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../shared/css/common.css">
+    <link rel="stylesheet" href="../shared/css/docs-layout.css">
+    <link rel="stylesheet" href="../shared/css/components.css">
+    <link rel="stylesheet" href="../shared/css/demo-components.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Navigation -->
+    <nav class="docs-top-nav">
+        <div class="container docs-top-nav-content">
+            <a href="../index.html" class="docs-nav-logo">
+                <span class="docs-nav-logo-icon">☕</span>
+                ChaiPe
+            </a>
+            <div class="docs-nav-links">
+                <a href="../index.html" class="docs-nav-link">Home</a>
+                <a href="index.html" class="docs-nav-link active">Documentation</a>
+                <a href="../demos/playground.html" class="docs-nav-link">Playground</a>
+                <a href="https://github.com/srikanthlogic/ChaiPe" target="_blank" class="docs-nav-link">GitHub</a>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="docs-sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar" id="sidebar">
+            <ul class="docs-nav">
+                <li class="docs-nav-category">Getting Started</li>
+                <li><a href="index.html">Introduction</a></li>
+                <li><a href="integration.html" class="active">Integration Guide</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                
+                <li class="docs-nav-category">API Reference</li>
+                <li><a href="api.html">API Methods</a></li>
+                <li><a href="tipjar.html">Tip Jar API</a></li>
+                
+                <li class="docs-nav-category">Examples</li>
+                <li><a href="../demos/playground.html">Interactive Playground</a></li>
+                <li><a href="../demos/blog-demo.html">Blog Demo</a></li>
+                <li><a href="../demos/edge-cases.html">Edge Cases</a></li>
+                
+                <li class="docs-nav-category">Resources</li>
+                <li><a href="https://github.com/srikanthlogic/ChaiPe" target="_blank">GitHub Repository</a></li>
+                <li><a href="https://github.com/srikanthlogic/ChaiPe/issues" target="_blank">Report Issues</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content" id="main-content">
+            <h1>Integration Guide</h1>
+            
+            <p>Comprehensive guide to integrating ChaiPe into various website types and frameworks. Learn how to implement UPI micropayments with behavioral nudging for optimal conversion.</p>
+
+            <!-- Table of Contents -->
+            <nav class="toc-container">
+                <h4>On This Page</h4>
+                <ul class="toc-list">
+                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#blog-integration">Blog Integration</a></li>
+                    <li><a href="#static-site-integration">Static Website Integration</a></li>
+                    <li><a href="#spa-integration">Single Page Application (SPA) Integration</a></li>
+                    <li><a href="#wordpress-integration">WordPress Integration</a></li>
+                    <li><a href="#advanced-patterns">Advanced Integration Patterns</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                    <li><a href="#best-practices">Best Practices</a></li>
+                </ul>
+            </nav>
+
+            <!-- Getting Started Section -->
+            <section id="getting-started">
+                <h2>Getting Started</h2>
+                
+                <h3>Prerequisites</h3>
+                <p>Before integrating ChaiPe, ensure you have:</p>
+                <ul>
+                    <li><strong>UPI ID:</strong> A valid UPI ID (e.g., <code>yourname@upi</code>) to receive payments</li>
+                    <li><strong>Basic HTML/JS Knowledge:</strong> Understanding of HTML and JavaScript</li>
+                    <li><strong>Website Access:</strong> Ability to add scripts to your website</li>
+                    <li><strong>Modern Browser Support:</strong> ChaiPe works in all modern browsers (Chrome, Firefox, Safari, Edge)</li>
+                </ul>
+
+                <h3>Installation Methods</h3>
+                
+                <h4>CDN (Recommended)</h4>
+                <p>Fastest way to get started - no build tools required.</p>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">CDN Installation</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><!-- Add to your HTML -->
+<script src="https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"></script>
+
+<!-- Initialize ChaiPe -->
+<script>
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  amounts: [10, 25, 50, 100]
+});
+</script></code></pre>
+                    </div>
+                </div>
+
+                <h4>npm</h4>
+                <p>For projects using npm and build tools.</p>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">npm Installation</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code># Install ChaiPe
+npm install chaipe
+
+# Import and use
+import { ChaiPe } from 'chaipe';
+
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name'
+});</code></pre>
+                    </div>
+                </div>
+
+                <h4>Download</h4>
+                <p>Download latest release from <a href="https://github.com/srikanthlogic/ChaiPe/releases" target="_blank">GitHub Releases</a> and include it in your project.</p>
+
+                <h3>Step-by-Step Setup Guide</h3>
+                <ol>
+                    <li><strong>Include ChaiPe Script:</strong> Add script tag to your HTML (before closing <code></body></code> tag)</li>
+                    <li><strong>Initialize with Configuration:</strong> Call <code>ChaiPe.init()</code> with your UPI ID and preferences</li>
+                    <li><strong>Configure Triggers:</strong> Set scroll depth and time on page for behavioral nudging</li>
+                    <li><strong>Customize Appearance:</strong> Choose a theme and customize colors to match your brand</li>
+                    <li><strong>Test Integration:</strong> Test on both mobile and desktop devices</li>
+                    <li><strong>Deploy:</strong> Push changes to production</li>
+                </ol>
+
+                <h3>Testing Your Integration</h3>
+                <p>Before going live, test your integration:</p>
+                <ul>
+                    <li><strong>Mobile Testing:</strong> Verify UPI deep links open correctly in payment apps</li>
+                    <li><strong>Desktop Testing:</strong> Ensure QR code displays and is scannable</li>
+                    <li><strong>Trigger Testing:</strong> Scroll to trigger depth and wait for time triggers</li>
+                    <li><strong>Theme Testing:</strong> Test all themes in both light and dark mode</li>
+                    <li><strong>Callback Testing:</strong> Verify event callbacks fire correctly</li>
+                </ul>
+            </section>
+
+            <!-- Blog Integration Section -->
+            <section id="blog-integration">
+                <h2>Blog Integration</h2>
+                <p>Learn how to add ChaiPe to your blog for monetizing long-form content.</p>
+
+                <h3>Adding ChaiPe to a Blog Post</h3>
+                <p>The most effective integration for blogs is to trigger nudge when readers have consumed most of your content.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Blog Post Integration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><!-- Include ChaiPe -->
+<script src="https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"></script>
+
+<script>
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  amounts: [10, 25, 50, 100],
+  theme: 'minimal',
+  message: 'Enjoying this article?',
+  buttonText: 'Buy me a chai ☕',
+  
+  // Behavioral triggers for blog posts
+  triggers: {
+    scrollDepth: 70,    // Trigger at 70% scroll
+    timeOnPage: 120,   // Or after 2 minutes
+    exitIntent: false
+  },
+  
+  // Collect supporter information
+  collectEmail: true,
+  collectName: true,
+  collectUPIUTR: true,
+  
+  // Track tips
+  onTipCompleted: (data) => {
+    console.log('Tip received:', data.amount, data.customData);
+    // Send to your analytics or backend
+  }
+});
+</script></code></pre>
+                    </div>
+                </div>
+
+                <h3>Scroll-Based Trigger Configuration</h3>
+                <p>Scroll depth triggers are ideal for blog posts because they indicate content consumption.</p>
+                
+                <div class="alert alert-info">
+                    <span class="alert-icon">💡</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Optimal Scroll Depth</div>
+                        <p>For blog posts, 70-80% scroll depth works best. This ensures readers have consumed most content before seeing nudge.</p>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Scroll Trigger Configuration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Conservative - show later
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  triggers: {
+    scrollDepth: 80  // Show at 80% scroll
+  }
+});
+
+// Moderate (recommended)
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  triggers: {
+    scrollDepth: 70  // Show at 70% scroll
+  }
+});
+
+// Aggressive - show earlier
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  triggers: {
+    scrollDepth: 50  // Show at 50% scroll
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Time-Based Trigger Configuration</h3>
+                <p>Time on page triggers work well for in-depth articles that take time to read.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Time Trigger Configuration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// For short articles (5-10 min read)
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  triggers: {
+    timeOnPage: 90   // 1.5 minutes
+  }
+});
+
+// For medium articles (10-20 min read)
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  triggers: {
+    timeOnPage: 180  // 3 minutes
+  }
+});
+
+// For long articles (20+ min read)
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  triggers: {
+    timeOnPage: 300  // 5 minutes
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Best Practices for Blog Content</h3>
+                <ul>
+                    <li><strong>Match Article Length:</strong> Adjust trigger thresholds based on article length</li>
+                    <li><strong>Use TipJar:</strong> Add persistent tip jar for readers who want to tip later</li>
+                    <li><strong>Customize Message:</strong> Tailor nudge message to your content</li>
+                    <li><strong>Collect Minimal Data:</strong> Only collect information you actually need</li>
+                    <li><strong>Test Different Amounts:</strong> Experiment with tip amounts to find optimal range</li>
+                    <li><strong>Track Analytics:</strong> Use callbacks to understand what works for your audience</li>
+                </ul>
+
+                <h3>Tips for Maximizing Conversion</h3>
+                <div class="alert alert-success">
+                    <span class="alert-icon">🎯</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Conversion Optimization Tips</div>
+                        <ul>
+                            <li>Use authentic, personal messages instead of generic ones</li>
+                            <li>Trigger after users have received value (not before)</li>
+                            <li>Offer a "recommended" amount with social proof</li>
+                            <li>Make tipping optional and guilt-free</li>
+                            <li>Follow up with thank you messages when possible</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Static Website Integration Section -->
+            <section id="static-site-integration">
+                <h2>Static Website Integration</h2>
+                <p>Integrate ChaiPe into static site generators like Hugo, Jekyll, Astro, and more.</p>
+
+                <h3>Hugo Integration</h3>
+                <p>Hugo is a fast static site generator. Add ChaiPe globally or per-post.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Hugo Global Integration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><!-- layouts/partials/footer.html -->
+{{ if .Site.Params.chaipe.enabled }}
+<script src="https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"></script>
+<script>
+ChaiPe.init({
+  upiId: '{{ .Site.Params.chaipe.upiId }}',
+  name: '{{ .Site.Params.chaipe.name }}',
+  amounts: [10, 25, 50, 100],
+  theme: '{{ .Site.Params.chaipe.theme | default "minimal" }}'
+});
+</script>
+{{ end }}</code></pre>
+                    </div>
+                </div>
+
+                <h4>Hugo Configuration (config.toml)</h4>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">config.toml</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code># config.toml
+[params.chaipe]
+enabled = true
+upiId = "yourname@upi"
+name = "Your Name"
+theme = "minimal"
+amounts = [10, 25, 50, 100]</code></pre>
+                    </div>
+                </div>
+
+                <h3>Jekyll Integration</h3>
+                <p>Jekyll is a simple, blog-aware static site generator.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Jekyll Integration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><!-- _includes/footer.html -->
+{% if site.chaipe.enabled %}
+<script src="https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"></script>
+<script>
+ChaiPe.init({
+  upiId: '{{ site.chaipe.upiId }}',
+  name: '{{ site.chaipe.name }}',
+  amounts: [10, 25, 50, 100]
+});
+</script>
+{% endif %}</code></pre>
+                    </div>
+                </div>
+
+                <h4>Jekyll Configuration (_config.yml)</h4>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">_config.yml</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code># _config.yml
+chaipe:
+  enabled: true
+  upiId: "yourname@upi"
+  name: "Your Name"
+  amounts:
+    - 10
+    - 25
+    - 50
+    - 100</code></pre>
+                    </div>
+                </div>
+
+                <h3>Astro Integration</h3>
+                <p>Astro is a modern web framework with zero JS by default.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Astro Integration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// src/layouts/Layout.astro
+---
+const { site } = Astro.props;
+---
+
+<html>
+  <head>
+    { site.chaipe.enabled && }
+      <script src="https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"></script>
+      <script define:client>
+        ChaiPe.init({
+          upiId: '{site.chaipe.upiId}',
+          name: '{site.chaipe.name}',
+          amounts: [10, 25, 50, 100]
+        });
+      </script>
+    {/}
+  </head>
+</html></code></pre>
+                    </div>
+                </div>
+
+                <h3>Global vs Per-Page Configuration</h3>
+                
+                <div class="callout info">
+                    <h4>Global Configuration</h4>
+                    <p>Add ChaiPe to your base template (footer, layout, or partial). This loads ChaiPe on all pages with consistent configuration.</p>
+                    <p><strong>Use when:</strong> You want ChaiPe on all pages with same settings.</p>
+                </div>
+
+                <div class="callout warning">
+                    <h4>Per-Page Configuration</h4>
+                    <p>Add ChaiPe to specific page templates with different configurations per page.</p>
+                    <p><strong>Use when:</strong> You need different settings for different content types (e.g., blog posts vs homepage).</p>
+                </div>
+
+                <h3>Example for Different Generators</h3>
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Per-Page Configuration Example</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Blog posts - aggressive triggers
+// In blog post template
+<script>
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  triggers: {
+    scrollDepth: 70,
+    timeOnPage: 120
+  }
+});
+</script>
+
+// Homepage - manual only
+// In homepage template
+<script>
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  manualOnly: true,  // Only show on button click
+  tipJar: true    // Show tip jar
+});
+</script></code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SPA Integration Section -->
+            <section id="spa-integration">
+                <h2>Single Page Application (SPA) Integration</h2>
+                <p>Integrate ChaiPe into React, Vue.js, Angular, and other SPAs with proper lifecycle management.</p>
+
+                <h3>React Integration</h3>
+                <p>Use React hooks to manage ChaiPe initialization and lifecycle.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">React Hook Example</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>import { useEffect, useRef } from 'react';
+
+function useChaiPe(config) {
+  const initializedRef = useRef(false);
+
+  useEffect(() => {
+    // Load ChaiPe script dynamically
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js';
+    script.async = true;
+    
+    script.onload = () => {
+      // Initialize ChaiPe
+      if (window.ChaiPe && !initializedRef.current) {
+        window.ChaiPe.init(config);
+        initializedRef.current = true;
+      }
+    };
+
+    document.body.appendChild(script);
+
+    // Cleanup on unmount
+    return () => {
+      // Remove ChaiPe modal if visible
+      if (window.ChaiPe) {
+        window.ChaiPe.dismiss();
+      }
+    };
+  }, [config]);
+
+  return { initializedRef };
+}
+
+// Usage in component
+function BlogPost() {
+  const { initializedRef } = useChaiPe({
+    upiId: 'yourname@upi',
+    name: 'Your Name',
+    amounts: [10, 25, 50, 100],
+    triggers: {
+      scrollDepth: 70,
+      timeOnPage: 120
+    },
+    onTipCompleted: (data) => {
+      console.log('Tip received:', data);
+    }
+  });
+
+  return (
+    <div>
+      <h1>My Blog Post</h1>
+      <p>Content goes here...</p>
+      <button onClick={() => window.ChaiPe?.show()}>
+        Tip Now
+      </button>
+    </div>
+  );
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Vue.js Integration</h3>
+                <p>Use Vue.js Composition API for reactive ChaiPe integration.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Vue Composition API Example</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+
+export default {
+  setup() {
+    const initialized = ref(false);
+
+    onMounted(() => {
+      // Load ChaiPe script
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js';
+      script.async = true;
+      
+      script.onload = () => {
+        if (window.ChaiPe && !initialized.value) {
+          window.ChaiPe.init({
+            upiId: 'yourname@upi',
+            name: 'Your Name',
+            amounts: [10, 25, 50, 100],
+            onTipCompleted: (data) => {
+              console.log('Tip received:', data);
+            }
+          });
+          initialized.value = true;
+        }
+      };
+
+      document.body.appendChild(script);
+    });
+
+    onUnmounted(() => {
+      // Cleanup
+      if (window.ChaiPe) {
+        window.ChaiPe.dismiss();
+      }
+    });
+
+    const showModal = () => {
+      if (window.ChaiPe) {
+        window.ChaiPe.show();
+      }
+    };
+
+    return { initialized, showModal };
+  }
+}
+</script>
+
+<template>
+  <div>
+    <h1>My Blog Post</h1>
+    <p>Content goes here...</p>
+    <button @click="showModal">
+      Tip Now
+    </button>
+  </div>
+</template></code></pre>
+                    </div>
+                </div>
+
+                <h3>Angular Integration</h3>
+                <p>Use Angular services for ChaiPe integration with dependency injection.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Angular Service Example</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// chaipe.service.ts
+import { Injectable } from '@angular/core';
+
+declare global {
+  interface Window {
+    ChaiPe?: any;
+  }
+}
+
+const _window = window as unknown as Window;
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ChaiPeService {
+  private initialized = false;
+
+  init(config: any) {
+    if (!this.initialized && _window.ChaiPe) {
+      _window.ChaiPe.init(config);
+      this.initialized = true;
+    }
+  }
+
+  show() {
+    if (_window.ChaiPe) {
+      _window.ChaiPe.show();
+    }
+  }
+
+  dismiss() {
+    if (_window.ChaiPe) {
+      _window.ChaiPe.dismiss();
+    }
+  }
+}
+
+// In app.component.ts
+import { Component, OnInit } from '@angular/core';
+import { ChaiPeService } from './services/chaipe.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent implements OnInit {
+  constructor(private chaisePeService: ChaiPeService) {}
+
+  ngOnInit() {
+    // Load ChaiPe script
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js';
+    script.async = true;
+    
+    script.onload = () => {
+      this.chaisePeService.init({
+        upiId: 'yourname@upi',
+        name: 'Your Name',
+        amounts: [10, 25, 50, 100],
+        onTipCompleted: (data) => {
+          console.log('Tip received:', data);
+        }
+      });
+    };
+
+    document.body.appendChild(script);
+  }
+
+  showModal() {
+    this.chaisePeService.show();
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Managing Modal Lifecycle in SPAs</h3>
+                
+                <div class="alert alert-warning">
+                    <span class="alert-icon">⚠️</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Important SPA Considerations</div>
+                        <ul>
+                            <li><strong>Cleanup on Route Changes:</strong> Dismiss modal when navigating to new routes</li>
+                            <li><strong>Avoid Duplicate Initialization:</strong> Check if ChaiPe is already initialized before calling <code>init()</code></li>
+                            <li><strong>Handle Component Unmount:</strong> Clean up ChaiPe when components unmount</li>
+                            <li><strong>Dynamic Script Loading:</strong> Load ChaiPe script dynamically to avoid issues with bundlers</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Route Change Handler</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// React Router example
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Dismiss modal when route changes
+    if (window.ChaiPe) {
+      window.ChaiPe.dismiss();
+    }
+  }, [location.pathname]);
+
+  return <Routes />;
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WordPress Integration Section -->
+            <section id="wordpress-integration">
+                <h2>WordPress Integration</h2>
+                <p>Add ChaiPe to WordPress sites via plugins or manual theme integration.</p>
+
+                <h3>Plugin Approach</h3>
+                <p>Create a simple WordPress plugin to manage ChaiPe configuration globally.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">WordPress Plugin (chaipe.php)</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><?php
+/*
+Plugin Name: ChaiPe Integration
+Description: Add UPI micropayments to WordPress
+Version: 1.0.0
+*/
+
+class ChaiPe_Plugin {
+  public static function init() {
+    add_action('wp_footer', [self, 'render_chaipe']);
+    add_action('admin_menu', [self, 'add_settings_page']);
+    add_action('admin_init', [self, 'register_settings']);
+  }
+
+  public static function register_settings() {
+    register_setting('chaipe_upi_id', 'chaipe_options', 'UPI ID');
+    register_setting('chaipe_name', 'chaipe_options', 'Display Name');
+    register_setting('chaipe_enabled', 'chaipe_options', 'Enable ChaiPe');
+  }
+
+  public static function add_settings_page() {
+    <?php
+      <div class="wrap">
+        <h1>ChaiPe Settings</h1>
+        <form method="post" action="options.php">
+          <?php settings_fields('chaipe_options'); ?>
+          <?php submit_button(); ?>
+        </form>
+      </div>
+    <?php
+  }
+
+  public static function render_chaipe() {
+    $upi_id = get_option('chaipe_upi_id', '');
+    $name = get_option('chaipe_name', 'Creator');
+    $enabled = get_option('chaipe_enabled', false);
+
+    if (!$enabled) return;
+    <?php
+      <script src="https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"></script>
+      <script>
+        ChaiPe.init({
+          upiId: <?php echo esc_js($upi_id); ?>,
+          name: <?php echo esc_js($name); ?>,
+          amounts: [10, 25, 50, 100]
+        });
+      </script>
+    <?php
+  }
+}
+
+new ChaiPe_Plugin();</code></pre>
+                    </div>
+                </div>
+
+                <h3>Manual Theme Integration</h3>
+                <p>Add ChaiPe directly to your WordPress theme's footer.php file.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Theme Integration (footer.php)</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code><?php
+// In your theme's footer.php
+if (is_singular('post')) {
+  // Only show on single blog posts
+  <?php
+    <script src="https://cdn.jsdelivr.net/npm/chaipe@latest/dist/chaipe.min.js"></script>
+    <script>
+      ChaiPe.init({
+        upiId: 'yourname@upi',
+        name: 'Your Name',
+        triggers: {
+          scrollDepth: 70,
+          timeOnPage: 120
+        }
+      });
+    </script>
+  <?php
+}
+?></code></pre>
+                    </div>
+                </div>
+
+                <h3>Adding to Posts and Pages</h3>
+                <p>Use WordPress conditional tags to control where ChaiPe appears.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Conditional Display</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Show only on blog posts
+if (is_singular('post')) {
+  // ChaiPe code here
+}
+
+// Show only on specific category
+if (in_category('tutorials')) {
+  // ChaiPe code here
+}
+
+// Hide on homepage
+if (!is_front_page()) {
+  // ChaiPe code here
+}
+
+// Show only for logged-in users
+if (is_user_logged_in()) {
+  // ChaiPe code here
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advanced Patterns Section -->
+            <section id="advanced-patterns">
+                <h2>Advanced Integration Patterns</h2>
+                <p>Explore advanced techniques for customizing and extending ChaiPe functionality.</p>
+
+                <h3>Multiple Instances (Different UPI IDs)</h3>
+                <p>Use different UPI IDs for different sections of your site.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Multiple UPI IDs</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Blog posts - personal UPI
+function initBlogChaiPe() {
+  ChaiPe.init({
+    upiId: 'personal@upi',
+    name: 'Personal Blog',
+    amounts: [10, 25, 50]
+  });
+}
+
+// Tutorials - business UPI
+function initTutorialChaiPe() {
+  ChaiPe.init({
+    upiId: 'business@upi',
+    name: 'Business Tutorials',
+    amounts: [50, 100, 200]
+  });
+}
+
+// Use based on page type
+if (window.location.pathname.startsWith('/blog')) {
+  initBlogChaiPe();
+} else if (window.location.pathname.startsWith('/tutorials')) {
+  initTutorialChaiPe();
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Dynamic Configuration Based on Content</h3>
+                <p>Adjust ChaiPe configuration based on content type, author, or category.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Dynamic Configuration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Get content type from page
+const contentType = document.body.dataset.contentType || 'default';
+
+// Configuration based on content type
+const configs = {
+  blog: {
+    upiId: 'personal@upi',
+    name: 'Blog Author',
+    amounts: [10, 25, 50],
+    triggers: { scrollDepth: 70 }
+  },
+  tutorial: {
+    upiId: 'business@upi',
+    name: 'Business Tutorials',
+    amounts: [50, 100, 200],
+    triggers: { scrollDepth: 50 }
+  },
+  default: {
+    upiId: 'main@upi',
+    name: 'Site Name',
+    amounts: [10, 25, 50, 100],
+    manualOnly: true
+  }
+};
+
+// Initialize with appropriate config
+const config = configs[contentType] || configs.default;
+ChaiPe.init(config);</code></pre>
+                    </div>
+                </div>
+
+                <h3>A/B Testing Implementation</h3>
+                <p>Test different configurations to optimize conversion rates.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">A/B Testing</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Simple A/B test with localStorage
+const abTest = getABTestVariant('chaipe-config');
+
+const configs = {
+  A: {
+    amounts: [10, 25, 50],
+    message: 'Enjoying this?'
+  },
+  B: {
+    amounts: [20, 50, 100],
+    message: 'Found this helpful?'
+  }
+};
+
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  ...configs[abTest],
+  onTipCompleted: (data) => {
+    // Track which variant converted
+    analytics.track('Tip Completed', {
+      variant: abTest,
+      amount: data.amount
+    });
+  }
+});
+
+function getABTestVariant(testName) {
+  const stored = localStorage.getItem(testName);
+  if (stored) return stored;
+  
+  // Randomly assign variant
+  const variants = ['A', 'B'];
+  const variant = variants[Math.floor(Math.random() * variants.length)];
+  localStorage.setItem(testName, variant);
+  return variant;
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Analytics Integration</h3>
+                <p>Track ChaiPe events with Google Analytics, Mixpanel, or other analytics platforms.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Google Analytics Integration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  // Track nudge shown
+  onNudgeShown: (data) => {
+    gtag('event', 'nudge_shown', {
+      event_category: 'ChaiPe',
+      event_label: data.sessionId,
+      non_interaction: true
+    });
+  },
+  
+  // Track nudge dismissed
+  onNudgeDismissed: (data) => {
+    gtag('event', 'nudge_dismissed', {
+      event_category: 'ChaiPe',
+      event_label: data.sessionId
+    });
+  },
+  
+  // Track tip completed
+  onTipCompleted: (data) => {
+    gtag('event', 'tip_completed', {
+      event_category: 'ChaiPe',
+      event_label: data.amount,
+      value: data.amount,
+      currency: 'INR'
+    });
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Mixpanel Integration</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  onNudgeShown: (data) => {
+    mixpanel.track('Nudge Shown', {
+      sessionId: data.sessionId,
+      timestamp: new Date()
+    });
+  },
+  
+  onTipCompleted: (data) => {
+    mixpanel.track('Tip Completed', {
+      amount: data.amount,
+      email: data.customData?.email,
+      name: data.customData?.name,
+      sessionId: data.sessionId
+    });
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Custom Trigger Logic</h3>
+                <p>Implement custom triggers beyond scroll and time.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Custom Triggers</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Initialize with manual only mode
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  manualOnly: true
+});
+
+// Custom trigger: Show after user highlights text
+document.addEventListener('mouseup', (e) => {
+  const selection = window.getSelection();
+  if (selection && selection.toString().length > 50) {
+    // User highlighted text - good time to show nudge
+    ChaiPe.show();
+  }
+});
+
+// Custom trigger: Show after user comments
+document.getElementById('comment-form').addEventListener('submit', () => {
+  // User engaged by commenting - show nudge
+  ChaiPe.show();
+});
+
+// Custom trigger: Show after video completes
+const video = document.getElementById('tutorial-video');
+video.addEventListener('ended', () => {
+  // User finished watching - show nudge
+  ChaiPe.show();
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Server-Side Tip Tracking</h3>
+                <p>Send tip data to your server for record-keeping and analysis.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Server-Side Tracking</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  collectEmail: true,
+  collectUPIUTR: true,
+  
+  onTipCompleted: async (data) => {
+    // Send to your server
+    try {
+      const response = await fetch('/api/tips', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          amount: data.amount,
+          sessionId: data.sessionId,
+          email: data.customData?.email,
+          name: data.customData?.name,
+          utr: data.customData?.utr,
+          timestamp: new Date().toISOString()
+        })
+      });
+
+      if (!response.ok) {
+        console.error('Failed to record tip');
+      }
+    } catch (error) {
+      console.error('Error recording tip:', error);
+    }
+  }
+});</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Troubleshooting Section -->
+            <section id="troubleshooting">
+                <h2>Troubleshooting</h2>
+                <p>Common issues and solutions for ChaiPe integration.</p>
+
+                <h3>Common Issues and Solutions</h3>
+                
+                <div class="callout error">
+                    <h4>Modal Not Appearing</h4>
+                    <p><strong>Causes:</strong></p>
+                    <ul>
+                        <li>ChaiPe not initialized properly</li>
+                        <li>Trigger conditions not met</li>
+                        <li>Manual only mode enabled</li>
+                        <li>JavaScript errors preventing execution</li>
+                    </ul>
+                    <p><strong>Solutions:</strong></p>
+                    <ul>
+                        <li>Check browser console for errors</li>
+                        <li>Verify <code>ChaiPe.init()</code> is called</li>
+                        <li>Check trigger values (scroll depth, time on page)</li>
+                        <li>Ensure <code>manualOnly</code> is not set to <code>true</code> if you want automatic triggers</li>
+                    </ul>
+                </div>
+
+                <div class="callout warning">
+                    <h4>QR Code Not Showing</h4>
+                    <p><strong>Causes:</strong></p>
+                    <ul>
+                        <li>Desktop device not detected correctly</li>
+                        <li>QR code generation error</li>
+                        <li>CSS hiding QR code element</li>
+                    </ul>
+                    <p><strong>Solutions:</strong></p>
+                    <ul>
+                        <li>Check user agent detection in browser console</li>
+                        <li>Verify UPI ID is valid format</li>
+                        <li>Check for CSS conflicts with <code>.ChaiPe-qr-code</code> class</li>
+                        <li>Test on different browsers</li>
+                    </ul>
+                </div>
+
+                <div class="callout info">
+                    <h4>UPI Link Not Working</h4>
+                    <p><strong>Causes:</strong></p>
+                    <ul>
+                        <li>Invalid UPI ID format</li>
+                        <li>UPI ID doesn't exist</li>
+                        <li>Payment app not installed</li>
+                    </ul>
+                    <p><strong>Solutions:</strong></p>
+                    <ul>
+                        <li>Verify UPI ID format: <code>username@provider</code></li>
+                        <li>Test UPI ID in payment app directly</li>
+                        <li>Check UPI link format in console</li>
+                        <li>Ensure currency is set to <code>INR</code></li>
+                    </ul>
+                </div>
+
+                <h3>Debug Mode Usage</h3>
+                <p>Enable debug logging to troubleshoot issues.</p>
+                
+                <div class="code-block">
+                    <div class="code-block-header">
+                        <span class="code-block-title">Debug Mode</span>
+                        <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="code-block-content">
+                        <pre><code>// Enable debug mode with verbose logging
+const debugMode = true;  // Set to false in production
+
+ChaiPe.init({
+  upiId: 'yourname@upi',
+  name: 'Your Name',
+  
+  // Debug: Log all events
+  onNudgeShown: (data) => {
+    if (debugMode) {
+      console.log('[DEBUG] Nudge shown:', data);
+    }
+  },
+  
+  onNudgeDismissed: (data) => {
+    if (debugMode) {
+      console.log('[DEBUG] Nudge dismissed:', data);
+    }
+  },
+  
+  onTipCompleted: (data) => {
+    if (debugMode) {
+      console.log('[DEBUG] Tip completed:', data);
+    }
+  },
+  
+  onTipJarShown: (data) => {
+    if (debugMode) {
+      console.log('[DEBUG] Tip jar shown:', data);
+    }
+  }
+});</code></pre>
+                    </div>
+                </div>
+
+                <h3>Browser Compatibility Issues</h3>
+                <p>ChaiPe works in all modern browsers, but there are some considerations.</p>
+                
+                <div class="alert alert-info">
+                    <span class="alert-icon">🌐</span>
+                    <div class="alert-content">
+                        <div class="alert-title">Browser Support</div>
+                        <ul>
+                            <li><strong>Chrome/Edge:</strong> Full support including UPI deep links</li>
+                            <li><strong>Firefox:</strong> Full support, may prompt to choose payment app</li>
+                            <li><strong>Safari (iOS):</strong> Full support, opens in Apple Pay or UPI app</li>
+                            <li><strong>Safari (Desktop):</strong> Full support</li>
+                            <li><strong>Mobile Browsers:</strong> Full support with UPI deep links</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Best Practices Section -->
+            <section id="best-practices">
+                <h2>Best Practices</h2>
+                <p>Follow these guidelines for optimal ChaiPe integration and user experience.</p>
+
+                <h3>Do's and Don'ts</h3>
+                
+                <div class="callout success">
+                    <h4>✅ Do's</h4>
+                    <ul>
+                        <li>Do test on both mobile and desktop devices</li>
+                        <li>Do customize messages to match your brand voice</li>
+                        <li>Do use appropriate trigger values for your content</li>
+                        <li>Do collect only necessary information from users</li>
+                        <li>Do track events with analytics for optimization</li>
+                        <li>Do use TipJar for persistent access</li>
+                        <li>Do make tipping optional and guilt-free</li>
+                        <li>Do follow up with thank you messages when possible</li>
+                        <li>Do test different tip amounts to find optimal range</li>
+                    </ul>
+                </div>
+
+                <div class="callout error">
+                    <h4>❌ Don'ts</h4>
+                    <ul>
+                        <li>Don't show nudges immediately on page load</li>
+                        <li>Don't make tipping mandatory or guilt-trip users</li>
+                        <li>Don't collect unnecessary personal information</li>
+                        <li>Don't use aggressive trigger values</li>
+                        <li>Don't show false urgency or scarcity</li>
+                        <li>Don't hide or make dismissing difficult</li>
+                        <li>Don't initialize ChaiPe multiple times on same page</li>
+                        <li>Don't block users from accessing your content</li>
+                        <li>Don't use ChaiPe without proper testing</li>
+                    </ul>
+                </div>
+
+                <h3>Performance Tips</h3>
+                <ul>
+                    <li><strong>Lazy Load:</strong> Load ChaiPe script after initial page content renders</li>
+                    <li><strong>Use CDN:</strong> Use CDN for fastest script loading</li>
+                    <li><strong>Minimize Configuration:</strong> Only configure what you need</li>
+                    <li><strong>Avoid Multiple Inits:</strong> Check if already initialized before calling <code>init()</code></li>
+                    <li><strong>Cleanup in SPAs:</strong> Dismiss modal when navigating away</li>
+                </ul>
+
+                <h3>UX Recommendations</h3>
+                <ul>
+                    <li><strong>Match Brand:</strong> Use colors and fonts that match your site</li>
+                    <li><strong>Clear CTAs:</strong> Use clear, actionable button text</li>
+                    <li><strong>Appropriate Amounts:</strong> Offer amounts that make sense for your audience</li>
+                    <li><strong>Mobile-First:</strong> Design for mobile users (majority in India)</li>
+                    <li><strong>Accessible:</strong> Ensure sufficient contrast and touch targets</li>
+                    <li><strong>Fast Loading:</strong> Don't block page render with ChaiPe</li>
+                </ul>
+
+                <h3>Conversion Optimization</h3>
+                <ul>
+                    <li><strong>Trigger at Right Moment:</strong> After users have received value</li>
+                    <li><strong>Personalized Messages:</strong> Tailor to content type and audience</li>
+                    <li><strong>Social Proof:</strong> Show that others have tipped (if applicable)</li>
+                    <li><strong>Easy Dismissal:</strong> Make it easy to close without tipping</li>
+                    <li><strong>Follow Up:</strong> Thank users who tip to build relationships</li>
+                    <li><strong>A/B Test:</strong> Test different configurations to optimize</li>
+                    <li><strong>Analyze Data:</strong> Use analytics to understand what works</li>
+                </ul>
+
+                <h3>Accessibility Considerations</h3>
+                <ul>
+                    <li><strong>Keyboard Navigation:</strong> Ensure modal can be dismissed with Escape key</li>
+                    <li><strong>Screen Readers:</strong> Provide ARIA labels and descriptions</li>
+                    <li><strong>Color Contrast:</strong> Ensure sufficient contrast for readability</li>
+                    <li><strong>Touch Targets:</strong> Minimum 44x44px for mobile</li>
+                    <li><strong>Focus Management:</strong> Proper focus handling when modal opens/closes</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ChaiPe</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                        A lightweight JavaScript library for accepting UPI micropayments through behavioral nudging.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="index.html">Getting Started</a></li>
+                        <li><a href="api.html">API Reference</a></li>
+                        <li><a href="configuration.html">Configuration</a></li>
+                        <li><a href="tipjar.html">Tip Jar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Demos</h4>
+                    <ul>
+                        <li><a href="../demos/playground.html">Interactive Playground</a></li>
+                        <li><a href="../demos/blog-demo.html">Blog Demo</a></li>
+                        <li><a href="../demos/edge-cases.html">Edge Cases</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="../legal/privacy.html">Privacy Policy</a></li>
+                        <li><a href="../legal/disclaimer.html">Disclaimer</a></li>
+                        <li><a href="../legal/releases.html">Releases</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Built with ❤️ for Indian creators • MIT License • © 2024 ChaiPe</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load ChaiPe -->
+    <script src="../chaipe.js"></script>
+    
+    <!-- Load ChaiPe Contribution Configuration -->
+    <script src="../shared/js/chaipe-contribution-config.js"></script>
+    
+    <!-- Load Documentation Navigation -->
+    <script src="../shared/js/docs-nav.js"></script>
+ 
+    <script>
+    // Copy code functionality
+    function copyCode(button) {
+        try {
+            const codeBlock = button.closest('.code-block');
+            if (!codeBlock) return;
+ 
+            const codeContent = codeBlock.querySelector('code');
+            if (!codeContent) return;
+ 
+            const text = codeContent.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        } catch (error) {
+            console.error('Error in copyCode:', error);
+        }
+    }
+    
+    // Initialize ChaiPe contribution for documentation
+    (function() {
+        'use strict';
+        
+        // Initialize with contribution config
+        initChaiPeContribution();
+        
+        // Add contribution section before footer
+        const mainContent = document.querySelector('main');
+        const footer = document.querySelector('.footer');
+        if (mainContent && footer) {
+            const contributionSection = document.createElement('div');
+            contributionSection.className = 'docs-contribution-section';
+            contributionSection.innerHTML = '<div class="alert alert-success" style="margin-top: 3rem;"><span class="alert-icon">☕</span><div class="alert-content"><div class="alert-title">Did this integration guide help you?</div><p>Consider supporting ChaiPe development to help us keep improving the library and maintaining this documentation.</p><button class="btn btn-primary btn-sm" onclick="ChaiPe.openTipJar()">Support ChaiPe</button></div></div>';
+            mainContent.appendChild(contributionSection);
+        }
+    })();
+    </script>
+</body>
+</html>

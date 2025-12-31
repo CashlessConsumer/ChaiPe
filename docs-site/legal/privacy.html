@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChaiPe Privacy Policy - Learn how we protect your data and privacy">
+    <title>Privacy Policy - ChaiPe</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../shared/css/common.css">
+    <link rel="stylesheet" href="../shared/css/docs-layout.css">
+    <link rel="stylesheet" href="../shared/css/components.css">
+    
+    <style>
+        /* Legal Page Specific Styles */
+        .legal-page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .legal-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .legal-header h1 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .legal-header .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .legal-content {
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .legal-content h2 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .legal-content h3 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .legal-content h4 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        .legal-content p {
+            margin-bottom: 15px;
+        }
+
+        .legal-content ul,
+        .legal-content ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .legal-content li {
+            margin-bottom: 10px;
+        }
+
+        .legal-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .legal-content a:hover {
+            text-decoration: underline;
+        }
+
+        .legal-content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+        }
+
+        .legal-content .highlight-box {
+            background: var(--highlight-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .legal-content .warning-box {
+            background: var(--warning-bg);
+            border-left: 4px solid var(--warning-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .legal-content .info-box {
+            background: var(--info-bg);
+            border-left: 4px solid var(--info-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .toc a:hover {
+            background: var(--hover-bg);
+            color: var(--primary-color);
+        }
+
+        /* Collapsible Sections */
+        .collapsible {
+            margin: 20px 0;
+        }
+
+        .collapsible-header {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .collapsible-header:hover {
+            background: var(--hover-bg);
+        }
+
+        .collapsible-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .collapsible-header .toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .collapsible-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .collapsible-content.active {
+            max-height: 2000px;
+        }
+
+        .collapsible-inner {
+            padding: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-section h3 {
+            margin-top: 0;
+        }
+
+        .contact-section a {
+            display: inline-block;
+            margin-right: 20px;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .contact-section a:hover {
+            background: var(--primary-hover);
+            text-decoration: none;
+        }
+
+        /* Print Styles */
+        @media print {
+            .docs-top-nav,
+            .footer,
+            .theme-toggle {
+                display: none !important;
+            }
+
+            .legal-page {
+                max-width: 100%;
+            }
+
+            .legal-content {
+                color: #000;
+            }
+
+            .legal-content a {
+                color: #000;
+                text-decoration: underline;
+            }
+
+            .collapsible-content {
+                max-height: none !important;
+            }
+
+            .collapsible-header .toggle-icon {
+                display: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .legal-header h1 {
+                font-size: 2rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .legal-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .contact-section a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Navigation -->
+    <nav class="docs-top-nav">
+        <div class="container docs-top-nav-content">
+            <a href="../index.html" class="docs-nav-logo">
+                <span class="docs-nav-logo-icon">☕</span>
+                ChaiPe
+            </a>
+            <div class="docs-nav-links">
+                <a href="../index.html" class="docs-nav-link">Home</a>
+                <a href="../docs/index.html" class="docs-nav-link">Documentation</a>
+                <a href="../demos/playground.html" class="docs-nav-link">Playground</a>
+                <a href="https://github.com/srikanthlogic/ChaiPe" target="_blank" class="docs-nav-link">GitHub</a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="legal-page">
+            <div class="legal-header">
+                <h1>Privacy Policy</h1>
+                <p class="last-updated">Last updated: December 29, 2024</p>
+                <p style="margin-top: 10px; color: var(--text-secondary);">Effective Date: December 29, 2024</p>
+            </div>
+
+            <div class="legal-content">
+                <!-- Introduction -->
+                <div class="highlight-box">
+                    <p><strong>ChaiPe is a client-side JavaScript library that prioritizes your privacy.</strong> We do not collect, store, or transmit any personal data to our servers. All data remains on your device and under your control.</p>
+                </div>
+
+                <!-- Table of Contents -->
+                <nav class="toc" aria-label="Table of Contents">
+                    <h3>📋 Table of Contents</h3>
+                    <ul>
+                        <li><a href="#data-collection">Data Collection</a></li>
+                        <li><a href="#cookies-local-storage">Cookies and Local Storage</a></li>
+                        <li><a href="#third-party-services">Third-Party Services</a></li>
+                        <li><a href="#data-security">Data Security</a></li>
+                        <li><a href="#user-rights">User Rights</a></li>
+                        <li><a href="#gdpr-compliance">GDPR Compliance</a></li>
+                        <li><a href="#childrens-privacy">Children's Privacy</a></li>
+                        <li><a href="#changes-policy">Changes to This Policy</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Data Collection -->
+                <section id="data-collection">
+                    <h2>1. Data Collection</h2>
+                    
+                    <p>ChaiPe is designed with privacy-first principles. We collect minimal data and only when absolutely necessary for the functionality you choose to use.</p>
+
+                    <h3>What Data We Collect</h3>
+                    <p>ChaiPe may collect the following information, but <strong>only if you voluntarily provide it</strong>:</p>
+                    <ul>
+                        <li><strong>Email Address</strong> - For sending thank-you messages or updates (optional)</li>
+                        <li><strong>Name</strong> - For personalized acknowledgments (optional)</li>
+                        <li><strong>Phone Number</strong> - For contact or verification purposes (optional)</li>
+                        <li><strong>VPA (Virtual Payment Address)</strong> - Your UPI ID for payment processing (optional)</li>
+                        <li><strong>UTR (Unique Transaction Reference)</strong> - Transaction ID for payment verification (optional)</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <p><strong>Important:</strong> All data fields are optional. You can complete a payment without providing any personal information.</p>
+                    </div>
+
+                    <h3>When Data Is Collected</h3>
+                    <p>Data is collected only when:</p>
+                    <ul>
+                        <li>You voluntarily fill out the optional data collection form during payment</li>
+                        <li>The website owner has enabled data collection in their ChaiPe configuration</li>
+                        <li>You choose to provide information for a specific purpose</li>
+                    </ul>
+
+                    <h3>How Data Is Used</h3>
+                    <p>Any data you provide is used for:</p>
+                    <ul>
+                        <li><strong>Payment Processing</strong> - Facilitating UPI transactions</li>
+                        <li><strong>Thank-You Messages</strong> - Sending acknowledgments if email is provided</li>
+                        <li><strong>Analytics</strong> - Website owner's internal analytics (if configured)</li>
+                        <li><strong>Record Keeping</strong> - Maintaining payment records for the website owner</li>
+                    </ul>
+
+                    <h3>Data Storage</h3>
+                    <p><strong>Client-Side Only:</strong> All data is stored and processed entirely on the client side. We do not have any servers, databases, or cloud storage. Your data never leaves your device unless transmitted directly to the website owner.</p>
+                </section>
+
+                <!-- Cookies and Local Storage -->
+                <section id="cookies-local-storage">
+                    <h2>2. Cookies and Local Storage</h2>
+
+                    <h3>Use of LocalStorage</h3>
+                    <p>ChaiPe uses the browser's <code>localStorage</code> API for the following purposes:</p>
+                    <ul>
+                        <li><strong>Return Visitor Detection</strong> - To recognize returning visitors and adjust behavioral nudging</li>
+                        <li><strong>A/B Testing</strong> - To store test group assignments for optimization experiments</li>
+                        <li><strong>User Preferences</strong> - To remember user choices (if configured)</li>
+                        <li><strong>Supporter Tracking</strong> - To remember users who have previously tipped (optional)</li>
+                    </ul>
+
+                    <div class="collapsible">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <h3>What Data Is Stored in LocalStorage?</h3>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="collapsible-inner">
+                                <p>ChaiPe stores the following data in <code>localStorage</code>:</p>
+                                <ul>
+                                    <li><code>chaipe_visitor</code> - Timestamp of first visit</li>
+                                    <li><code>chaipe_last_visit</code> - Timestamp of last visit</li>
+                                    <li><code>chaipe_session_count</code> - Number of visits</li>
+                                    <li><code>chaipe_ab_test</code> - A/B test group assignment</li>
+                                    <li><code>chaipe_supporter</code> - Supporter status (if enabled)</li>
+                                </ul>
+                                <p>All data is stored as plain text and never transmitted to external servers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Cookie Policy</h3>
+                    <p><strong>ChaiPe does not set cookies.</strong> We use only <code>localStorage</code>, which is a different browser storage mechanism that:</p>
+                    <ul>
+                        <li>Does not send data with HTTP requests</li>
+                        <li>Has no expiration date (persists until manually cleared)</li>
+                        <li>Is not accessible to third-party websites</li>
+                        <li>Cannot be used for cross-site tracking</li>
+                    </ul>
+
+                    <h3>User Control Over LocalStorage</h3>
+                    <p>You have full control over your browser's <code>localStorage</code>:</p>
+                    <ul>
+                        <li><strong>Clear All Data:</strong> Go to browser settings → Privacy → Clear browsing data</li>
+                        <li><strong>Clear Site Data:</strong> Right-click → Inspect → Application → Local Storage → Right-click → Clear</li>
+                        <li><strong>Disable LocalStorage:</strong> Use browser extensions or settings to block localStorage</li>
+                        <li><strong>Incognito Mode:</strong> LocalStorage is cleared when incognito session ends</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Note:</strong> Clearing localStorage will reset return visitor detection and A/B test assignments. This may affect how ChaiPe displays nudges on subsequent visits.</p>
+                    </div>
+                </section>
+
+                <!-- Third-Party Services -->
+                <section id="third-party-services">
+                    <h2>3. Third-Party Services</h2>
+
+                    <h3>No Third-Party Analytics or Tracking</h3>
+                    <p>ChaiPe does not use any third-party services by default:</p>
+                    <ul>
+                        <li>❌ No Google Analytics</li>
+                        <li>❌ No Facebook Pixel</li>
+                        <li>❌ No Hotjar or similar tools</li>
+                        <li>❌ No advertising networks</li>
+                        <li>❌ No data brokers</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>Privacy-First Design:</strong> ChaiPe is self-contained with zero external dependencies. No third-party scripts, trackers, or analytics are loaded.</p>
+                    </div>
+
+                    <h3>UPI App Integration</h3>
+                    <p>When you make a payment through ChaiPe:</p>
+                    <ul>
+                        <li>You are redirected to your chosen UPI app (GPay, PhonePe, Paytm, etc.)</li>
+                        <li>The transaction occurs directly between your UPI app and the recipient's bank</li>
+                        <li>ChaiPe has no access to your UPI app or transaction details</li>
+                        <li>Each UPI app has its own privacy policy that applies to your use of that app</li>
+                    </ul>
+
+                    <h3>No Data Sharing</h3>
+                    <p>We do not share any data with third parties because:</p>
+                    <ul>
+                        <li>We don't collect data to share</li>
+                        <li>We don't have servers to store or transmit data</li>
+                        <li>We don't have partnerships with data brokers</li>
+                        <li>We don't sell or monetize user data</li>
+                    </ul>
+
+                    <h3>Website Owner Responsibility</h3>
+                    <p>While ChaiPe itself doesn't use third-party services, the website implementing ChaiPe may:</p>
+                    <ul>
+                        <li>Use their own analytics (Google Analytics, etc.)</li>
+                        <li>Integrate with their own CRM or email marketing tools</li>
+                        <li>Have their own privacy policy that applies to data they collect</li>
+                    </ul>
+                    <p>Please review the website owner's privacy policy for information about their data practices.</p>
+                </section>
+
+                <!-- Data Security -->
+                <section id="data-security">
+                    <h2>4. Data Security</h2>
+
+                    <h3>Client-Side Processing Only</h3>
+                    <p>ChaiPe's architecture ensures maximum security:</p>
+                    <ul>
+                        <li><strong>No Server Storage:</strong> No data is ever sent to ChaiPe servers</li>
+                        <li><strong>No Data Transmission:</strong> No data leaves your device except to the website owner</li>
+                        <li><strong>No Databases:</strong> We don't have any databases to breach</li>
+                        <li><strong>No Cloud Storage:</strong> No data is stored in the cloud</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>Security by Design:</strong> By not storing any data, we eliminate the risk of data breaches, hacking, or unauthorized access.</p>
+                    </div>
+
+                    <h3>HTTPS Requirements</h3>
+                    <p>ChaiPe requires HTTPS for secure operation:</p>
+                    <ul>
+                        <li>All payment links use HTTPS protocol</li>
+                        <li>UPI deep links are encrypted by the UPI protocol</li>
+                        <li>QR codes contain HTTPS payment URLs</li>
+                        <li>Data transmission to website owner is encrypted</li>
+                    </ul>
+
+                    <h3>Data Encryption</h3>
+                    <p>Payment data is protected by:</p>
+                    <ul>
+                        <li><strong>UPI Standard Encryption:</strong> All UPI transactions use bank-grade encryption</li>
+                        <li><strong>TLS/SSL:</strong> HTTPS ensures encrypted data transmission</li>
+                        <li><strong>QR Code Security:</strong> QR codes contain only payment parameters, not sensitive data</li>
+                    </ul>
+
+                    <h3>Security Best Practices</h3>
+                    <p>We recommend the following security practices:</p>
+                    <ul>
+                        <li>Only provide payment information on HTTPS websites</li>
+                        <li>Verify the recipient's UPI ID before making payments</li>
+                        <li>Keep your UPI app updated with the latest security patches</li>
+                        <li>Use strong authentication on your UPI app</li>
+                        <li>Review your UPI transaction history regularly</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Important:</strong> ChaiPe is a frontend library. We cannot guarantee the security of websites that implement ChaiPe. Always verify you're on a legitimate website before making payments.</p>
+                    </div>
+                </section>
+
+                <!-- User Rights -->
+                <section id="user-rights">
+                    <h2>5. User Rights</h2>
+
+                    <p>You have the following rights regarding your data:</p>
+
+                    <h3>Right to Not Provide Data</h3>
+                    <p>All data collection in ChaiPe is <strong>completely optional</strong>:</p>
+                    <ul>
+                        <li>You can make payments without providing any personal information</li>
+                        <li>You can skip all optional data collection fields</li>
+                        <li>No functionality is withheld for not providing data</li>
+                        <li>You can dismiss nudges without providing any information</li>
+                    </ul>
+
+                    <h3>Right to Clear LocalStorage</h3>
+                    <p>You have the right to clear your browser's localStorage at any time:</p>
+                    <ul>
+                        <li>Clear all browsing data in browser settings</li>
+                        <li>Clear site-specific data in developer tools</li>
+                        <li>Use incognito/private browsing mode</li>
+                        <li>Use browser extensions to manage localStorage</li>
+                    </ul>
+
+                    <h3>Right to Request Data Deletion</h3>
+                    <p>If you have provided data to a website using ChaiPe:</p>
+                    <ul>
+                        <li>Contact the website owner directly to request data deletion</li>
+                        <li>Clear your localStorage to remove client-side data</li>
+                        <li>For GDPR requests, contact the website owner's designated representative</li>
+                    </ul>
+
+                    <h3>Right to Opt Out</h3>
+                    <p>You can opt out of data collection by:</p>
+                    <ul>
+                        <li>Not filling out optional data fields</li>
+                        <li>Clearing your localStorage regularly</li>
+                        <li>Using browser settings to block localStorage</li>
+                        <li>Disabling JavaScript (though this prevents ChaiPe from functioning)</li>
+                    </ul>
+
+                    <h3>Right to Access</h3>
+                    <p>You can access data stored in localStorage by:</p>
+                    <ul>
+                        <li>Opening browser developer tools (F12)</li>
+                        <li>Navigating to Application → Local Storage</li>
+                        <li>Viewing the ChaiPe keys and their values</li>
+                    </ul>
+
+                    <h3>Right to Portability</h3>
+                    <p>You can export your localStorage data:</p>
+                    <ul>
+                        <li>Use developer tools to copy localStorage contents</li>
+                        <li>Use browser extensions to export localStorage</li>
+                        <li>Request data export from the website owner</li>
+                    </ul>
+                </section>
+
+                <!-- GDPR Compliance -->
+                <section id="gdpr-compliance">
+                    <h2>6. GDPR Compliance</h2>
+
+                    <p>ChaiPe is designed to comply with the General Data Protection Regulation (GDPR) for users in the European Union.</p>
+
+                    <h3>EU User Protections</h3>
+                    <p>EU users are entitled to enhanced protections:</p>
+                    <ul>
+                        <li>Explicit consent before data collection</li>
+                        <li>Right to be forgotten (data deletion)</li>
+                        <li>Right to data portability</li>
+                        <li>Right to access and rectify data</li>
+                        <li>Right to object to processing</li>
+                        <li>Right to restrict processing</li>
+                    </ul>
+
+                    <h3>Data Minimization Principle</h3>
+                    <p>ChaiPe follows GDPR's data minimization principle:</p>
+                    <ul>
+                        <li>We collect only data that is absolutely necessary</li>
+                        <li>All data collection is optional</li>
+                        <li>We do not collect data by default</li>
+                        <li>We do not store data beyond what's needed</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>Privacy by Design:</strong> ChaiPe's architecture inherently complies with GDPR principles by not storing or transmitting data to our servers.</p>
+                    </div>
+
+                    <h3>Consent Mechanisms</h3>
+                    <p>Consent is obtained through:</p>
+                    <ul>
+                        <li><strong>Opt-in Forms:</strong> Data collection forms are clearly marked as optional</li>
+                        <li><strong>Clear Labels:</strong> Each field explains what data is collected and why</li>
+                        <li><strong>No Pre-filled Fields:</strong> No data is collected without explicit user action</li>
+                        <li><strong>Easy Withdrawal:</strong> Users can clear localStorage anytime to withdraw consent</li>
+                    </ul>
+
+                    <h3>Data Subject Rights</h3>
+                    <p>As a data subject under GDPR, you have the right to:</p>
+                    <ul>
+                        <li><strong>Access:</strong> Know what data is collected and how it's used</li>
+                        <li><strong>Rectification:</strong> Correct inaccurate data</li>
+                        <li><strong>Erasure:</strong> Request deletion of your data</li>
+                        <li><strong>Restrict Processing:</strong> Limit how your data is used</li>
+                        <li><strong>Data Portability:</strong> Receive your data in a machine-readable format</li>
+                        <li><strong>Object:</strong> Object to processing of your data</li>
+                    </ul>
+
+                    <h3>Lawful Basis for Processing</h3>
+                    <p>ChaiPe's lawful basis for processing is:</p>
+                    <ul>
+                        <li><strong>Consent:</strong> Explicit user consent for optional data collection</li>
+                        <li><strong>Legitimate Interest:</strong> Payment processing and user experience improvement</li>
+                    </ul>
+
+                    <h3>Data Transfers</h3>
+                    <p>ChaiPe does not transfer data outside the EU because:</p>
+                    <ul>
+                        <li>We don't have servers to transfer data to</li>
+                        <li>All data remains on the user's device</li>
+                        <li>Any data transfer is to the website owner, who is responsible for GDPR compliance</li>
+                    </ul>
+
+                    <h3>Contact for GDPR Inquiries</h3>
+                    <p>For GDPR-related inquiries, please contact:</p>
+                    <ul>
+                        <li>The website owner implementing ChaiPe (primary contact)</li>
+                        <li>ChaiPe project maintainers via GitHub Issues</li>
+                        <li>Your local data protection authority for escalations</li>
+                    </ul>
+                </section>
+
+                <!-- Children's Privacy -->
+                <section id="childrens-privacy">
+                    <h2>7. Children's Privacy</h2>
+
+                    <h3>No Collection from Children Under 13</h3>
+                    <p>ChaiPe is not intended for use by children under the age of 13. We do not knowingly collect personal information from children under 13.</p>
+
+                    <h3>Parental Consent Requirements</h3>
+                    <p>If a child under 13 provides personal information:</p>
+                    <ul>
+                        <li>Parents or guardians should contact the website owner immediately</li>
+                        <li>Request deletion of the child's data</li>
+                        <li>Review the website's privacy policy for specific procedures</li>
+                    </ul>
+
+                    <h3>COPPA Compliance</h3>
+                    <p>ChaiPe is designed to comply with the Children's Online Privacy Protection Act (COPPA):</p>
+                    <ul>
+                        <li>We do not target children under 13</li>
+                        <li>We do not collect personal information from children</li>
+                        <li>All data collection is optional and requires user action</li>
+                        <li>We do not use data for marketing to children</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Parental Responsibility:</strong> Parents should monitor their children's online activities and educate them about not providing personal information online.</p>
+                    </div>
+
+                    <h3>Website Owner Responsibility</h3>
+                    <p>Websites implementing ChaiPe are responsible for:</p>
+                    <ul>
+                        <li>Ensuring compliance with children's privacy laws</li>
+                        <li>Obtaining parental consent when required</li>
+                        <li>Providing clear privacy notices</li>
+                        <li>Implementing age verification if necessary</li>
+                    </ul>
+                </section>
+
+                <!-- Changes to Policy -->
+                <section id="changes-policy">
+                    <h2>8. Changes to This Policy</h2>
+
+                    <h3>Notification Process</h3>
+                    <p>We may update this privacy policy from time to time. We will notify users of material changes by:</p>
+                    <ul>
+                        <li>Posting the new policy on this page with an updated "Last Updated" date</li>
+                        <li>Announcing changes in the ChaiPe GitHub repository</li>
+                        <li>Updating the version number in the policy footer</li>
+                        <li>Providing a summary of significant changes</li>
+                    </ul>
+
+                    <h3>Effective Date</h3>
+                    <p>Changes to this policy are effective immediately upon posting. Your continued use of ChaiPe after changes constitutes acceptance of the updated policy.</p>
+
+                    <h3>How to Stay Informed</h3>
+                    <p>To stay informed about privacy policy updates:</p>
+                    <ul>
+                        <li>Watch the ChaiPe GitHub repository for releases</li>
+                        <li>Check this page periodically for updates</li>
+                        <li>Subscribe to GitHub notifications for the repository</li>
+                        <li>Review the changelog in the Release Notes page</li>
+                    </ul>
+
+                    <h3>Policy Version History</h3>
+                    <ul>
+                        <li><strong>Version 1.0 (December 29, 2024):</strong> Initial comprehensive privacy policy</li>
+                    </ul>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contact">
+                    <h2>9. Contact Us</h2>
+
+                    <p>If you have questions, concerns, or requests regarding this privacy policy or your data, please contact us through the following channels:</p>
+
+                    <div class="contact-section">
+                        <h3>Get in Touch</h3>
+                        <p style="margin-bottom: 20px;">We typically respond to inquiries within 1-3 business days.</p>
+                        
+                        <a href="https://github.com/srikanthlogic/ChaiPe/issues" target="_blank" rel="noopener">
+                            📝 Open an Issue on GitHub
+                        </a>
+                        <a href="https://github.com/srikanthlogic/ChaiPe/discussions" target="_blank" rel="noopener">
+                            💬 Start a Discussion
+                        </a>
+                        <a href="mailto:privacy@chaipe.dev" rel="noopener">
+                            📧 Email: privacy@chaipe.dev
+                        </a>
+                    </div>
+
+                    <h3>For Specific Inquiries</h3>
+                    <ul>
+                        <li><strong>GDPR Requests:</strong> Contact the website owner implementing ChaiPe</li>
+                        <li><strong>Data Deletion:</strong> Contact the website owner or clear your localStorage</li>
+                        <li><strong>Security Issues:</strong> Report via GitHub's private vulnerability reporting</li>
+                        <li><strong>General Questions:</strong> Use GitHub Discussions or Issues</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <p><strong>Note:</strong> For data-related requests, please contact the website owner directly as they are the data controller for any information collected through their implementation of ChaiPe.</p>
+                    </div>
+                </section>
+
+                <!-- Policy Footer -->
+                <div style="margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border-color); color: var(--text-secondary);">
+                    <p><strong>Privacy Policy Version:</strong> 1.0</p>
+                    <p><strong>Last Updated:</strong> December 29, 2024</p>
+                    <p><strong>Effective Date:</strong> December 29, 2024</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ChaiPe</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                        A lightweight JavaScript library for accepting UPI micropayments through behavioral nudging.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="../docs/index.html">Getting Started</a></li>
+                        <li><a href="../docs/api.html">API Reference</a></li>
+                        <li><a href="../docs/configuration.html">Configuration</a></li>
+                        <li><a href="../docs/tipjar.html">Tip Jar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html" class="active">Privacy Policy</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="releases.html">Releases</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Built with ❤️ for Indian creators • MIT License • © 2024 ChaiPe</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Initialize theme manager
+    (function() {
+        'use strict';
+        try {
+            const themeManager = new ThemeManager();
+            themeManager.init();
+
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    themeManager.toggle();
+                });
+            }
+        } catch (error) {
+            console.error('Error initializing theme manager:', error);
+        }
+    })();
+
+    // Collapsible sections functionality
+    function toggleCollapsible(header) {
+        header.classList.toggle('active');
+        const content = header.nextElementSibling;
+        content.classList.toggle('active');
+    }
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add active state to TOC on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const tocLinks = document.querySelectorAll('.toc a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= sectionTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        tocLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+name: E2E Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      browsers:
+        description: 'Browsers to test (comma-separated: chromium,firefox,webkit)'
+        required: false
+        default: 'chromium,firefox,webkit'
+      headed:
+        description: 'Run tests in headed mode'
+        required: false
+        default: 'false'
+        type: boolean
+
+# Cancel in-progress runs for the same branch and workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20.x'
+  CACHE_VERSION: 'v1'
+
+jobs:
+  # ============================================
+  # JOB 1: E2E Setup & Build
+  # ============================================
+  e2e-setup:
+    name: E2E Setup
+    runs-on: ubuntu-latest
+    outputs:
+      browsers: ${{ steps.parse-browsers.outputs.browsers }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ env.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ env.CACHE_VERSION }}-
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-build-artifacts
+          path: dist/
+          retention-days: 1
+          compression-level: 9
+
+      - name: Parse browsers input
+        id: parse-browsers
+        run: |
+          BROWSERS="${{ github.event.inputs.browsers || 'chromium,firefox,webkit' }}"
+          echo "browsers=$BROWSERS" >> $GITHUB_OUTPUT
+
+  # ============================================
+  # JOB 2: E2E Tests (Matrix Strategy)
+  # ============================================
+  e2e-test:
+    name: E2E Test (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    needs: e2e-setup
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: ['chromium', 'firefox', 'webkit']
+        # Only run specified browsers if provided
+        exclude:
+          - browser: 'chromium'
+            when: ${{ !contains(needs.e2e-setup.outputs.browsers, 'chromium') }}
+          - browser: 'firefox'
+            when: ${{ !contains(needs.e2e-setup.outputs.browsers, 'firefox') }}
+          - browser: 'webkit'
+            when: ${{ !contains(needs.e2e-setup.outputs.browsers, 'webkit') }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ env.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          fail-on-cache-miss: true
+
+      - name: Restore Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          fail-on-cache-miss: true
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: e2e-build-artifacts
+          path: dist/
+
+      - name: Run E2E tests
+        run: |
+          HEADED_FLAG="${{ github.event.inputs.headed == 'true' && '--headed' || '' }}"
+          npx playwright test --project="${{ matrix.browser }}" $HEADED_FLAG
+        env:
+          CI: true
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-results-${{ matrix.browser }}
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+          compression-level: 6
+
+      - name: Upload screenshots on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-screenshots-${{ matrix.browser }}
+          path: test-results/
+          retention-days: 7
+          compression-level: 6
+
+      - name: Upload videos on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-videos-${{ matrix.browser }}
+          path: test-results/
+          retention-days: 7
+          compression-level: 6
+
+  # ============================================
+  # JOB 3: E2E Results Summary
+  # ============================================
+  e2e-summary:
+    name: E2E Summary
+    runs-on: ubuntu-latest
+    needs: [e2e-test]
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all test results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: playwright-results-*
+          path: results/
+          merge-multiple: true
+
+      - name: Generate summary
+        run: |
+          echo "## E2E Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All E2E tests completed successfully!" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -d results/test-results ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Test Results" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            find results/test-results -name "*.json" -exec echo "- {}" \; >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check overall status
+        run: |
+          if [ "${{ needs.e2e-test.result }}" == "success" ]; then
+            echo "✅ All E2E tests passed!"
+            exit 0
+          else
+            echo "❌ Some E2E tests failed"
+            exit 1
+          fi
